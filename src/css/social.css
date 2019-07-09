@@ -1,0 +1,70 @@
+#social{
+    position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #FFB74C;
+    border-radius: 10px;
+    box-shadow: #FFB74C 0px 0px 25px;
+    padding-bottom: 5px;
+    /* height: 200px; */
+}
+#social-title{
+    color: #eee;
+    text-align: center;
+}
+#social ul{
+    display: inline-flex;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+#social li{
+    position: relative;
+    list-style: none;
+    margin: 10px 15px;
+    transition: ease 0.2s;
+    z-index: 50;
+}
+/* #social li:hover{
+    transform: translate(-5%, -5%); 
+} */
+
+@keyframes scaleup {
+    0% { transform: scale(0.5, 0.1); opacity: 0;}
+    40% { transform: scale(1.0, 0.7); opacity: 0.1;}
+    60% { transform: scale(1.7, 1.3); opacity: 1.0;}
+    80% { transform: scale(1.5, 1.1);}
+    100% { transform: scale(1.4, 1.4);}
+}
+#social li > a:hover::before{
+    position: absolute;
+    content: "";
+    background: #333; 
+    /* border: 2px dotted #222; */
+    box-sizing: border-box;
+    z-index: -1;
+    width: 100%;
+    height: 95%;
+    border-radius: 5px;
+    animation: scaleup linear 0.12s forwards;
+}
+
+@keyframes rot {
+    100% { transform: rotateX(360deg);}
+}
+#social #nav a:visited{
+    color: #fff;
+}
+#social #nav a:hover{
+    color: #0f0;
+}
+#social #nav a:hover::before{
+    position: absolute;
+    margin-left: -20px;
+    content: "▷ ";
+    animation: rot linear 1s infinite;
+}
