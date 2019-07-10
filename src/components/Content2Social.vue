@@ -1,6 +1,6 @@
 <template>
     <div id="social">
-        <div class="content_2_dock">
+        <div class="content-2-dock">
             <h3 id="social-title">Links</h3>
             <ul>
                 <li v-for="social in socials" :key="social.id">

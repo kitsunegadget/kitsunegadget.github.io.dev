@@ -41,12 +41,13 @@ export default {
     
 }
 // for low width
-window.onload = () => {
-    if (window.innerWidth < 700) {
-        document.getElementById("dock").style.width = window.innerWidth + "px";
-    }
-    // console.log("width changed.");
-}
+// window.onload = () => {
+//     if (window.innerWidth < 700) {
+//         document.getElementById("dock").style.width = window.innerWidth + "px";
+//     }
+//     // console.log("width changed.");
+// }
+
 </script>
 
 <style>

@@ -3,9 +3,9 @@
         <!-- <h1 class="section_title">Social</h1> -->
         <Social/>
         <!-- <h1 class="section_title">About</h1> -->
-        <About/>
+        <!-- <About/> -->
         <!-- <h1 class="section_title" id="product">Products</h1> -->
-        <Works/>
+        <!-- <Works/> -->
     </div>
 </template>
 
@@ -43,7 +43,7 @@ export default {
     margin: 0 7vw;
 }
 
-.content_2_dock{
-    margin: 0 15%;
+.content-2-dock{
+    width: 100%;
 }
 </style>

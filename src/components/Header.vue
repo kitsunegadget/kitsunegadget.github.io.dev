@@ -14,6 +14,7 @@ header {
     background-color: var(--main-black);
     padding-top: 0.2em;
     padding-bottom: 0.4em;
+    width: 100%;
 }
 
 h1 {
