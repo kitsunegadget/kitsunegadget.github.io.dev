@@ -40,26 +40,21 @@ export default {
     },
     methods: {
         window: onload = () => {
-            if (location.pathname === "/product") {
-                document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
-            } else {
-                document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
-            }
+            changeState();
         },
         document: onpopstate = () => {
-            if (location.pathname === "/product") {
-                document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
-            } else {
-                document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
-            }
+            changeState();
         },
         navClick(){
-            if (location.pathname === "/product") {
-                document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
-            } else {
-                document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
-            }
+            changeState();
         }
+    }
+}
+function changeState(){
+    if (location.pathname === "/product") {
+        document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
+    } else {
+        document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
     }
 }
 </script>
