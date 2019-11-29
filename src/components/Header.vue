@@ -46,6 +46,13 @@ export default {
                 document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
             }
         },
+        document: onpopstate = () => {
+            if (location.pathname === "/product") {
+                document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
+            } else {
+                document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
+            }
+        },
         navClick(){
             if (location.pathname === "/product") {
                 document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
