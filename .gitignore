@@ -21,4 +21,5 @@ yarn-error.log*
 *.sw?
 
 README.md
-deploy.sh.md
+deploy.sh
+deploy.bat

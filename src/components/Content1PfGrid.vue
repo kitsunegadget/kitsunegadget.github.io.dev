@@ -5,7 +5,7 @@
             </div>
             <div id="pficon" class="icon_delay">
                 <span>
-                    <img src="../assets/pficon.png" height="160" width="160" title="me">
+                    <img src="../assets/pficon2.png" height="160" width="160" title="uchinoko">
                 </span>
             </div>
             <div id="line1" class="str_delay">

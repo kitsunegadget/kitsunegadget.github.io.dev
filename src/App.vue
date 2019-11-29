@@ -2,27 +2,23 @@
     <div id="app">
         <div id="bg"></div>
         <Header />
-        <div class="content-1">
-            <Content1PfGrid />
-        </div>
-        <Content2 />
+        <router-view />
         <Footer />
     </div>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-import Content1PfGrid from "./components/Content1PfGrid.vue";
-import Content2 from "./components/Content2.vue";
 import Footer from "./components/Footer.vue";
+//import Product from "./components/Product.vue";
 
 export default {
     name: "app",
     components: {
         Header,
-        Content1PfGrid,
-        Content2,
         Footer
+    },
+    methods: {
     }
 };
 </script>
