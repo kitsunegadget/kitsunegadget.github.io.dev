@@ -3,12 +3,12 @@
         <div id=dummy>
         </div>
         <div id="title">
-            <h1><router-link to="/" @click.native="navClick">Kitsune Gadget</router-link></h1>
+            <h1><router-link to="/" @click.native="navClick(undefined)">Kitsune Gadget</router-link></h1>
         </div>    
         <nav class="header-nav">
             <ul class="normal-ul">
                 <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
-                    <router-link :to="navi.url" @click.native="navClick">
+                    <router-link :to="navi.url" @click.native="navClick(navi.id)">
                         {{ navi.text }}
                     </router-link>
                 </li>
@@ -20,7 +20,7 @@
             <div class="toggle-ul">
                 <ul>
                     <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
-                        <router-link :to="navi.url" @click.native="navClick">
+                        <router-link :to="navi.url" @click.native="navClick(navi.id)">
                             {{ navi.text }}
                         </router-link>
                     </li>
@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import AppVue from '../App.vue';
-import ProductVue from '../views/Product.vue';
 export default {
     data() {
         return {
@@ -51,8 +49,14 @@ export default {
             ]
         }
     },
+    created() {
+        window.addEventListener("load", this.onload);
+        window.addEventListener("popstate", this.onpopstate);
+        document.addEventListener("scroll", this.onscroll);
+        document.addEventListener("resize", this.onresize);
+    },
     methods: {
-        window: onload = () => {
+        onload() {
             changeState();
             let cover = document.querySelector("#togglecover");
             cover.addEventListener("click", () => {
@@ -66,13 +70,13 @@ export default {
                 normalul.style.width = 0;
             }
         },
-        document: onscroll = () => {
-            closeToggleCover();
-        },
-        document: onpopstate = () => {
+        onpopstate() {
             changeState();
         },
-        document: onresize = () => {
+        onscroll() {
+            closeToggleCover();
+        },
+        onresize() {
             let headernav = document.querySelector(".header-nav");
             let normalul = document.querySelector(".normal-ul");
             if (headernav.scrollWidth < 300)
@@ -84,8 +88,9 @@ export default {
                 normalul.style.width = "";
             }
         },
-        navClick(){
-            changeState();
+
+        navClick(id){
+            changeState(id);
             closeToggleCover();
         },
         toggleNavClick(){
@@ -105,12 +110,20 @@ export default {
         }
     }
 }
-function changeState(){
-    if (location.pathname === "/product") {
-        document.querySelector("nav li[id='0']").style.borderBottom = "solid #FFB74C 2px"
+function changeState(targetId){
+    document.querySelectorAll(".header-nav li").forEach(elem => {
+        elem.style.borderBottom = "solid #111 2px";
+    });
+    if (targetId === undefined)
+    {
+        if (location.pathname === "/product") {
+            document.querySelector(".header-nav li[id='0']").style.borderBottom = "solid #FFB74C 2px";
+        }
     } else {
-        document.querySelector("nav li[id='0']").style.borderBottom = "solid #111 2px"
+        document.querySelector(".header-nav li[id='" + targetId + "']")
+            .style.borderBottom = "solid #FFB74C 2px";
     }
+    
 }
 function closeToggleCover(){
     let cover = document.querySelector("#togglecover");
