@@ -141,9 +141,10 @@ var movingLiteral = {
     }
 }
 
-setTimeout(() => {
-    movingLiteral.run(); 
-}, 1000);
+// 一時利用停止
+// setTimeout(() => {
+//     movingLiteral.run(); 
+// }, 1000);
 
 
 
