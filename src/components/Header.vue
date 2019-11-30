@@ -52,8 +52,8 @@ export default {
     created() {
         window.addEventListener("load", this.onload);
         window.addEventListener("popstate", this.onpopstate);
+        window.addEventListener("resize", this.onresize);
         document.addEventListener("scroll", this.onscroll);
-        document.addEventListener("resize", this.onresize);
     },
     methods: {
         onload() {
@@ -70,12 +70,6 @@ export default {
                 normalul.style.width = 0;
             }
         },
-        onpopstate() {
-            changeState();
-        },
-        onscroll() {
-            closeToggleCover();
-        },
         onresize() {
             let headernav = document.querySelector(".header-nav");
             let normalul = document.querySelector(".normal-ul");
@@ -87,6 +81,12 @@ export default {
                 normalul.style.visibility = "visible";
                 normalul.style.width = "";
             }
+        },
+        onpopstate() {
+            changeState();
+        },
+        onscroll() {
+            closeToggleCover();
         },
 
         navClick(id){
