@@ -217,7 +217,7 @@ header nav a:hover {
     border-top: solid  #111 1px;
     border-bottom: solid  #111 1px;
 }
-.toggle-ul a:hover {
+.toggle-ul a:hover, #togglenav-button a:hover {
     background: var(--main-orange);
     border-radius: 4px;
     cursor: pointer;
