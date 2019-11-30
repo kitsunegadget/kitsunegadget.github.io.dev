@@ -28,7 +28,7 @@
     list-style: none;
     margin: 10px 15px;
     transition: ease 0.2s;
-    z-index: 50;
+    z-index: 0;
 }
 /* #social li:hover{
     transform: translate(-5%, -5%); 

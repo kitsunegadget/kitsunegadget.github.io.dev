@@ -10,7 +10,6 @@
 <script>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-//import Product from "./components/Product.vue";
 
 export default {
     name: "app",
@@ -29,10 +28,16 @@ body {
     padding: 0;
     /* height: 100%; */
     background-color: #222;
+    overflow-y: scroll;
 }
 
 #app {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     width: 100%;
+    min-height: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 
     -webkit-font-smoothing: antialiased;

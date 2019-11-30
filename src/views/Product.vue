@@ -26,7 +26,7 @@ export default {
                     text: "Twitterボタンが無いページでも簡単にリンク共有。Chrome 拡張機能。\
                         クリップボードにコピーやページタイトルのみコピー機能も。",
                     text_alt: "A Chrome Extention. You can share any web page that no Tweet button.",
-                    img: require("../product_imgs/img_pagetweeter.png")
+                    img: require("../assets/product_imgs/img_pagetweeter.png")
                 },
                 {
                     id: 1,
@@ -34,7 +34,7 @@ export default {
                     text: "元々はチャット欄の高さ最大化の機能から始まった Chrome 拡張機能。\
                         現在は他にも音声の左右位置調整とスナップショット機能を追加。今後も機能を追加予定。",
                     text_alt: "",
-                    img: require("../product_imgs/img_yvt.png")
+                    img: require("../assets/product_imgs/img_yvt.png")
                 },
                 {
                     id: 2,
@@ -48,28 +48,28 @@ export default {
                     text: "プロキシ接続を簡単目的にしたタスクトレイ常駐型のアプリケーション。\
                         最大で４つのプロキシ情報を保存し、2クリックで切り替え。",
                     text_alt: "This apprication purpose is Proxy change quickly.",
-                    img: require("../product_imgs/img_qcp.png")
+                    img: require("../assets/product_imgs/img_qcp.png")
                 },
                 {
                     id: 4,
                     name: "Simple Multi Counter",
                     text: "シンプルな複数カウンターをまとめて管理。Android アプリ。Xamarin.Android ビルド。",
                     text_alt: "A android App. Simple Multiple Tally counter. Built at Xamarin.Android.",
-                    img: require("../product_imgs/img_smc.png")
+                    img: require("../assets/product_imgs/img_smc.png")
                 },
                 {
                     id: 5,
                     name: "Tetris CLI",
                     text: "コンソールで動くシンプルテトリス。",
                     text_alt: "Simple Tetris game in Console Window.",
-                    img: require("../product_imgs/img_consoletetris.png")
+                    img: require("../assets/product_imgs/img_consoletetris.png")
                 },
                 {
                     id: 6,
                     name: "Reversi",
                     text: "四角いままのリバーシ。Built at Python with Tkinter.",
                     text_alt: "Square Reversi.",
-                    img: require("../product_imgs/img_reversi.png")
+                    img: require("../assets/product_imgs/img_reversi.png")
                 },
                 {
                     id: 7,
@@ -78,14 +78,14 @@ export default {
                         lameとqaacを指定して簡単にブリッジするソフト。Electron ビルド。※ベータ版。",
                     text_alt: "wav, mp3, aac encode to easy connect to lame and qaac \
                         without Commandline. Build at Electron.",
-                    img: require("../product_imgs/img_encoderbridge.png")
+                    img: require("../assets/product_imgs/img_encoderbridge.png")
                 },
                 {
                     id: 8,
                     name: "Developing...",
                     text: "This game is developing.",
                     text_alt: "",
-                    img: require("../product_imgs/img_dev1.png")
+                    img: require("../assets/product_imgs/img_dev1.png")
                 },
             ]
         }
