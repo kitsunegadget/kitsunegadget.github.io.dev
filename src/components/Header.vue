@@ -202,7 +202,7 @@ header nav a:hover {
     background: var(--main-orange);
 }
 #togglenav-button {
-    margin: 0 10px;
+    margin-right: 10px;
     /* border: white solid 1px; */
     width: 40px;
     height: 40px;

@@ -102,7 +102,7 @@ export default {
 }
 #product-box {
     min-height: 400px;
-    background-color: #1118;
+    background-color: #111c;
     /* margin-bottom: 5px; */
     animation: fadeIn ease 1s, moving ease 1s forwards;
     transform: translateY(10%);
