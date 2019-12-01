@@ -1,6 +1,6 @@
 <template>
     <div class="product">
-        <center style="opacity: 0.1;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
+        <center style="opacity: 0.3;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
         <article id="product-box" v-for="prd in products" :key="prd.id">
             <h2 id="product-name">{{ prd.name }}</h2>
             <div id="deplicate-flex">

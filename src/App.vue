@@ -36,7 +36,7 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
+    /* width: 100%; */
     min-height: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 

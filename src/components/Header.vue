@@ -66,8 +66,9 @@ export default {
             let normalul = document.querySelector(".normal-ul");
             if (headernav.scrollWidth < 300)
             {
+                headernav.style.justifyContent = "flex-end";
                 normalul.style.visibility = "hidden";
-                normalul.style.width = 0;
+                normalul.style.display = "none";
             }
         },
         onresize() {
@@ -75,11 +76,13 @@ export default {
             let normalul = document.querySelector(".normal-ul");
             if (headernav.scrollWidth < 300)
             {
+                headernav.style.justifyContent = "flex-end";
                 normalul.style.visibility = "hidden";
-                normalul.style.width = 0;
+                normalul.style.display = "none";
             } else {
+                headernav.style.justifyContent = "space-between";
                 normalul.style.visibility = "visible";
-                normalul.style.width = "";
+                normalul.style.display = "inline-flex";
             }
         },
         onpopstate() {
@@ -146,7 +149,7 @@ header {
 }
 
 header #dummy {
-    flex: 2;
+    flex: 1;
 }
 
 #title {
@@ -166,8 +169,8 @@ h1 a {
 }
 
 header nav {
-    flex: 2;
-    display: inline-flex;
+    flex: 1;
+    display: flex;
     text-align: right;
     align-items: center;
     justify-content: space-between;
