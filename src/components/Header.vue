@@ -66,9 +66,8 @@ export default {
             let normalul = document.querySelector(".normal-ul");
             if (headernav.scrollWidth < 300)
             {
-                headernav.style.justifyContent = "flex-end";
-                normalul.style.visibility = "hidden";
-                normalul.style.display = "none";
+                headernav.setAttribute("narrow", "");
+                normalul.setAttribute("narrow", "");
             }
         },
         onresize() {
@@ -76,13 +75,11 @@ export default {
             let normalul = document.querySelector(".normal-ul");
             if (headernav.scrollWidth < 300)
             {
-                headernav.style.justifyContent = "flex-end";
-                normalul.style.visibility = "hidden";
-                normalul.style.display = "none";
+                headernav.setAttribute("narrow", "");
+                normalul.setAttribute("narrow", "");
             } else {
-                headernav.style.justifyContent = "space-between";
-                normalul.style.visibility = "visible";
-                normalul.style.display = "inline-flex";
+                headernav.removeAttribute("narrow");
+                normalul.removeAttribute("narrow");
             }
         },
         onpopstate() {
@@ -100,13 +97,10 @@ export default {
             let cover = document.querySelector("#togglecover");
             let status = document.querySelector(".toggle-ul");
             if (status.getAttribute("open") === null){
-                // status.style.visibility = "visible";
-                status.style.transform = "translate3d(0,0,0)";
                 status.setAttribute("open", "");
                 cover.style.visibility = "visible";
             }
             else {
-                status.style.transform = "translate3d(100%,0,0)";
                 status.removeAttribute("open");
                 cover.style.visibility= "hidden";
             }
@@ -132,7 +126,6 @@ function closeToggleCover(){
     let cover = document.querySelector("#togglecover");
     let status = document.querySelector(".toggle-ul");
     if (status.getAttribute("open") !== null){
-        status.style.transform = "translateX(100%)";
         status.removeAttribute("open");
         cover.style.visibility= "hidden";
     }
@@ -176,11 +169,17 @@ header nav {
     justify-content: space-between;
     height: inherit;
 }
+header nav[narrow] {
+    justify-content: flex-end;
+}
 header nav .normal-ul {
     margin: 0;
     padding: 0;
     display: inline-flex;
     height: inherit;
+}
+header nav .normal-ul[narrow] {
+    display: none;
 }
 header nav .normal-ul li {
     width: 100px;
@@ -203,6 +202,7 @@ header nav a:hover {
 }
 #togglenav-button {
     margin-right: 10px;
+    margin-left: -10px;
     /* border: white solid 1px; */
     width: 40px;
     height: 40px;
@@ -216,8 +216,11 @@ header nav a:hover {
     /* bottom: 0; */
     width: 250px;
     background: var(--main-black);
-    transform: translateX(200%);
+    transform: translateX(100%);
     transition-duration: 200ms;
+}
+.toggle-ul[open] {
+    transform: translateX(0);
 }
 .toggle-ul ul {
     margin: 0;
