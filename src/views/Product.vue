@@ -37,13 +37,20 @@ export default {
                     img: require("../assets/product_imgs/img_yvt.png")
                 },
                 {
-                    id: 2,
+                    id: 3,
+                    name: "Chrome Manual Discard",
+                    text: "Chrome の Discard 機能をマニュアルで実行。現在のDiscard数も表示。",
+                    text_alt: "Execute Discard function manually. Display current number of Discarded tabs.",
+                    img: require("../assets/product_imgs/img_chromediscard.png")
+                },
+                {
+                    id: 4,
                     name: "Orig Image View Link",
                     text: "Tweetdeck でオリジナルサイズの画像にワンタップでリンク。Chrome 拡張機能。",
                     text_alt: "A Chrome Extention. You can see Orig size image link on Tweetdeck."
                 },
                 {
-                    id: 3,
+                    id: 5,
                     name: "Quick Change Proxy",
                     text: "プロキシ接続を簡単目的にしたタスクトレイ常駐型のアプリケーション。\
                         最大で４つのプロキシ情報を保存し、2クリックで切り替え。",
@@ -51,28 +58,28 @@ export default {
                     img: require("../assets/product_imgs/img_qcp.png")
                 },
                 {
-                    id: 4,
+                    id: 6,
                     name: "Simple Multi Counter",
                     text: "シンプルな複数カウンターをまとめて管理。Android アプリ。Xamarin.Android ビルド。",
                     text_alt: "A android App. Simple Multiple Tally counter. Built at Xamarin.Android.",
                     img: require("../assets/product_imgs/img_smc.png")
                 },
                 {
-                    id: 5,
+                    id: 7,
                     name: "Tetris CLI",
                     text: "コンソールで動くシンプルテトリス。",
                     text_alt: "Simple Tetris game in Console Window.",
                     img: require("../assets/product_imgs/img_consoletetris.png")
                 },
                 {
-                    id: 6,
+                    id: 8,
                     name: "Reversi",
                     text: "四角いままのリバーシ。Built at Python with Tkinter.",
                     text_alt: "Square Reversi.",
                     img: require("../assets/product_imgs/img_reversi.png")
                 },
                 {
-                    id: 7,
+                    id: 9,
                     name: "Encoder Bridge",
                     text: "コマンドラインを弄らなくても、wav,mp3,aacの相互エンコードを\
                         lameとqaacを指定して簡単にブリッジするソフト。Electron ビルド。※ベータ版。",
@@ -81,7 +88,7 @@ export default {
                     img: require("../assets/product_imgs/img_encoderbridge.png")
                 },
                 {
-                    id: 8,
+                    id: 10,
                     name: "Developing...",
                     text: "This game is developing.",
                     text_alt: "",
