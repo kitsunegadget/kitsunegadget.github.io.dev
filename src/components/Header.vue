@@ -1,4 +1,5 @@
 <template>
+<div>
     <header>
         <div id=dummy>
         </div>
@@ -27,8 +28,10 @@
                 </ul>
             </div>
         </nav>
-        <div id="togglecover"></div>
+        
     </header>
+    <div id="togglecover"></div>
+</div>
 </template>
 
 <script>
@@ -138,6 +141,8 @@ function closeToggleCover(){
 @import '../variables.css';
 
 header {
+    position: relative;
+    z-index: 2;
     display: inline-flex;
     min-width: 100%;
     height: 60px;
@@ -213,7 +218,7 @@ header nav a:hover {
 }
 .toggle-ul {
     position: fixed;
-    z-index: 2;
+    z-index: 1;
     right: 0;
     top: 60px;
     /* bottom: 0; */
