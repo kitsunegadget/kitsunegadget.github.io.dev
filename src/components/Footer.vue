@@ -1,6 +1,6 @@
 <template>
     <footer>
-        <small>Copyright &copy; Yu\w*. Kitsune Gadget</small>
+        <small>&copy; 2019 Yu\w*, Kitsune Gadget.</small>
     </footer>
 </template>
 
