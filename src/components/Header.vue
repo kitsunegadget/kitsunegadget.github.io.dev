@@ -41,11 +41,11 @@ export default {
                     text: "PRODUCT",
                     url: "/product"
                 },
-                // {
-                //     id: 1,
-                //     text: "GALLERY",
-                //     url: "/#"
-                // },
+                {
+                    id: 1,
+                    text: "GALLERY",
+                    url: "/gallery"
+                },
             ]
         }
     },
