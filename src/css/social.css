@@ -5,10 +5,10 @@
     justify-content: center;
     align-items: center;
     color: #fff;
-    background-color: #FFB74C;
-    border-radius: 10px;
-    box-shadow: #FFB74C 0px 0px 25px;
-    padding-bottom: 5px;
+    background-color: #111c;
+    /* border-radius: 10px; */
+    /* box-shadow: #FFB74C 0px 0px 25px; */
+    padding-top: 15px;
     /* height: 200px; */
 }
 #social-title{
@@ -26,7 +26,7 @@
 #social li{
     position: relative;
     list-style: none;
-    margin: 10px 15px;
+    margin: 14px 14px;
     transition: ease 0.2s;
     z-index: 0;
 }
@@ -44,12 +44,16 @@
 #social li > a:hover::before{
     position: absolute;
     content: "";
-    background: #333; 
+    background: #445a; 
     /* border: 2px dotted #222; */
     box-sizing: border-box;
     z-index: -1;
     width: 100%;
-    height: 95%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     border-radius: 5px;
     animation: scaleup linear 0.12s forwards;
 }

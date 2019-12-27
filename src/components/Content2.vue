@@ -28,8 +28,8 @@ export default {
     /* display: block; */
     margin: auto;
     /* background-color: rgba(86, 89, 105, 0.514); */
-    max-width: 600px;
-    margin-bottom: 50px;
+    max-width: 100%;
+    margin-bottom: 30px;
 }
 
 .section_title{
@@ -45,5 +45,6 @@ export default {
 
 .content-2-dock{
     width: 100%;
+    padding: 0;
 }
 </style>
