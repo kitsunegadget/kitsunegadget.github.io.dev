@@ -32,8 +32,36 @@ export default {
     },
     created: function() {
         this.getData();
+        window.addEventListener("resize", this.onresize);
+    },
+    destroyed: function() {
+        window.removeEventListener("resize", this.onresize);
+    },
+    mounted: function() {
+        let gallerybox = document.querySelectorAll("#gallery-box");
+        if (window.innerWidth < 615)
+        {
+            gallerybox.forEach(elem => {
+                elem.style.width = "100vw"
+            });
+        }
     },
     methods: {
+        onresize: function() {
+            let gallerybox = document.querySelectorAll("#gallery-box");
+            if (window.innerWidth < 615)
+            {
+                gallerybox.forEach(elem => {
+                    elem.style.width = "100vw"
+                });
+            } 
+            else
+            {
+                gallerybox.forEach(elem => {
+                    elem.style.width = "300px"
+                });
+            }
+        },
         getData: function () {
             // axios.get('/json/gallery_data.json')
             //     .then(response => {
@@ -60,7 +88,7 @@ export default {
 .wrap-box {
     display: flex;
     margin-top: 5px;
-    justify-content: space-around;
+    justify-content: center;
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
@@ -68,18 +96,19 @@ export default {
     transform: translateY(10%);
 }
 #gallery-box {
+    flex: none;
     display: flex;
-    margin: 3px;
+    margin: 2px; 
     border-radius: 15px;
     background-color: #111c;
     overflow: hidden;
-    width: 180px;
+    width: 300px;
     height: 180px;
     align-items: center;
+    justify-content: center;
 }
 .image {
-    border-radius: 15px;
-    max-width: 180px;
-    /* height: 250px; */
+    max-width: 100%;
+    height: auto;
 }
 </style>

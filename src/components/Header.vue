@@ -116,6 +116,9 @@ function changeState(targetId){
         if (location.pathname === "/product") {
             document.querySelector(".header-nav li[id='0']").style.borderBottom = "solid #FFB74C 2px";
         }
+        else if (location.pathname === "/gallery") {
+            document.querySelector(".header-nav li[id='1']").style.borderBottom = "solid #FFB74C 2px";
+        }
     } else {
         document.querySelector(".header-nav li[id='" + targetId + "']")
             .style.borderBottom = "solid #FFB74C 2px";
