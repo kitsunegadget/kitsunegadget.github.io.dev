@@ -2,8 +2,12 @@
     <div id="app">
         <div id="bg"></div>
         <Header />
+        <div class="fixed-spacing"></div>
         <router-view />
         <Footer />
+        <div class="pageup-button" @click="pageUp">
+            <i class="fas fa-angle-up upcolor"></i>
+        </div>
     </div>
 </template>
 
@@ -17,12 +21,58 @@ export default {
         Header,
         Footer
     },
+    created: function(){
+        window.addEventListener("scroll", this.onScroll)
+    },
     methods: {
+        onScroll: function() {
+            let upButton = document.querySelector(".pageup-button");
+            if(window.scrollY >= 450){
+                upButton.setAttribute("fading", "");
+            }
+            else {
+                upButton.removeAttribute("fading");
+            }
+        },
+        pageUp: function() {
+            //console.log(window.navigator.userAgent);
+            //scroll-behavier はSafariとIEが対応してないので振り分け
+            //IEはしらん…Edgeは今後Chrominumベースになるので対応はしない
+            let userAgent = window.navigator.userAgent.toLowerCase();
+            if (userAgent.indexOf("chrome") != -1){
+                window.scrollBy(0, -window.scrollY);
+            }
+            else if (userAgent.indexOf("safari") != -1){
+                document.documentElement
+                    .style.scrollBehavior = "auto";
+                let i=1,j=1;
+                let interval = setInterval(() => {
+                    if(window.scrollY < i) {
+                        window.scrollBy(0, -window.scrollY);
+                        clearInterval(interval);
+                    }
+                    else {
+                        window.scrollBy(0, -i);
+                        i = j * 1.001;
+                        j++;
+                    }
+                    // console.log(i);
+                }, 10);
+            }
+            else {
+                window.scrollBy(0, -window.scrollY);
+            }
+        }
     }
 };
 </script>
 
 <style>
+@import './css/all.css';
+:root {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -53,6 +103,34 @@ body {
     height: 100%;
     z-index: -1;
     opacity: 0.5;
+}
+
+.fixed-spacing {
+    height: 0px;
+}
+.pageup-button {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    background: #000b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.05s;
+    pointer-events: none;
+}
+.pageup-button[fading] {
+    pointer-events: auto;
+    opacity: 1;
+}
+.upcolor {
+    font-size: 30px;
+    color: #fff;
 }
 
 /* .content-1{
