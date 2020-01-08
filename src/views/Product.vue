@@ -114,7 +114,12 @@ export default {
 #image > img {
     max-width: 350px;
     max-height: 250px;
-    animation: fadeIn ease 3s;
+    opacity: 0;
+    animation: fade ease 2s forwards;
+}
+@keyframes fade {
+    0% { opacity: 0; }
+    100% { opacity: 1;}
 }
 #deplicate-flex > #text {
     flex: 1;
