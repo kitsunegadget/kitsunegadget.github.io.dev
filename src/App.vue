@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import firebase from 'firebase/app';
+import "firebase/auth";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
 
@@ -22,7 +24,8 @@ export default {
         Footer
     },
     created: function(){
-        window.addEventListener("scroll", this.onScroll)
+        window.addEventListener("scroll", this.onScroll);
+        this.autoAuthFirebase();
     },
     methods: {
         onScroll: function() {
@@ -62,6 +65,15 @@ export default {
             else {
                 window.scrollBy(0, -window.scrollY);
             }
+        },
+        autoAuthFirebase: function() {
+            firebase.auth().signInAnonymously()
+                .catch((error) => {
+                    console.log("Anonymous signIn error...", error);
+                });
+            firebase.auth().onAuthStateChanged((user) => {
+                console.log(user.uid);
+            });
         }
     }
 };
