@@ -23,3 +23,5 @@ yarn-error.log*
 README.md
 deploy.sh
 deploy.bat
+product_imgs
+/src/firebaseConfig.json

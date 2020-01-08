@@ -2,7 +2,7 @@
     <div class="product">
         <center style="opacity: 0.3;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
         <article id="product-box" v-for="prd in products" :key="prd.id">
-            <h2 id="product-name">{{ prd.name }}</h2>
+            <h2 id="product-name">{{ prd.title }}</h2>
             <div id="deplicate-flex">
                 <span id="image">
                     <img :src="prd.img" />
@@ -16,14 +16,25 @@
 </template>
 
 <script>
-import axios from 'axios';
+//import axios from 'axios';
+import firebase, { firestore, storage } from "firebase/app";
+import "firebase/firestore";
+// import "firebase/storage";
+
+const products_store = firestore().collection("products");
+// const ref = storage().ref("product-imgs");
+// ref.child('img_pagetweeter.png').getDownloadURL().then((url) => {
+//     console.log("img url: ", url);
+// })
+
+
 export default {
     data() {
         return {
             products: [
                 {
                     id: 0,
-                    name: "Loading",
+                    title: "Loading",
                     text: "Please wait...",
                     text_alt: "",
                     img: ""
@@ -36,6 +47,25 @@ export default {
     },
     methods: {
         getData: function () {
+            products_store
+                //.where("visible", "==", true)
+                .orderBy("order")
+                .get().then((querySnapshot) => {
+                    this.products = [];
+                    querySnapshot.forEach((doc) => {
+                        this.products.push(doc.data());
+                        //console.log(doc.id, "=>", doc.data());
+                        //console.log(this.products);
+                    });
+                }).catch((error) => {
+                    console.log("Error getting docs: ", error);
+                    this.products =  [
+                        {
+                            id: "error",
+                            title: "Loading Error"
+                        }
+                    ];
+                });
             // axios.get('/json/products_data.json')
             //     .then(response => {
             //         this.products = response.data;
@@ -44,8 +74,8 @@ export default {
             //         console.log("json error");
             //     });
 
-            //現在はファイルに直接アクセス、将来的にはAPIで接続するべき？
-            this.products = require("../assets/json/products_data.json");
+            //ファイルに直接アクセス用
+            //this.products = require("../assets/json/products_data.json");
         }
     }
 }
@@ -84,6 +114,7 @@ export default {
 #image > img {
     max-width: 350px;
     max-height: 250px;
+    animation: fadeIn ease 3s;
 }
 #deplicate-flex > #text {
     flex: 1;
