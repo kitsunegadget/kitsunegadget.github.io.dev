@@ -94,10 +94,12 @@ body {
 }
 
 #app {
-    position: absolute;
+    display: flex;
+    flex-direction: column;
+    /* position: absolute;
     top: 0;
     left: 0;
-    right: 0;
+    right: 0; */
     /* width: 100%; */
     min-height: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

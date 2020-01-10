@@ -111,19 +111,19 @@ export default {
     }
 }
 function changeState(targetId){
-    document.querySelectorAll(".header-nav li").forEach(elem => {
+    document.querySelectorAll(".header-nav .normal-ul li").forEach(elem => {
         elem.style.borderBottom = "solid #111 2px";
     });
     if (targetId === undefined)
     {
         if (location.pathname === "/product") {
-            document.querySelector(".header-nav li[id='0']").style.borderBottom = "solid #FFB74C 2px";
+            document.querySelector(".header-nav .normal-ul li[id='0']").style.borderBottom = "solid #FFB74C 2px";
         }
         else if (location.pathname === "/gallery") {
-            document.querySelector(".header-nav li[id='1']").style.borderBottom = "solid #FFB74C 2px";
+            document.querySelector(".header-nav .normal-ul li[id='1']").style.borderBottom = "solid #FFB74C 2px";
         }
     } else {
-        document.querySelector(".header-nav li[id='" + targetId + "']")
+        document.querySelector(".header-nav .normal-ul li[id='" + targetId + "']")
             .style.borderBottom = "solid #FFB74C 2px";
     }
     
@@ -224,7 +224,7 @@ header nav a:hover {
     /* bottom: 0; */
     width: 250px;
     background: var(--main-black);
-    transform: translateX(100%);
+    transform: translateX(100.5%);
     transition-duration: 200ms;
 }
 .toggle-ul[open] {
@@ -242,7 +242,7 @@ header nav a:hover {
     width: 100%;
     list-style-type: none;
     border-top: solid  #111 1px;
-    border-bottom: solid  #111 1px;
+    /* border-bottom: solid  #111 0px; */
 }
 .toggle-ul a:hover, #togglenav-button a:hover {
     background: var(--main-orange);
