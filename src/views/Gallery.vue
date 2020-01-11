@@ -115,6 +115,8 @@ export default {
 
             wrapbox.style.display = "flex";
             document.body.style.overflowY = "scroll";
+            //スクロール位置を戻す前にsmoothを切る
+            document.documentElement.style.scrollBehavior = ""
             window.scroll(this.scrollPosition.X, this.scrollPosition.Y);
             // console.log(this.scrollPosition.Y);
         }

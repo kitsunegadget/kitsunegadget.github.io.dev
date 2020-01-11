@@ -43,13 +43,11 @@ export default {
             //IEはしらん…Edgeは今後Chrominumベースになるので対応はしない
             let userAgent = window.navigator.userAgent.toLowerCase();
             if (userAgent.indexOf("chrome") != -1){
-                //動かすときだけscrollBehaviorをSmooth
+                //動かすときにscrollBehaviorをSmooth
                 document.documentElement.style.scrollBehavior = "smooth";
                 window.scrollBy(0, -window.scrollY);
-                document.documentElement.style.scrollBehavior = "";
             }
             else if (userAgent.indexOf("safari") != -1){
-                document.documentElement.style.scrollBehavior = "";
                 let i=1,j=1;
                 let interval = setInterval(() => {
                     if(window.scrollY < i) {
@@ -67,7 +65,6 @@ export default {
             else {
                 document.documentElement.style.scrollBehavior = "smooth";
                 window.scrollBy(0, -window.scrollY);
-                document.documentElement.style.scrollBehavior = "";
             }
         },
         autoAuthFirebase: function() {
