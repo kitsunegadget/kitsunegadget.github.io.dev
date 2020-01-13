@@ -1,9 +1,9 @@
 <template>
     <div class="gallery">
         <div class="sort-menu"></div>
-        <div class="wrap-box">
-            <article id="gallery-box" v-for="pic in pictures" :key="pic.date">
-                <img :src="pic.img" class="image" @click="clickImage(pic)" />
+        <div class="wrap-box" v-show="wrapDisplay">
+            <article id="gallery-box" v-for="(pic, index) in pictures" :key="pic.date">
+                <img :id="index" :src="pic.img" class="image" @click="clickImage(pic, $event)" />
             </article>
         </div>
         <div class="overlay" @click="clickOverlay" disable>
@@ -11,12 +11,14 @@
                 <h2>Loading...</h2>
             </div>
             <div class="picture-main">
-                <div id="left-side">
+                <div id="left-side" @click.stop="prev()">
+                    <i class="fas fa-arrow-left" v-show="isActiveLeftButton"></i>
                 </div>
                 <div id="picture">
-                    <img id="overlay-image" src="" >
+                    <img id="overlay-image" src="" draggable="true">
                 </div>
-                <div id="right-side">
+                <div id="right-side" @click.stop="next()">
+                    <i class="fas fa-arrow-right" v-show="isActiveRightButton"></i>
                 </div>
             </div>
             <div class="close-button">
@@ -41,10 +43,14 @@ export default {
                     thumPoint: "up"
                 }
             ],
+            wrapDisplay: true,
+            isActiveLeftButton: true,
+            isActiveRightButton: true,
             scrollPosition: {
                 X: Number,
                 Y: Number
-            }
+            },
+            currentImagePos: Number,
         }
     },
     created: function() {
@@ -56,27 +62,38 @@ export default {
     },
     mounted: function() {
         let gallerybox = document.querySelectorAll("#gallery-box");
+        let wrapbox = document.querySelector(".wrap-box");
         if (window.innerWidth < 615)
         {
             gallerybox.forEach(elem => {
-                elem.style.width = "99vw"
+                elem.style.width = "49vw"
+                elem.style.height = "49vw"
+                elem.style.marginLeft = "0";
             });
+            wrapbox.style.justifyContent = "space-around";
         }
     },
     methods: {
         onresize: function() {
             let gallerybox = document.querySelectorAll("#gallery-box");
+            let wrapbox = document.querySelector(".wrap-box");
             if (window.innerWidth < 615)
             {
                 gallerybox.forEach(elem => {
-                    elem.style.width = "99vw"
+                    elem.style.width = "49vw"
+                    elem.style.height = "49vw"
+                    elem.style.marginLeft = "0";
                 });
+                wrapbox.style.justifyContent = "space-around";
             } 
             else
             {
                 gallerybox.forEach(elem => {
                     elem.style.width = "300px"
+                    elem.style.height = "180px"
+                    elem.style.marginLeft = "2px";
                 });
+                wrapbox.style.justifyContent = "center";
             }
         },
         getData: function () {
@@ -91,7 +108,7 @@ export default {
             //ローカルファイルに直接アクセス用
             this.pictures = require("../assets/json/gallery_data.json");
         },
-        clickImage: function(picture) {
+        clickImage: function(picture, event) {
             let overlayImage = document.querySelector(".gallery #overlay-image");
             let pictureTitle = document.querySelector(".picture-title h2");
             overlayImage.setAttribute("src", picture.img);
@@ -103,7 +120,12 @@ export default {
 
             this.scrollPosition.X = window.scrollX;
             this.scrollPosition.Y = window.scrollY;
+            //this.wrapDisplay = false; こっちだとなぜかスクロールが戻らなかった
             wrapbox.style.display = "none";
+
+            //console.log(event.target.id, this.pictures.length);
+            this.currentImagePos = parseInt(event.target.id);
+            this.switchSideButton();
         },
         clickOverlay: function() {
             let overlay = document.querySelector(".gallery .overlay");
@@ -113,12 +135,49 @@ export default {
             let overlayImage = document.querySelector(".gallery #overlay-image");
             overlayImage.setAttribute("src", "");
 
+            //this.wrapDisplay = true; こっちだとなぜかスクロールが戻らなかった
             wrapbox.style.display = "flex";
             document.body.style.overflowY = "scroll";
             //スクロール位置を戻す前にsmoothを切る
             document.documentElement.style.scrollBehavior = ""
             window.scroll(this.scrollPosition.X, this.scrollPosition.Y);
             // console.log(this.scrollPosition.Y);
+        },
+        prev: function() {
+            if(this.currentImagePos > 0) {
+                this.currentImagePos--;
+                this.transitionImage();
+                this.switchSideButton();
+            }
+        },
+        next: function() {
+            if(this.currentImagePos < this.pictures.length - 1) {
+                this.currentImagePos++;
+                this.transitionImage();
+                this.switchSideButton();
+            }
+        },
+        transitionImage: function() {
+            let overlayImage = document.querySelector(".gallery #overlay-image");
+            let pictureTitle = document.querySelector(".picture-title h2");
+            overlayImage.style.opacity = "0";
+            window.setTimeout(() => { //トランジションのためのタイムアウト
+                overlayImage.setAttribute("src", this.pictures[this.currentImagePos].img);
+                pictureTitle.innerText = this.pictures[this.currentImagePos].title;
+                overlayImage.style.opacity = "1";
+            }, 250);
+        },
+        switchSideButton: function() {
+            if (this.currentImagePos === 0) {
+                this.isActiveLeftButton = false;
+            } else {
+                this.isActiveLeftButton = true;
+            }
+            if (this.currentImagePos + 1 === this.pictures.length) {
+                this.isActiveRightButton = false;
+            } else {
+                this.isActiveRightButton = true;
+            }
         }
     }
 }
@@ -157,7 +216,7 @@ export default {
 .image {
     max-width: 100%;
     height: auto;
-    animation: fadeIn ease 0.5s;
+    transition: fadeIn ease 0.5s;
 }
 
 .overlay {
@@ -194,27 +253,76 @@ export default {
     display: flex;
 }
 .picture-main #left-side {
-    width: 60px;
-    margin-right: -60px;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    bottom: 75px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.picture-main #left-side:active {
+    background: #fff2;
+}
+.fa-arrow-left {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: #3334;
 }
 .picture-main #right-side {
-    max-height: calc(100vh - 10vh);
-    max-width: 100vw;
-    text-align: center;
-    width: 60px;
-    margin-left: -60px;
+    position: absolute;
+    top: 75px;
+    right: 0;
+    bottom: 75px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.picture-main #right-side:active {
+    background: #fff2;
+}
+.fa-arrow-right {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50px;
+    background: #3334;
 }
 .close-button {
-    margin-bottom: -60px;
-    margin-top: 5px;
-    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    /* margin-bottom: -60px;
+    margin-top: 5px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
 }
 .fa-times {
     color: #fff;
     cursor: pointer;
     font-size: 3em;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 50px;
+    height: 50px;
 }
 .fa-times:hover {
     background: #fff4;
@@ -225,7 +333,8 @@ export default {
 .picture-main #overlay-image {
     min-height: 100px;
     min-width: 100px;
-    max-height: calc(100vh - 20vh);
+    max-height: calc(100vh - 25vh);
     max-width: 100vw;
+    transition: all 250ms ease-out;
 }
 </style>
