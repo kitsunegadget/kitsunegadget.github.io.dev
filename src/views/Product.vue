@@ -44,28 +44,35 @@ export default {
     },
     created: function() {
         this.getData();
+        //this.getData(true); //デバッグ用.ビルド時に入れ替える
     },
     methods: {
-        getData: function () {
-            products_store
-                //.where("visible", "==", true)
-                .orderBy("order")
-                .get().then((querySnapshot) => {
-                    this.products = [];
-                    querySnapshot.forEach((doc) => {
-                        this.products.push(doc.data());
-                        //console.log(doc.id, "=>", doc.data());
-                        //console.log(this.products);
+        getData: function (debug=false) {
+            if(!debug) { 
+                products_store
+                    //.where("visible", "==", true)
+                    .orderBy("order")
+                    .get().then((querySnapshot) => {
+                        this.products = [];
+                        querySnapshot.forEach((doc) => {
+                            this.products.push(doc.data());
+                            //console.log(doc.id, "=>", doc.data());
+                            //console.log(this.products);
+                        });
+                    }).catch((error) => {
+                        console.log("Error getting docs: ", error);
+                        this.products =  [
+                            {
+                                id: "error",
+                                title: "Loading Error"
+                            }
+                        ];
                     });
-                }).catch((error) => {
-                    console.log("Error getting docs: ", error);
-                    this.products =  [
-                        {
-                            id: "error",
-                            title: "Loading Error"
-                        }
-                    ];
-                });
+            } 
+            else {
+                //ローカルファイルにアクセス
+                this.products = require("../assets/json/products_data.json");
+            }
             // axios.get('/json/products_data.json')
             //     .then(response => {
             //         this.products = response.data;
@@ -73,9 +80,6 @@ export default {
             //     .catch(error => {
             //         console.log("json error");
             //     });
-
-            //ファイルに直接アクセス用
-            //this.products = require("../assets/json/products_data.json");
         }
     }
 }
