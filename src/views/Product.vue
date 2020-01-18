@@ -44,7 +44,6 @@ export default {
     },
     created: function() {
         this.getData();
-        //this.getData(true); //デバッグ用.ビルド時に入れ替える
     },
     methods: {
         getData: function (debug=false) {

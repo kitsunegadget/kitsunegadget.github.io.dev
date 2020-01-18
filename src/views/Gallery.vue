@@ -1,6 +1,9 @@
 <template>
     <div class="gallery">
         <div class="sort-menu"></div>
+        <div class="loading-wrap" v-show="loading">
+            <h2>Loading</h2>
+        </div>
         <div class="wrap-box" v-show="wrapDisplay">
             <article id="gallery-box" v-for="(pic, index) in pictures" :key="pic.date">
                 <img :id="index" :src="pic.url" class="image" @click="clickImage(pic, $event)" />
@@ -39,14 +42,15 @@ export default {
     data() {
         return {
             pictures: [
-                {
-                    date: 0,
-                    title: "Loading...",
-                    img: "",
-                    tag: "",
-                    thumPoint: "up"
-                }
+                // {
+                //     date: 0,
+                //     title: "Loading...",
+                //     img: "",
+                //     tag: "",
+                //     thumPoint: "up"
+                // }
             ],
+            loading: true,
             wrapDisplay: true,
             isActiveLeftButton: true,
             isActiveRightButton: true,
@@ -58,12 +62,10 @@ export default {
         }
     },
     created: function() {
-        // this.getData().then(() => {
-        //     this.changeBoxSize();
-        // });
-        this.getData(true).then(() => {
-            this.changeBoxSize();
-        }); //デバッグ用。ビルド時に入れ替え。
+        this.getData().then(() => {
+           this.changeBoxSize();
+           this.loading = false;
+        });
         window.addEventListener("resize", this.onresize);
     },
     destroyed: function() {
@@ -87,6 +89,7 @@ export default {
                     elem.style.marginLeft = "0";
                 });
                 wrapbox.style.justifyContent = "space-around";
+                
             } 
             else
             {
@@ -227,6 +230,33 @@ export default {
     max-width: 1200px;
     color: white;
 }
+.loading-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 95vw;
+    margin: auto;
+    background: #000a;
+    padding: 5px;
+    animation: fadeIn ease 600ms, moving ease 500ms forwards;
+    transform: translateX(-5%);
+}
+.loading-wrap::before {
+    position: absolute;
+    margin-left: -120px;
+    content: '・・・';
+    font-size: 3em;
+    animation: rot linear 1s infinite;
+}
+.loading-wrap::after {
+    position: absolute;
+    margin-left: 120px;
+    content: '・・・';
+    font-size: 3em;
+    animation: rot linear 1s infinite;
+}
+
 .wrap-box {
     display: flex;
     margin-top: 5px;
