@@ -3,7 +3,7 @@
         <div class="sort-menu"></div>
         <div class="wrap-box" v-show="wrapDisplay">
             <article id="gallery-box" v-for="(pic, index) in pictures" :key="pic.date">
-                <img :id="index" :src="pic.img" class="image" @click="clickImage(pic, $event)" />
+                <img :id="index" :src="pic.url" class="image" @click="clickImage(pic, $event)" />
             </article>
         </div>
         <div class="overlay" @click="clickOverlay" disable>
@@ -31,6 +31,10 @@
 
 <script>
 // import axios from 'axios';
+import firebase, { firestore } from "firebase/app";
+import "firebase/firestore";
+const gallery_store = firestore().collection("gallery");
+
 export default {
     data() {
         return {
@@ -54,27 +58,25 @@ export default {
         }
     },
     created: function() {
-        this.getData();
+        // this.getData().then(() => {
+        //     this.changeBoxSize();
+        // });
+        this.getData(true).then(() => {
+            this.changeBoxSize();
+        }); //デバッグ用。ビルド時に入れ替え。
         window.addEventListener("resize", this.onresize);
     },
     destroyed: function() {
         window.removeEventListener("resize", this.onresize);
     },
     mounted: function() {
-        let gallerybox = document.querySelectorAll("#gallery-box");
-        let wrapbox = document.querySelector(".wrap-box");
-        if (window.innerWidth < 615)
-        {
-            gallerybox.forEach(elem => {
-                elem.style.width = "49vw"
-                elem.style.height = "49vw"
-                elem.style.marginLeft = "0";
-            });
-            wrapbox.style.justifyContent = "space-around";
-        }
+        this.changeBoxSize();
     },
     methods: {
         onresize: function() {
+            this.changeBoxSize();
+        },
+        changeBoxSize: function () {
             let gallerybox = document.querySelectorAll("#gallery-box");
             let wrapbox = document.querySelector(".wrap-box");
             if (window.innerWidth < 615)
@@ -96,7 +98,45 @@ export default {
                 wrapbox.style.justifyContent = "center";
             }
         },
-        getData: function () {
+        getData: async function (debug=false) {
+            if(!debug) {
+                await Promise.all([
+                    (async() => {
+                        await new Promise((resolve) => {
+                            gallery_store
+                            .orderBy("date", "desc")
+                            .get()
+                            .then((query) => {
+                                this.pictures = [];
+                                query.forEach((doc) => {
+                                    // タイムスタンプは配列なので文字列にする。
+                                    // seconds情報しかないのでそれを使う
+                                    this.pictures.push(doc.data());
+                                    this.pictures[this.pictures.length - 1].date 
+                                        = doc.data().date.seconds;;
+                                    //console.log(doc.data());
+                                });
+                                resolve("pictureOnLoad"); 
+                            })
+                            .catch((error) => {
+                                console.log("Error geting docs: ", error);
+                                this.pictures = [
+                                    {
+                                        date: "error",
+                                        title: "Loading Error"
+                                    }
+                                ]
+                            });
+                        });
+                    })()
+                    // Promis.all内に()での無名関数で記述する際は
+                    // 最後にも関数としての()がないと動かないので注意
+                ]);
+            }
+            else {
+                //ローカルファイルでのテスト・デバッグ用
+                this.pictures = require("../json/gallery_data.json");
+            }
             // axios.get('/json/gallery_data.json')
             //     .then(response => {
             //         this.products = response.data;
@@ -104,14 +144,11 @@ export default {
             //     .catch(error => {
             //         console.log("json error");
             //     });
-
-            //ローカルファイルに直接アクセス用
-            this.pictures = require("../assets/json/gallery_data.json");
         },
         clickImage: function(picture, event) {
             let overlayImage = document.querySelector(".gallery #overlay-image");
             let pictureTitle = document.querySelector(".picture-title h2");
-            overlayImage.setAttribute("src", picture.img);
+            overlayImage.setAttribute("src", picture.url);
             pictureTitle.innerText = picture.title;
 
             let overlay = document.querySelector(".gallery .overlay");
@@ -162,7 +199,7 @@ export default {
             let pictureTitle = document.querySelector(".picture-title h2");
             overlayImage.style.opacity = "0";
             window.setTimeout(() => { //トランジションのためのタイムアウト
-                overlayImage.setAttribute("src", this.pictures[this.currentImagePos].img);
+                overlayImage.setAttribute("src", this.pictures[this.currentImagePos].url);
                 pictureTitle.innerText = this.pictures[this.currentImagePos].title;
                 overlayImage.style.opacity = "1";
             }, 250);
@@ -197,7 +234,6 @@ export default {
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-    animation: fadeIn ease 200ms;
     /* transform: translateY(0.05%); */
 }
 #gallery-box {
@@ -212,13 +248,18 @@ export default {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    opacity: 0;
+    animation: fade ease 300ms forwards;
 }
 .image {
     max-width: 100%;
     height: auto;
-    transition: fadeIn ease 0.5s;
+    animation: fade ease 300ms;
 }
-
+@keyframes fade {
+    0% { opacity: 0; }
+    100% { opacity: 1;}
+}
 .overlay {
     background: #0009;
     position: fixed;

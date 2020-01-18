@@ -24,4 +24,5 @@ README.md
 deploy.sh
 deploy.bat
 /public/product_imgs
+/src/json
 /src/firebaseConfig.json
