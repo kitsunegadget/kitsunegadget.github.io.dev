@@ -73,7 +73,7 @@ export default {
                     console.log("Anonymous signIn error...", error);
                 });
             firebase.auth().onAuthStateChanged((user) => {
-                console.log(user.uid);
+                //console.log(user.uid);
             });
         }
     }
