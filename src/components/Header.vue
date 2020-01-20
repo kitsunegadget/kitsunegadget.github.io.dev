@@ -112,7 +112,7 @@ export default {
 }
 function changeState(targetId){
     document.querySelectorAll(".header-nav .normal-ul li").forEach(elem => {
-        elem.style.borderBottom = "solid #333 2px";
+        elem.style.borderBottom = "solid #3330 2px";
     });
     if (targetId === undefined)
     {
@@ -146,7 +146,7 @@ header {
     display: inline-flex;
     min-width: 100%;
     height: 60px;
-    background-color: var(--main-black);
+    /* background-color: var(--main-black); */
 }
 
 header #dummy {
@@ -194,7 +194,7 @@ header nav .normal-ul[narrow] {
 header nav .normal-ul li {
     width: 100px;
     list-style-type: none;
-    border-bottom: solid  #111 2px;
+    border-bottom: solid  #3330 2px;
 }
 header nav a {
     /* router-linkがaタグに変わる */
@@ -206,6 +206,7 @@ header nav a {
     align-items: center;
     justify-content: center;
     height: 100%;
+    transition: all ease-out 250ms;
 }
 header nav a:hover {
     background: var(--main-orange);
@@ -226,7 +227,9 @@ header nav a:hover {
     top: 60px;
     /* bottom: 0; */
     width: 250px;
-    background: var(--main-black);
+    border-left: solid 1px #111;
+    border-bottom: solid 1px #111;
+    background: #111c;
     transform: translateX(100.5%);
     transition-duration: 200ms;
 }
@@ -249,7 +252,7 @@ header nav a:hover {
 }
 .toggle-ul a:hover, #togglenav-button a:hover {
     background: var(--main-orange);
-    border-radius: 2px;
+    /* border-radius: 2px; */
     cursor: pointer;
 }
 #togglecover {
