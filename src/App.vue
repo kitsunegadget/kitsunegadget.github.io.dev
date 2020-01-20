@@ -92,6 +92,7 @@ body {
     /* height: 100%; */
     background-color: #222;
     overflow-y: scroll;
+    overflow-x: hidden; 
 }
 
 #app {

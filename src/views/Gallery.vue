@@ -1,14 +1,15 @@
 <template>
     <div class="gallery">
         <div class="sort-menu"></div>
-        <div class="loading-wrap" v-show="loading">
-            <h2>Loading</h2>
-        </div>
         <div class="wrap-box" v-show="wrapDisplay">
             <article id="gallery-box" v-for="(pic, index) in pictures" :key="pic.date">
                 <img :id="index" :src="pic.url" class="image" @click="clickImage(pic, $event)" />
             </article>
         </div>
+        <div class="loading-wrap" v-show="loading">
+            <h2>Loading</h2>
+        </div>
+
         <div class="overlay" @click="clickOverlay" disable>
             <div class="picture-title">
                 <h2>Loading...</h2>
@@ -28,13 +29,12 @@
                 <i class="fas fa-times"></i>
             </div>
         </div>
-        <div class="loading-box"></div>
     </div>
 </template>
 
 <script>
 // import axios from 'axios';
-import firebase, { firestore } from "firebase/app";
+import { firestore } from "firebase/app";
 import "firebase/firestore";
 const gallery_store = firestore().collection("gallery");
 
@@ -51,7 +51,7 @@ export default {
                 // }
             ],
             loading: true,
-            wrapDisplay: true,
+            wrapDisplay: false,
             isActiveLeftButton: true,
             isActiveRightButton: true,
             scrollPosition: {
@@ -64,7 +64,12 @@ export default {
     created: function() {
         this.getData().then(() => {
            this.changeBoxSize();
-           this.loading = false;
+           let loadingWrap = document.querySelector(".loading-wrap");
+           loadingWrap.setAttribute("complete", "");
+           setTimeout(() => {
+               loadingWrap.style.display = "none";
+               this.wrapDisplay = true;
+           }, 500)
         });
         window.addEventListener("resize", this.onresize);
     },
@@ -116,7 +121,7 @@ export default {
                                     // seconds情報しかないのでそれを使う
                                     this.pictures.push(doc.data());
                                     this.pictures[this.pictures.length - 1].date 
-                                        = doc.data().date.seconds;;
+                                        = doc.data().date.seconds;
                                     //console.log(doc.data());
                                 });
                                 resolve("pictureOnLoad"); 
@@ -230,41 +235,14 @@ export default {
     max-width: 1200px;
     color: white;
 }
-.loading-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    width: 95vw;
-    margin: auto;
-    background: #000a;
-    padding: 5px;
-    animation: fadeIn ease 600ms, moving ease 500ms forwards;
-    transform: translateX(-5%);
-}
-.loading-wrap::before {
-    position: absolute;
-    margin-left: -120px;
-    content: '・・・';
-    font-size: 3em;
-    animation: rot linear 1s infinite;
-}
-.loading-wrap::after {
-    position: absolute;
-    margin-left: 120px;
-    content: '・・・';
-    font-size: 3em;
-    animation: rot linear 1s infinite;
-}
-
 .wrap-box {
     display: flex;
     margin-top: 5px;
+    margin-bottom: 5px;
     justify-content: center;
     align-content: center;
     align-items: center;
     flex-wrap: wrap;
-    /* transform: translateY(0.05%); */
 }
 #gallery-box {
     flex: none;
@@ -290,6 +268,48 @@ export default {
     0% { opacity: 0; }
     100% { opacity: 1;}
 }
+
+.loading-wrap {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 95vw;
+    background: #000a;
+    padding: 5px;
+    animation: fadeIn ease 600ms, moving ease 500ms forwards;
+    transform: translateX(-5%);
+    border-radius: 10px;
+}
+.loading-wrap::before {
+    position: absolute;
+    margin-left: -110px;
+    content: '・・・';
+    font-size: 2em;
+    animation: rot linear 1s infinite;
+}
+.loading-wrap::after {
+    position: absolute;
+    margin-left: 110px;
+    content: '・・・';
+    font-size: 2em;
+    animation: rot linear 1s infinite;
+}
+.loading-wrap[complete] {
+    animation: loadingfadeOut ease 600ms forwards;
+}
+@keyframes loadingfadeOut {
+    0% { 
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% { 
+        transform: translateX(50%);
+        opacity: 0;
+    }
+}
+
 .overlay {
     background: #0009;
     position: fixed;
