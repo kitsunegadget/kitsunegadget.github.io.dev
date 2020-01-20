@@ -1,11 +1,11 @@
 <template>
 <div>
     <header>
-        <div id=dummy>
-        </div>
         <div id="title">
             <h1><router-link to="/" @click.native="navClick(undefined)">Kitsune Gadget</router-link></h1>
         </div>    
+        <div id=dummy>
+        </div>
         <nav class="header-nav">
             <ul class="normal-ul">
                 <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
@@ -112,7 +112,7 @@ export default {
 }
 function changeState(targetId){
     document.querySelectorAll(".header-nav .normal-ul li").forEach(elem => {
-        elem.style.borderBottom = "solid #111 2px";
+        elem.style.borderBottom = "solid #333 2px";
     });
     if (targetId === undefined)
     {
@@ -155,14 +155,15 @@ header #dummy {
 
 #title {
     flex: 1;
-    margin: 0 10px;
+    margin: 0 20px;
     line-height: 3.5em;
     min-width: 300px;
-    text-align: center;
+    /* text-align: center; */
     color: var(--main-orange);  
 }
-h1 {
+#title > h1 {
     margin: 0;
+    font-size: 1.5em;
 }
 h1 a {
     color: inherit;
@@ -174,8 +175,9 @@ header nav {
     display: flex;
     text-align: right;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-end;
     height: inherit;
+    margin-left: -40px;
 }
 header nav[narrow] {
     justify-content: flex-end;
@@ -210,13 +212,14 @@ header nav a:hover {
 }
 #togglenav-button {
     margin-right: 10px;
-    margin-left: -10px;
+    margin-left: 10px;
     /* border: white solid 1px; */
     width: 40px;
     height: 40px;
     border-radius: 5px;
 }
 .toggle-ul {
+    filter:drop-shadow(-5px 5px 5px #000a);
     position: fixed;
     z-index: 1;
     right: 0;
@@ -246,10 +249,11 @@ header nav a:hover {
 }
 .toggle-ul a:hover, #togglenav-button a:hover {
     background: var(--main-orange);
-    border-radius: 4px;
+    border-radius: 2px;
     cursor: pointer;
 }
 #togglecover {
+    background: #0005;
     position: absolute;
     z-index: 1;
     visibility: hidden;
