@@ -275,7 +275,7 @@ export default {
     justify-content: center;
     align-items: center;
     height: 50px;
-    width: 95vw;
+    min-width: 320px;
     background: #000a;
     padding: 5px;
     animation: fadeIn ease 600ms, moving ease 500ms forwards;
