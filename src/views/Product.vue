@@ -1,23 +1,23 @@
 <template>
     <div class="product">
         <center style="opacity: 0.3;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
-        <article id="product-box" v-for="prd in products" :key="prd.id">
-            <h2 id="product-name">{{ prd.title }}</h2>
-            <div id="deplicate-flex">
+        <div class="product-wrap">
+            <article id="product-box" v-for="prd in products" :key="prd.id">
+                <h2 id="product-name">{{ prd.title }}</h2>
                 <span id="image">
                     <img :src="prd.img" />
                 </span>
                 <span id="text">
                     <p>{{ prd.text }}</p>
                 </span>
-            </div>
-        </article>
+            </article>
+        </div>
     </div>
 </template>
 
 <script>
 //import axios from 'axios';
-import firebase, { firestore, storage } from "firebase/app";
+import { firestore, storage } from "firebase/app";
 import "firebase/firestore";
 // import "firebase/storage";
 
@@ -44,8 +44,28 @@ export default {
     },
     created: function() {
         this.getData();
+        window.addEventListener("resize", this.resize);
+    },
+    mounted: function() {
+        this.resize();
+    },
+    destroyed: function() {
+        window.removeEventListener("resize", this.resize);
     },
     methods: {
+        resize: function() {
+            let productBoxes = document.querySelectorAll("#product-box");
+            if (window.innerWidth < 615) {
+                productBoxes.forEach(box => {
+                    box.style.width = "96vw";
+                });
+            }
+            else {
+                productBoxes.forEach(box => {
+                    box.style.width = "370px";
+                });
+            }
+        },
         getData: function (debug=false) {
             if(!debug) { 
                 products_store
@@ -91,31 +111,39 @@ export default {
     max-width: 1200px;
     color: white;
 }
+.product-wrap {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: stretch;
+}
 #product-box {
-    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    align-items: center;
+    width: 370px;
+    margin: 5px;
     background-color: #111c;
-    /* margin-bottom: 5px; */
     animation: fadeIn ease 1s, moving ease 1s forwards;
     transform: translateY(10%);
 }
-#deplicate-flex {
-    display: flex;
-    flex-wrap: wrap;
-    align-content: center;
-    justify-content: space-around;
-    padding: 10px;
+#product-box > h2 {
+    margin-top: -4px;
+    margin-bottom: 2px;
+    height: 0.45em;
 }
-#deplicate-flex > #image {
-    flex: 1;
+#product-box > #image {
+    margin: auto 0;
     display:  flex;
-    min-width: 350px;
     min-height: 250px;
     align-items: center;
     justify-content: center;
     padding-top: 10px;
 }
 #image > img {
-    max-width: 350px;
+    max-width: 250px;
     max-height: 250px;
     opacity: 0;
     animation: fade ease 2s forwards;
@@ -124,9 +152,11 @@ export default {
     0% { opacity: 0; }
     100% { opacity: 1;}
 }
-#deplicate-flex > #text {
+#product-box > #text {
     flex: 1;
-    min-width: 350px;
+    /* min-width: 350px; */
+    max-width: 80vw;
+    padding: 10px;
     text-align: center;
     color: #fdfdfd;
 }
