@@ -8,11 +8,14 @@
         </div>
         <nav class="header-nav">
             <ul class="normal-ul">
-                <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
-                    <router-link :to="navi.url" @click.native="navClick(navi.id)">
-                        {{ navi.text }}
-                    </router-link>
-                </li>
+                <div class="ul-wrap">
+                    <div id="selectionBar"></div>
+                    <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
+                        <router-link :to="navi.url" @click.native="navClick(navi.id)">
+                            {{ navi.text }}
+                        </router-link>
+                    </li>
+                </div>
             </ul>
             <!-- レスポンシブ用トグルメニュー -->
             <div id="togglenav-button" @click="toggleNavClick">
@@ -111,20 +114,35 @@ export default {
     }
 }
 function changeState(targetId){
-    document.querySelectorAll(".header-nav .normal-ul li").forEach(elem => {
-        elem.style.borderBottom = "solid #3330 2px";
-    });
+    // document.querySelectorAll(".header-nav .normal-ul li").forEach(elem => {
+    //     elem.style.borderBottom = "solid #3330 2px";
+    // });
+    document.querySelector("#selectionBar")
+        .style.transform = "translateX(-100%) scaleX(0)";
+    let ulWidth = document.querySelector(".header-nav .normal-ul").scrollWidth;
+    let childs = document.querySelector(".header-nav .ul-wrap").childNodes.length - 1;
+    let barWidth = (ulWidth / childs) / ulWidth;
+    let position = -50;
     if (targetId === undefined)
     {
         if (location.pathname === "/product") {
-            document.querySelector(".header-nav .normal-ul li[id='0']").style.borderBottom = "solid #FFB74C 2px";
+            position += (barWidth / childs + barWidth * 0) * 100;
+            //document.querySelector(".header-nav .normal-ul li[id='0']").style.borderBottom = "solid #FFB74C 2px";
+            document.querySelector("#selectionBar")
+                .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")";
         }
         else if (location.pathname === "/gallery") {
-            document.querySelector(".header-nav .normal-ul li[id='1']").style.borderBottom = "solid #FFB74C 2px";
+            position += (barWidth / childs + barWidth * 1) * 100;
+            //document.querySelector(".header-nav .normal-ul li[id='1']").style.borderBottom = "solid #FFB74C 2px";
+            document.querySelector("#selectionBar")
+                .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")"
         }
     } else {
-        document.querySelector(".header-nav .normal-ul li[id='" + targetId + "']")
-            .style.borderBottom = "solid #FFB74C 2px";
+        // document.querySelector(".header-nav .normal-ul li[id='" + targetId + "']")
+        //     .style.borderBottom = "solid #FFB74C 2px";
+        position += (barWidth / childs + barWidth * targetId) * 100;
+        document.querySelector("#selectionBar")
+            .style.transform = "translateX(" + (position) + "%) scaleX(" + barWidth + ")";
     }
     
 }
@@ -183,15 +201,34 @@ header nav[narrow] {
     justify-content: flex-end;
 }
 header nav .normal-ul {
+    position: relative;
     margin: 0;
     padding: 0;
-    display: inline-flex;
+    display: flex;
+    flex: 1 1 auto;
     height: inherit;
 }
 header nav .normal-ul[narrow] {
     display: none;
 }
-header nav .normal-ul li {
+.ul-wrap {
+    position: absolute;
+    right: 0;
+    display: flex;
+    height: 100%;
+}
+header nav .normal-ul #selectionBar {
+    position: absolute;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-bottom: solid 2px var(--main-orange);
+    transition: transform ease 0.5s;
+    transform: translateX(-100%) scaleX(0);
+    border-bottom-width: 2px;
+}
+header nav .normal-ul .ul-wrap li {
     width: 100px;
     list-style-type: none;
     border-bottom: solid  #3330 2px;
