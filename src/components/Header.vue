@@ -114,9 +114,10 @@ export default {
     }
 }
 function changeState(targetId){
-    // document.querySelectorAll(".header-nav .normal-ul li").forEach(elem => {
-    //     elem.style.borderBottom = "solid #3330 2px";
-    // });
+    document.querySelectorAll(".header-nav .normal-ul li a").forEach(elem => {
+        elem.style.color = "";
+    });
+
     document.querySelector("#selectionBar")
         .style.transform = "translateX(-100%) scaleX(0)";
     let ulWidth = document.querySelector(".header-nav .normal-ul").scrollWidth;
@@ -127,15 +128,17 @@ function changeState(targetId){
     {
         if (location.pathname === "/product") {
             position += (barWidth / childs + barWidth * 0) * 100;
-            //document.querySelector(".header-nav .normal-ul li[id='0']").style.borderBottom = "solid #FFB74C 2px";
             document.querySelector("#selectionBar")
                 .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")";
+            document.querySelector(".header-nav .normal-ul li[id='0'] a")
+                .style.color = "#FFB74C";
         }
         else if (location.pathname === "/gallery") {
             position += (barWidth / childs + barWidth * 1) * 100;
-            //document.querySelector(".header-nav .normal-ul li[id='1']").style.borderBottom = "solid #FFB74C 2px";
             document.querySelector("#selectionBar")
-                .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")"
+                .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")";
+            document.querySelector(".header-nav .normal-ul li[id='1'] a")
+                .style.color = "#FFB74C";
         }
     } else {
         // document.querySelector(".header-nav .normal-ul li[id='" + targetId + "']")
@@ -143,6 +146,8 @@ function changeState(targetId){
         position += (barWidth / childs + barWidth * targetId) * 100;
         document.querySelector("#selectionBar")
             .style.transform = "translateX(" + (position) + "%) scaleX(" + barWidth + ")";
+        document.querySelector(".header-nav .normal-ul li[id='" + targetId + "'] a")
+            .style.color = "#FFB74C";
     }
     
 }
@@ -235,6 +240,7 @@ header nav .normal-ul .ul-wrap li {
 }
 header nav a {
     /* router-linkがaタグに変わる */
+    position: relative;
     padding: 0 5px;
     color: white;
     font-weight: bold;
@@ -246,7 +252,7 @@ header nav a {
     transition: all ease-out 250ms;
 }
 header nav a:hover {
-    background: var(--main-orange);
+    color: var(--main-orange);
 }
 #togglenav-button {
     margin-right: 10px;
@@ -255,6 +261,10 @@ header nav a:hover {
     width: 40px;
     height: 40px;
     border-radius: 5px;
+}
+#togglenav-button a:hover {
+    background: var(--main-orange);
+    border-radius: 100px;
 }
 .toggle-ul {
     filter:drop-shadow(-5px 5px 5px #000a);
@@ -288,7 +298,7 @@ header nav a:hover {
     /* border-bottom: solid  #111 0px; */
 }
 .toggle-ul a:hover, #togglenav-button a:hover {
-    background: var(--main-orange);
+    color: var(--main-orange);
     /* border-radius: 2px; */
     cursor: pointer;
 }
