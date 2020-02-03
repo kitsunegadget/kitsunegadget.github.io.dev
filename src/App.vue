@@ -72,7 +72,7 @@ export default {
                 .catch((error) => {
                     console.log("Anonymous signIn error...", error);
                 });
-            firebase.auth().onAuthStateChanged((user) => {
+            firebase.auth().onAuthStateChanged((user) => { // eslint-disable-line no-unused-vars
                 //console.log(user.uid);
             });
         }

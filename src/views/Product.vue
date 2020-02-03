@@ -17,7 +17,7 @@
 
 <script>
 //import axios from 'axios';
-import { firestore, storage } from "firebase/app";
+import { firestore, /* storage */ } from "firebase/app";
 import "firebase/firestore";
 // import "firebase/storage";
 

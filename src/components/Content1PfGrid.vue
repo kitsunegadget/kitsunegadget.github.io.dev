@@ -49,7 +49,7 @@ export default {
 //     // console.log("width changed.");
 // }
 
-var movingLiteral = {
+var movingLiteral = { // eslint-disable-line no-unused-vars
     run: function()
     {
         this.literals = document.getElementsByClassName("moving-literal");
