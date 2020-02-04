@@ -277,7 +277,7 @@ header nav a:hover {
     border-left: solid 1px #111;
     border-bottom: solid 1px #111;
     background: #111c;
-    transform: translateX(100.5%);
+    transform: translateX(104.0%);
     transition-duration: 200ms;
 }
 .toggle-ul[open] {
