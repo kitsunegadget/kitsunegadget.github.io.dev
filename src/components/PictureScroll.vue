@@ -54,7 +54,25 @@ export default {
             ]
         }
     },
-    created() {
+    mounted() {
+        let inContents = document.querySelector(".ps-inside-contents");
+        let xPos = 0; // eslint-disable-line
+        let mouseMoveEv = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            console.log(event);
+            //inContents.scrollBy(event.movementX, 0);
+        };
+        inContents.addEventListener("mousedown", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            inContents.addEventListener("mousemove", mouseMoveEv);
+        });
+        inContents.addEventListener("mouseup", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            inContents.removeEventListener("mousemove", mouseMoveEv);
+        });
 
     },
     methods: {
@@ -92,7 +110,8 @@ export default {
 .pictureScroll {
     --content-height: 380px;
     height: var(--content-height);
-    max-width: calc((var(--content-height) - 30px) * (16 / 9));
+    /* max-width: calc((var(--content-height) - 30px) * (16 / 9)); */
+    max-width: 100vw;
     margin: 0 auto;
     margin-top: 10px;
 }
@@ -110,6 +129,7 @@ export default {
     width: 100%;
     height: calc(var(--content-height) - 30px);
     overflow: hidden;
+    scrollbar-width: none;
     list-style: none;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
@@ -118,7 +138,7 @@ export default {
 .ps-under {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-content: center;
     min-height: 30px;
     position: relative;
@@ -164,7 +184,7 @@ export default {
     transition: background ease 200ms;
     border-radius: 10px;
 }
-.ps-button:hover {
+.ps-button:active {
     background: #000a;
 }
 .ps-arrow {

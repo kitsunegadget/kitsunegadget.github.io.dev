@@ -1,8 +1,10 @@
 <template>
     <li class="ps-content">
-        <div id="backImage"></div>
-        <div id="titleImage"></div>
-        <div id="text"></div>
+        <div id="content-inside">
+            <div id="backImage"></div>
+            <div id="titleImage"></div>
+            <div id="text"></div>
+        </div>
     </li>
 </template>
 
@@ -22,6 +24,13 @@ export default {
     scroll-snap-align: center;
     width: 100%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+#content-inside {
+    height: calc(var(--content-height) - 30px);
+    width: calc((var(--content-height) - 30px) * (16 / 9));
     position: relative;
 }
 #backImage {
