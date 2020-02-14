@@ -8,7 +8,7 @@
 
 <script>
 import Content1PfGrid from "../components/Content1PfGrid.vue"; // eslint-disable-line
-import PictureScroll from "../components/PictureScroll.vue"
+import PictureScroll from "../components/PictureScroll/PictureScroll.vue"
 import Content2 from "../components/Content2.vue";
 
 export default {

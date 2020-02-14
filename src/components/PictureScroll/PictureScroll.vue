@@ -11,10 +11,13 @@
             <div class="ps-under">
                 <div class="ps-button ps-left-button" draggable="true" @click="psLeftClick()">
                     <img class="ps-arrow" id="left-arrow" 
-                        src="../assets/arrow_dot.svg" width="25px" height="25px"/>
+                        src="../../assets/arrow_dot.svg" width="25px" height="25px"/>
                 </div>
                 <div class="ps-under-fixed">
-                    <div id="ps-moveable-mark" draggable="true">●</div>
+                    <div class="ps-moveable-mark" draggable="true">
+                        <img class="ps-square" 
+                            src="../../assets/square_dot.svg" width="15px" height="15px"/>
+                    </div>
                     <div class="ps-fixed-marks" for draggable="true">
                         <div id="ps-fixed-mark">●</div>
                         <div id="ps-fixed-mark">●</div>
@@ -22,7 +25,7 @@
                 </div>
                 <div class="ps-button ps-right-button" draggable="true" @click="psRightClick()">
                     <img class="ps-arrow" id="right-arrow" 
-                        src="../assets/arrow_dot.svg" width="25px" height="25px"/>
+                        src="../../assets/arrow_dot.svg" width="25px" height="25px"/>
                 </div>
             </div>
         </div>
@@ -30,7 +33,7 @@
 </template>
 
 <script>
-import Contents from "./PictureScroll/Contents.vue"
+import Contents from "./Contents.vue"
 
 export default {
     components: {
@@ -40,15 +43,15 @@ export default {
         return {
             contentData: [
                 {
-                    title: "",
+                    title: "Kitsune Gadget β",
                     titleImage: "",
-                    anotherImage: "",
-                    text: "",
+                    backImage: require("../../assets/bg2.png"),
+                    text: "そこに何があるのか… 誰も知らない。",
                 },
                 {
                     title: "",
                     titleImage: "",
-                    anotherImage: "",
+                    backImage: "",
                     text: "",
                 }
             ]
@@ -91,11 +94,11 @@ export default {
             this.moveMark(inContents.scrollLeft, 165);
         },
         moveMark: function(currentPosition, moveX) { // eslint-disable-line
-            let mark = document.querySelector("#ps-moveable-mark");
+            let mark = document.querySelector(".ps-moveable-mark");
             if(currentPosition < 0) {
                 mark.style.transform = "translateX(0%)";
             }
-            else if(currentPosition > 622) {
+            else if(currentPosition > window.innerWidth) {
                 mark.style.transform = "translateX(165%)";
             }
             else {
@@ -113,7 +116,8 @@ export default {
     /* max-width: calc((var(--content-height) - 30px) * (16 / 9)); */
     max-width: 100vw;
     margin: 0 auto;
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    animation: fadeIn 1s ease;
 }
 .ps-main-container {
     position: relative;
@@ -165,7 +169,7 @@ export default {
     margin: 0px 5px;
     line-height: 1.1em;
 }
-.ps-under-fixed #ps-moveable-mark {
+.ps-moveable-mark {
     margin: 0 5px; 
     position: absolute;
     color: #fff;
@@ -173,6 +177,12 @@ export default {
     line-height: 1.1em;
     cursor: pointer;
     transition: transform ease-in-out 0.5s;
+    display: flex;
+    height: 100%;
+}
+.ps-square {
+    align-self: center;
+    justify-self: center;
 }
 .ps-button {
     width: 50px;
