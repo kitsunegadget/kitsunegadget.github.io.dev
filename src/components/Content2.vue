@@ -29,7 +29,7 @@ export default {
     margin: auto;
     /* background-color: rgba(86, 89, 105, 0.514); */
     max-width: 100%;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 .section_title{

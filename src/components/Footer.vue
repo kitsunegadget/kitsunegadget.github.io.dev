@@ -9,9 +9,11 @@ footer{
     /* background: #333; */
     bottom: 0;
     text-align: center;
-    width: calc(100% - 20px);
+    width: 100%;
     color: #fff;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 0;
+    background: #0005;
+    line-height: 1em;
 }
 </style>
 

@@ -53,7 +53,7 @@ export default {
                     url: "https://kitsune-gadget.hatenablog.com",
                     img: require("../assets/social_imgs/hatenablog-logo-fff.svg"),
                     imgcls: "hatena",
-                    size: "64"
+                    size: "32"
                 },
                 {
                     id: 3,
@@ -78,18 +78,18 @@ export default {
     display: flex;
     color:  #1DA1F2;
     /* color:  #14171A; */
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
+    font-size: var(--social-icon-height);
+    width: var(--social-icon-height);
+    height: var(--social-icon-height);
     text-align: center;
 }
 .fa-github {
     display: flex;
     color:  #fff;
     /* color:  #14171A; */
-    font-size: 64px;
-    width: 64px;
-    height: 64px;
+    font-size: var(--social-icon-height);
+    width: var(--social-icon-height);
+    height: var(--social-icon-height);
     text-align: center;
 }
 .hatena {
@@ -99,9 +99,9 @@ export default {
     display: flex;
     color:  #ff5500;
     /* color:  #14171A; */
-    font-size: 52px;
-    width: 64px;
-    height: 60px;
+    font-size: calc(var(--social-icon-height) - 6px);
+    width: var(--social-icon-height);
+    height: calc(var(--social-icon-height) - 2px);
     text-align: center;
     padding-top: 4px;
 }
