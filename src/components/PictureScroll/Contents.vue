@@ -47,7 +47,7 @@ export default {
     bottom: 0;
     left: 0;
     right: 0;
-    background: #000a;
+    background: #0005;
 }
 .ps-backImage > img {
     width: 100%;

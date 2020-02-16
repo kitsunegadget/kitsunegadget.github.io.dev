@@ -9,7 +9,11 @@
                 />
             </ul>
             <div class="ps-under">
-                <div class="ps-button ps-left-button" draggable="true" @click="psLeftClick()">
+                <div 
+                    class="ps-button ps-left-button" 
+                    draggable="true" 
+                    @click="psArrowClick('Left')"
+                >
                     <img class="ps-arrow" id="left-arrow" 
                         src="../../assets/arrow_dot.svg" width="25px" height="25px"/>
                 </div>
@@ -23,7 +27,11 @@
                         <div id="ps-fixed-mark">●</div>
                     </div>
                 </div>
-                <div class="ps-button ps-right-button" draggable="true" @click="psRightClick()">
+                <div 
+                    class="ps-button ps-right-button" 
+                    draggable="true" 
+                    @click="psArrowClick('Right')"
+                >
                     <img class="ps-arrow" id="right-arrow" 
                         src="../../assets/arrow_dot.svg" width="25px" height="25px"/>
                 </div>
@@ -79,19 +87,18 @@ export default {
 
     },
     methods: {
-        psLeftClick: function() {
+        psArrowClick: function(dir) {
             let inContents = document.querySelector(".ps-inside-contents");
             let mainContainer = document.querySelector(".ps-main-container");
             let scrollWidth = mainContainer.scrollWidth;
-            inContents.scrollBy(-scrollWidth, 0);
-            this.moveMark(inContents.scrollLeft, 0);
-        },
-        psRightClick: function() {
-            let inContents = document.querySelector(".ps-inside-contents");
-            let mainContainer = document.querySelector(".ps-main-container");
-            let scrollWidth = mainContainer.scrollWidth;
-            inContents.scrollBy(scrollWidth, 0);
-            this.moveMark(inContents.scrollLeft, 165);
+            if(dir === "Left") {
+                inContents.scrollBy(-scrollWidth, 0);
+                this.moveMark(inContents.scrollLeft, 0);
+            }
+            else if (dir === "Right") {
+                inContents.scrollBy(scrollWidth, 0);
+                this.moveMark(inContents.scrollLeft, 165);
+            }
         },
         moveMark: function(currentPosition, moveX) { // eslint-disable-line
             let mark = document.querySelector(".ps-moveable-mark");
@@ -117,6 +124,7 @@ export default {
     max-width: 100vw;
     margin: 0 auto;
     /* margin-top: 10px; */
+    margin-bottom: 10px;
     animation: fadeIn 1s ease;
 }
 .ps-main-container {
