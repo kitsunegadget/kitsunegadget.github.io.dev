@@ -72,6 +72,8 @@ export default {
 <style>
 .hmb{stroke:#fff;stroke-width:3px;stroke-linecap:round;stroke-linejoin:round}
 #togglenav-button {
+    position: relative;
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -89,7 +91,7 @@ export default {
 .toggle-ul {
     filter:drop-shadow(-5px 5px 5px #000a);
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     right: 0;
     top: 60px;
     /* bottom: 0; */

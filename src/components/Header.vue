@@ -25,9 +25,8 @@
                 @navClick="navClick"
             />
         </nav>
-        
+        <div id="togglecover"></div>
     </header>
-    <div id="togglecover"></div>
 </div>
 </template>
 
@@ -166,8 +165,8 @@ function changeState(targetId){
 @import '../variables.css';
 
 header {
-    position: relative;
-    z-index: 2;
+    /* position: relative; */
+    /* z-index: 0; */
     display: inline-flex;
     min-width: 100%;
     height: 60px;
@@ -261,7 +260,7 @@ header nav a:hover {
     position: absolute;
     z-index: 1;
     visibility: hidden;
-    top: 60px;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 0
