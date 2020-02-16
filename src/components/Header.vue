@@ -18,18 +18,12 @@
                 </div>
             </ul>
             <!-- レスポンシブ用トグルメニュー -->
-            <div id="togglenav-button" @click="toggleNavClick">
-                <a><img src="../assets/bars_24.svg" height="30px"></a>
-            </div>
-            <div class="toggle-ul">
-                <ul>
-                    <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
-                        <router-link :to="navi.url" @click.native="navClick(navi.id)">
-                            {{ navi.text }}
-                        </router-link>
-                    </li>
-                </ul>
-            </div>
+            <ToggleMenu
+                :navigations=navigations
+                :animated=togglenavAnimated
+                @toggleClick="toggleNavClick"
+                @navClick="navClick"
+            />
         </nav>
         
     </header>
@@ -38,7 +32,12 @@
 </template>
 
 <script>
+import ToggleMenu from "./ToggleMenu.vue";
+
 export default {
+    components: {
+        ToggleMenu
+    },
     data() {
         return {
             navigations: [
@@ -52,7 +51,8 @@ export default {
                     text: "GALLERY",
                     url: "/gallery"
                 },
-            ]
+            ],
+            togglenavAnimated: false
         }
     },
     created() {
@@ -66,7 +66,7 @@ export default {
             changeState();
             let cover = document.querySelector("#togglecover");
             cover.addEventListener("click", () => {
-                closeToggleCover();
+                this.closeToggleCover();
             });
             let headernav = document.querySelector(".header-nav");
             let normalul = document.querySelector(".normal-ul");
@@ -92,12 +92,12 @@ export default {
             changeState();
         },
         onscroll() {
-            closeToggleCover();
+            this.closeToggleCover();
         },
 
         navClick(id){
             changeState(id);
-            closeToggleCover();
+            this.closeToggleCover();
         },
         toggleNavClick(){
             let cover = document.querySelector("#togglecover");
@@ -110,6 +110,16 @@ export default {
                 status.removeAttribute("open");
                 cover.style.visibility= "hidden";
             }
+            this.togglenavAnimated = !this.togglenavAnimated;
+        },
+        closeToggleCover(){
+            let cover = document.querySelector("#togglecover");
+            let status = document.querySelector(".toggle-ul");
+            if (status.getAttribute("open") !== null){
+                status.removeAttribute("open");
+                cover.style.visibility= "hidden";
+            }
+            this.togglenavAnimated = false;
         }
     }
 }
@@ -150,14 +160,6 @@ function changeState(targetId){
             .style.color = "#FFB74C";
     }
     
-}
-function closeToggleCover(){
-    let cover = document.querySelector("#togglecover");
-    let status = document.querySelector(".toggle-ul");
-    if (status.getAttribute("open") !== null){
-        status.removeAttribute("open");
-        cover.style.visibility= "hidden";
-    }
 }
 </script>
 <style>
@@ -253,54 +255,6 @@ header nav a {
 }
 header nav a:hover {
     color: var(--main-orange);
-}
-#togglenav-button {
-    margin-right: 10px;
-    margin-left: 10px;
-    /* border: white solid 1px; */
-    width: 40px;
-    height: 40px;
-    border-radius: 5px;
-}
-#togglenav-button a:hover {
-    background: var(--main-orange);
-    border-radius: 100px;
-}
-.toggle-ul {
-    filter:drop-shadow(-5px 5px 5px #000a);
-    position: fixed;
-    z-index: 1;
-    right: 0;
-    top: 60px;
-    /* bottom: 0; */
-    width: 250px;
-    border-left: solid 1px #111;
-    border-bottom: solid 1px #111;
-    background: #111c;
-    transform: translateX(104.0%);
-    transition-duration: 200ms;
-}
-.toggle-ul[open] {
-    transform: translateX(0);
-}
-.toggle-ul ul {
-    margin: 0;
-    padding: 0;
-    display: inline-flex;
-    flex-direction: column;
-    width: inherit;
-}
-.toggle-ul li {
-    height: 50px;
-    width: 100%;
-    list-style-type: none;
-    border-top: solid  #111 1px;
-    /* border-bottom: solid  #111 0px; */
-}
-.toggle-ul a:hover, #togglenav-button a:hover {
-    color: var(--main-orange);
-    /* border-radius: 2px; */
-    cursor: pointer;
 }
 #togglecover {
     background: #0005;
