@@ -58,20 +58,17 @@ export default {
         return {
             contentData: [
                 {
-                    title: "Kitsune Gadget β",
+                    title: "ERROR",
                     titleImage: "",
-                    backImage: require("../../assets/bg2.png"),
-                    text: "そこに何があるのか… 誰も知らない。",
+                    backImage: "",
+                    text: "erRor errOr Error erroR eRror",
                 },
-                {
-                    title: "Imaginary Cube",
-                    titleImage: "",
-                    backImage: require("../../assets/imaginary_cube.gif"),
-                    text: "この不思議なキューブには反重力的な作用があるらしい。",
-                }
             ],
             currentPos: 0
         }
+    },
+    created() {
+        this.contentData = require("../../json/ps_data.json");
     },
     mounted() {
         // element variables
