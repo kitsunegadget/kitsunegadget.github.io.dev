@@ -95,6 +95,7 @@ export default {
     background: #0008;
 }
 .ps-text #text {
+    max-width: calc(100vw - 20px);
     padding: 20px;
     font-size: 0.8em;
     font-weight: lighter;

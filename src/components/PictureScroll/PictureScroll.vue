@@ -20,11 +20,18 @@
                 <div class="ps-under-fixed">
                     <div class="ps-moveable-mark" draggable="true">
                         <img class="ps-square" 
-                            src="../../assets/square_dot.svg" width="15px" height="15px"/>
+                            src="../../assets/square_dot.svg" width="12px" height="12px"/>
                     </div>
-                    <div class="ps-fixed-marks" for draggable="true">
-                        <div id="ps-fixed-mark">●</div>
-                        <div id="ps-fixed-mark">●</div>
+                    <div class="ps-fixed-marks" draggable="true">
+                        <div 
+                            v-for="n in contentData.length"
+                            :key="n"
+                            class="ps-fixed-mark"
+                            :id="n"
+                        >
+                            <img class="ps-square-back" 
+                                src="../../assets/square_dot.svg" width="6px" height="6px"/>
+                        </div>
                     </div>
                 </div>
                 <div 
@@ -57,60 +64,70 @@ export default {
                     text: "そこに何があるのか… 誰も知らない。",
                 },
                 {
-                    title: "",
+                    title: "Imaginary Cube",
                     titleImage: "",
-                    backImage: "",
-                    text: "",
+                    backImage: require("../../assets/imaginary_cube.gif"),
+                    text: "この不思議なキューブには反重力的な作用があるらしい。",
                 }
-            ]
+            ],
+            currentPos: 0
         }
     },
     mounted() {
-        let inContents = document.querySelector(".ps-inside-contents");
-        let xPos = 0; // eslint-disable-line
-        let mouseMoveEv = (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            console.log(event);
-            //inContents.scrollBy(event.movementX, 0);
-        };
-        inContents.addEventListener("mousedown", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            inContents.addEventListener("mousemove", mouseMoveEv);
-        });
-        inContents.addEventListener("mouseup", (event) => {
-            event.preventDefault();
-            event.stopPropagation();
-            inContents.removeEventListener("mousemove", mouseMoveEv);
-        });
+        // element variables
+        this.inContents = document.querySelector(".ps-inside-contents");
+        this.mainContainer = document.querySelector(".ps-main-container");
+        this.scrollWidth = this.mainContainer.scrollWidth;
 
+        // スマホフリック用、動作検討中
+        // let inContents = document.querySelector(".ps-inside-contents");
+        // let xPos = 0; // eslint-disable-line
+        // let mouseMoveEv = (event) => {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     console.log(event);
+        //     //inContents.scrollBy(event.movementX, 0);
+        // };
+        // inContents.addEventListener("mousedown", (event) => {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     inContents.addEventListener("mousemove", mouseMoveEv);
+        // });
+        // inContents.addEventListener("mouseup", (event) => {
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     inContents.removeEventListener("mousemove", mouseMoveEv);
+        // });
+
+        // ポイントからクリックしてスクロール
+        // 遠い位置だとスクロール早くなって気持ち悪い
+        // 矢印ナビでひとつずつ移動させるほうが感触が良い気がする…
+        // let fixedMark = document.querySelectorAll(".ps-fixed-mark");
+        // fixedMark.forEach(mark => {
+        //     mark.addEventListener("click", ()=>{
+        //         this.moveMark(mark.id - 1);
+        //     });
+        // });
     },
     methods: {
         psArrowClick: function(dir) {
-            let inContents = document.querySelector(".ps-inside-contents");
-            let mainContainer = document.querySelector(".ps-main-container");
-            let scrollWidth = mainContainer.scrollWidth;
             if(dir === "Left") {
-                inContents.scrollBy(-scrollWidth, 0);
-                this.moveMark(inContents.scrollLeft, 0);
+                this.moveMark(
+                    this.currentPos - 1 < 0 
+                    ? 0 : this.currentPos - 1);
             }
             else if (dir === "Right") {
-                inContents.scrollBy(scrollWidth, 0);
-                this.moveMark(inContents.scrollLeft, 165);
+                this.moveMark(
+                    this.currentPos + 1 >= this.contentData.length
+                    ? this.currentPos : this.currentPos + 1
+                );
             }
         },
-        moveMark: function(currentPosition, moveX) { // eslint-disable-line
+        moveMark: function(nextPosition) {
+            this.inContents.scroll(this.scrollWidth * nextPosition, 0);
             let mark = document.querySelector(".ps-moveable-mark");
-            if(currentPosition < 0) {
-                mark.style.transform = "translateX(0%)";
-            }
-            else if(currentPosition > window.innerWidth) {
-                mark.style.transform = "translateX(165%)";
-            }
-            else {
-                mark.style.transform = "translateX(" + moveX + "%)";
-            }
+            mark.style.transform = "translateX(" + ((nextPosition * 30) + 4) + "px)";
+            this.currentPos = nextPosition;
         }
     }
 }
@@ -148,6 +165,7 @@ export default {
     /* background: #fffa; */
 }
 .ps-under {
+    margin-top: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -166,31 +184,35 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     color: #fff7;
-    font-size: 1.5em;
+    height: 100%;
 }
-#ps-fixed-mark {
-    padding: 0;
-    display: block;
-    cursor: pointer;
+.ps-fixed-mark {
+    padding-top: 0.5px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     margin: 0px 5px;
-    line-height: 1.1em;
+    height: 100%;
 }
 .ps-moveable-mark {
     margin: 0 5px; 
     position: absolute;
+    z-index: 1;
     color: #fff;
-    font-size: 1.5em;
-    line-height: 1.1em;
-    cursor: pointer;
     transition: transform ease-in-out 0.5s;
+    height: 30px;
     display: flex;
-    height: 100%;
+    transform: translateX(4px);
 }
 .ps-square {
     align-self: center;
     justify-self: center;
+}
+.ps-square-back {
+    opacity: 0.5;
 }
 .ps-button {
     width: 50px;
