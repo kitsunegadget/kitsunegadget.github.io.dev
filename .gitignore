@@ -27,3 +27,4 @@ deploy.bat
 /public/gallery_imgs
 /src/json
 /src/firebaseConfig.json
+src/assets/humbars_48.svg
