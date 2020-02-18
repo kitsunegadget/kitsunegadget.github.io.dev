@@ -138,7 +138,7 @@ export default {
     max-width: 100vw;
     margin: 0 auto;
     /* margin-top: 10px; */
-    margin-bottom: 10px;
+    margin-bottom: 100px;
     animation: fadeIn 1s ease;
 }
 .ps-main-container {
