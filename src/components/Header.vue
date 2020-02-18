@@ -319,7 +319,7 @@ header nav a:hover {
 #togglecover {
     background: #0005;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     visibility: hidden;
     top: 0;
     bottom: 0;
