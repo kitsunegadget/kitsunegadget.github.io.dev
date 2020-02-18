@@ -1,17 +1,30 @@
 <template>
-<div>
     <header>
         <div id="title">
-            <h1><router-link to="/" @click.native="navClick(undefined)">Kitsune Gadget</router-link></h1>
+            <h1>
+                <router-link 
+                    to="/" @click.native="navClick(undefined)">
+                    Kitsune Gadget
+                </router-link>
+            </h1>
         </div>    
         <div id=dummy>
         </div>
         <nav class="header-nav">
             <ul class="normal-ul">
                 <div class="ul-wrap">
-                    <div id="selectionBar"></div>
-                    <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
-                        <router-link :to="navi.url" @click.native="navClick(navi.id)">
+                    <div 
+                        id="selectionBar" 
+                        :style="{ transform: selectionBarTransform }"
+                    />
+                    <li 
+                        v-for="navi in navigations" 
+                        :key="navi.id" 
+                        :id="navi.id">
+                        <router-link 
+                            :to="navi.url" 
+                            @click.native="navClick(navi.id)"
+                            :class="{ activePage: navi.isPage }">
                             {{ navi.text }}
                         </router-link>
                     </li>
@@ -25,9 +38,8 @@
                 @navClick="navClick"
             />
         </nav>
-        <div id="togglecover"></div>
+        <div id="togglecover"/>
     </header>
-</div>
 </template>
 
 <script>
@@ -43,20 +55,24 @@ export default {
                 {
                     id: 0,
                     text: "BIO",
-                    url: "/bio"
+                    url: "/bio",
+                    isPage: false
                 },
                 {
                     id: 1,
                     text: "PRODUCT",
-                    url: "/product"
+                    url: "/product",
+                    isPage: false
                 },
                 {
                     id: 2,
                     text: "GALLERY",
-                    url: "/gallery"
+                    url: "/gallery",
+                    isPage: false
                 },
             ],
-            togglenavAnimated: false
+            togglenavAnimated: false,
+            selectionBarTransform: ""
         }
     },
     created() {
@@ -67,7 +83,7 @@ export default {
     },
     methods: {
         onload() {
-            changeState();
+            this.changeState();
             let cover = document.querySelector("#togglecover");
             cover.addEventListener("click", () => {
                 this.closeToggleCover();
@@ -93,14 +109,14 @@ export default {
             }
         },
         onpopstate() {
-            changeState();
+            this.changeState();
         },
         onscroll() {
             this.closeToggleCover();
         },
 
         navClick(id){
-            changeState(id);
+            this.changeState(id);
             this.closeToggleCover();
         },
         toggleNavClick(){
@@ -124,46 +140,82 @@ export default {
                 cover.style.visibility= "hidden";
             }
             this.togglenavAnimated = false;
-        }
-    }
-}
-function changeState(targetId){
-    document.querySelectorAll(".header-nav .normal-ul li a").forEach(elem => {
-        elem.style.color = "";
-    });
+        },
+        changeState(targetId){
+            this.navigations.forEach((elem)=>{
+                this.$set(
+                    elem,
+                    "isPage", 
+                    false
+                );
+            });
+            // reset transform
+            this.$set(
+                this.$data,
+                "selectionBarTransform", 
+                "translateX(" + -100 + "%) scaleX("+ 0 +")"
+            );
 
-    document.querySelector("#selectionBar")
-        .style.transform = "translateX(-100%) scaleX(0)";
-    let ulWidth = document.querySelector(".header-nav .normal-ul").scrollWidth;
-    let childs = document.querySelector(".header-nav .ul-wrap").childNodes.length - 1;
-    let barWidth = (ulWidth / childs) / ulWidth;
-    let position = -50;
-    if (targetId === undefined)
-    {
-        if (location.pathname === "/product") {
-            position += (barWidth / childs + barWidth * 0) * 100;
-            document.querySelector("#selectionBar")
-                .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")";
-            document.querySelector(".header-nav .normal-ul li[id='0'] a")
-                .style.color = "#FFB74C";
+            let barWidth = 1 / this.navigations.length;
+            let leftPos = - barWidth * 100;
+            if (targetId === undefined)
+            {
+                // 直接ロケーションは一度ルートに戻ってから自動遷移するので
+                // ステート位置保持のため
+                if (location.pathname === "/bio") {
+                    leftPos += barWidth * 100 * 0;
+                    this.$set(
+                        this.$data,
+                        "selectionBarTransform", 
+                        "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
+                    );
+                    this.$set(
+                        this.navigations[0],
+                        "isPage", 
+                        true
+                    );
+                }
+                else if (location.pathname === "/product") {
+                    leftPos += barWidth * 100 * 1;
+                    this.$set(
+                        this.$data,
+                        "selectionBarTransform", 
+                        "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
+                    );
+                    this.$set(
+                        this.navigations[1],
+                        "isPage", 
+                        true
+                    );
+                }
+                else if (location.pathname === "/gallery") {
+                    leftPos += barWidth * 100 * 2;
+                    this.$set(
+                        this.$data,
+                        "selectionBarTransform", 
+                        "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
+                    );
+                    this.$set(
+                        this.navigations[2],
+                        "isPage", 
+                        true
+                    );
+                }
+            } else {
+                leftPos += barWidth * 100 * targetId;
+                this.$set(
+                    this.$data,
+                    "selectionBarTransform", 
+                    "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
+                );
+                this.$set(
+                    this.navigations[targetId],
+                    "isPage", 
+                    true
+                );
+            }
         }
-        else if (location.pathname === "/gallery") {
-            position += (barWidth / childs + barWidth * 1) * 100;
-            document.querySelector("#selectionBar")
-                .style.transform = "translateX(" + position + "%) scaleX(" + barWidth + ")";
-            document.querySelector(".header-nav .normal-ul li[id='1'] a")
-                .style.color = "#FFB74C";
-        }
-    } else {
-        // document.querySelector(".header-nav .normal-ul li[id='" + targetId + "']")
-        //     .style.borderBottom = "solid #FFB74C 2px";
-        position += (barWidth / childs + barWidth * targetId) * 100;
-        document.querySelector("#selectionBar")
-            .style.transform = "translateX(" + (position) + "%) scaleX(" + barWidth + ")";
-        document.querySelector(".header-nav .normal-ul li[id='" + targetId + "'] a")
-            .style.color = "#FFB74C";
     }
-    
 }
 </script>
 <style>
@@ -217,13 +269,14 @@ header nav .normal-ul {
     padding: 0;
     display: flex;
     flex: 1 1 auto;
+    justify-content: flex-end;
     height: inherit;
 }
 header nav .normal-ul[narrow] {
     display: none;
 }
 .ul-wrap {
-    position: absolute;
+    position: relative;
     right: 0;
     display: flex;
     height: 100%;
@@ -259,6 +312,9 @@ header nav a {
 }
 header nav a:hover {
     color: var(--main-orange);
+}
+.activePage {
+    color: #FFB74C;
 }
 #togglecover {
     background: #0005;

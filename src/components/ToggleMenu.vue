@@ -31,7 +31,10 @@
     <div class="toggle-ul">
         <ul>
             <li v-for="navi in navigations" :key="navi.id" :id="navi.id">
-                <router-link :to="navi.url" @click.native="$emit('navClick', navi.id)">
+                <router-link 
+                    :to="navi.url" 
+                    @click.native="$emit('navClick', navi.id)"
+                    :class="{ activePage: navi.isPage }">
                     {{ navi.text }}
                 </router-link>
             </li>
