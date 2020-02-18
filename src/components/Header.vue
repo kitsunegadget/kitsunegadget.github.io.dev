@@ -276,7 +276,7 @@ header nav .normal-ul[narrow] {
     display: none;
 }
 .ul-wrap {
-    position: relative;
+    position: absolute;
     right: 0;
     display: flex;
     height: 100%;
