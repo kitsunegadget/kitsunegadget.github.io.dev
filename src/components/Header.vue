@@ -42,11 +42,16 @@ export default {
             navigations: [
                 {
                     id: 0,
+                    text: "BIO",
+                    url: "/bio"
+                },
+                {
+                    id: 1,
                     text: "PRODUCT",
                     url: "/product"
                 },
                 {
-                    id: 1,
+                    id: 2,
                     text: "GALLERY",
                     url: "/gallery"
                 },

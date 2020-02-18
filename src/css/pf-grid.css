@@ -1,6 +1,6 @@
 #dock{
     margin:auto;
-    padding-bottom: 10px; 
+    /* padding-bottom: 10px;  */
     max-width: 700px;
 }
 
@@ -12,7 +12,7 @@
     display: grid;
     grid-template-rows: 1fr 50% 1fr; 
     grid-template-columns: 1fr 50% 1fr;
-    animation: fadeIn 2s ease;
+    /* animation: fadeIn 2s ease; */
 }
 .pf_wrap p{
     line-height: 15px;
@@ -22,20 +22,23 @@
     margin: 1px 0 0 -8px;
 }
 .icon_delay{
-    animation: fadeIn 1s ease;
+    animation: fadeIn 0.75s ease;
 }
 .str_delay{
-    animation: fadeIn 3s ease-in;
+    animation: fadeIn 0.75s ease-in;
 }
 #pficon{
     grid-row: 2/3;
     grid-column: 2/3;
     position: relative;
+    z-index: 1;
     /* width: 100%; */
     margin: auto;
     text-align: center;
-    animation: moving ease 2s forwards;
-    transform: translateY(-200%);
+    /* animation: fadeIn ease 0.5s forwards; */
+    /* transform: rotateZ(-90deg); */
+    /* animation: moving ease 0.75s forwards; */
+    /* transform: translateY(-200%); */
 }
 #pficon span::before {
     position: absolute;
@@ -47,15 +50,49 @@
     z-index: 0;
     /* border: dashed #009B9F 11px; */
     border: dashed #E3A262 11px;
-    border-radius: 90px;
+    border-radius: 100px;
     animation: gear 10s linear infinite;
     opacity: 0.95;
+}
+#gear2 {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    padding: 10px;
+    z-index: -1;
+    top: 110px;
+    left: 135px;
+    box-sizing: content-box;
+    background: #000a;
+    background-clip: content-box;
+    border-radius: 100px;
+    border: dashed #000a 11px;
+    animation: gear2 6.65s linear infinite;
+}
+#gear3 {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    /* padding: 10px; */
+    z-index: -1;
+    top: -20px;
+    left: -55px;
+    box-sizing: content-box;
+    background: #000a;
+    background-clip: content-box;
+    border-radius: 100px;
+    border: dashed #000a 11px;
+    animation: gear2 6s linear infinite;
 }
 @keyframes gear {
     100% { transform: rotate(360deg);}
 }
+@keyframes gear2 {
+    100% { transform: rotate(-360deg);}
+}
 @keyframes moving{
-    100% { transform: translateY(0); }
+    /* 100% { transform: translateY(0); } */
+    100% { transform: translate(0);}
 }
 #pficon span{
     /* position: relative;
@@ -66,10 +103,16 @@
     /* position: relative; */
     border-radius: 90px;
 }
-#line1{
-    position: absolute;
+.pf-name {
+    position: relative;
     grid-row: 2/3;
     grid-column: 3/4;
+    animation: moving ease-out 0.75s forwards;
+    transform: translateX(10%) translateY(-5%);
+}
+.pf-name span { color: var(--main-orange);} 
+#line1{
+    position: absolute;
     color: #eee;
     left: -14px;
     top: -28px;
@@ -78,8 +121,6 @@
 }
 #line2{
     position: absolute;
-    grid-row: 2/3;
-    grid-column: 3/4;
     color: #eee;
     left: -95px;
     top: 25px;
@@ -87,16 +128,20 @@
     transform: rotate(135deg);
 }
 #nameplate{
-    grid-row: 2/3;
-    grid-column: 3/4;
     color: #eee;
     position: absolute;
     left: -5px;
 }
-#line3{
-    position: absolute;
+.pf-interest {
+    position: relative;
     grid-row: 3/4;
     grid-column: 1/2;
+    animation: moving ease-out 0.75s forwards;
+    transform: translateX(-5%) translateY(10%);
+}
+.pf-interest span { color: var(--main-orange);} 
+#line3{
+    position: absolute;
     color: #eee;
     top: -33px;
     right: -30px;
@@ -104,8 +149,6 @@
 }
 #line4{
     position: absolute;
-    grid-row: 3/4;
-    grid-column: 1/2;
     color: #eee;
     right: -86px;
     top: -42px;
@@ -114,8 +157,6 @@
 }
 #interest{
     color: #eee;
-    grid-row: 3/4;
-    grid-column: 1/2;
     position: absolute;
     right: -26px;
     top: -4px;

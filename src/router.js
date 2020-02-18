@@ -14,6 +14,11 @@ export default new Router({
       component: Home
     },
     {
+      path: '/bio',
+      name: 'bio',
+      component: () => import('./views/Bio.vue')
+    },
+    {
       path: '/product',
       name: 'product',
       // route level code-splitting

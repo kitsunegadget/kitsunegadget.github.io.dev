@@ -7,30 +7,36 @@
                 <span>
                     <img src="../assets/pficon2.png" height="160" width="160" title="uchinoko">
                 </span>
+                <div id="gear2"/>
+                <div id="gear3"/>  
             </div>
-            <div id="line1" class="str_delay">
-                <p class="moving-literal">NAME</p>
-                <hr />
+            <div class="pf-name">
+                <div id="line1" class="str_delay">
+                    <p class="moving-literal">N<span>A</span>ME</p>
+                    <hr />
+                </div>
+                <div id="line2" class="str_delay">
+                    <hr />
+                </div>
+                <div id="nameplate" class="str_delay">
+                    <p class="moving-literal"> Yu\w* (beta)</p>
+                </div>
             </div>
-            <div id="line2" class="str_delay">
-                <hr />
-            </div>
-            <div id="nameplate" class="str_delay">
-                <p class="moving-literal"> Yu\w* (beta)</p>
-            </div>
-            <div id="line3" class="str_delay">
-                <p class="moving-literal">INTEREST</p>
-                <hr />
-            </div>
-            <div id="line4" class="str_delay">
-                <hr />
-            </div>
-            <div id="interest" class="str_delay">
-                <p class="moving-literal">Video Game</p>
-                <p class="moving-literal">Programming</p>
-                <p class="moving-literal">Illust</p>
-                <p class="moving-literal">Sound</p>
-                <p></p>
+            <div class="pf-interest">
+                <div id="line3" class="str_delay">
+                    <p class="moving-literal">INTER<span>E</span>ST</p>
+                    <hr />
+                </div>
+                <div id="line4" class="str_delay">
+                    <hr />
+                </div>
+                <div id="interest" class="str_delay">
+                    <p class="moving-literal"><span>V</span>ideo Game</p>
+                    <p class="moving-literal">Pro<span>g</span>ramming</p>
+                    <p class="moving-literal">I<span>l</span>lust</p>
+                    <p class="moving-literal">Sound</p>
+                    <p></p>
+                </div>
             </div>
         </div>
     </div>
