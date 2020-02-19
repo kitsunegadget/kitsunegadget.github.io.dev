@@ -5,7 +5,10 @@
         <div class="fixed-spacing"></div>
         <router-view />
         <Footer />
-        <div class="pageup-button" @click="pageUp">
+        <div 
+            class="pageup-button" 
+            :active="isPageUpButton"
+            @click="pageUp">
             <i class="fas fa-angle-up upcolor"></i>
         </div>
     </div>
@@ -23,24 +26,36 @@ export default {
         Header,
         Footer
     },
+    data() {
+        return {
+            isPageUpButton: false
+        }
+    },
     created: function(){
         window.addEventListener("scroll", this.onScroll);
         this.autoAuthFirebase();
     },
     methods: {
         onScroll: function() {
-            let upButton = document.querySelector(".pageup-button");
-            if(window.scrollY >= 450){
-                upButton.setAttribute("fading", "");
+            if(window.scrollY > 0){
+                this.$set(
+                    this.$data,
+                    "isPageUpButton",
+                    true
+                );
             }
             else {
-                upButton.removeAttribute("fading");
+                this.$set(
+                    this.$data,
+                    "isPageUpButton",
+                    false
+                );
             }
         },
         pageUp: function() {
             //console.log(window.navigator.userAgent);
             //scroll-behavier はSafariとIEが対応してないので振り分け
-            //IEはしらん…Edgeは今後Chrominumベースになるので対応はしない
+            //IEはしらん…EdgeはChrominumベースになったので対応はしない
             let userAgent = window.navigator.userAgent.toLowerCase();
             if (userAgent.indexOf("chrome") != -1){
                 //動かすときにscrollBehaviorをSmooth
@@ -140,7 +155,7 @@ body {
     transition: opacity 0.5s ease 0.05s;
     pointer-events: none;
 }
-.pageup-button[fading] {
+.pageup-button[active] {
     pointer-events: auto;
     opacity: 1;
 }

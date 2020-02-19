@@ -1,11 +1,15 @@
 <template>
     <div id="dock">
         <div class="pf_wrap">
-            <div id="dummy">
-            </div>
+            <div id="dummy"/>
             <div id="pficon" class="icon_delay">
                 <span>
-                    <img src="../assets/pficon2.png" height="160" width="160" title="uchinoko">
+                    <img 
+                        src="../assets/pficon2.png" 
+                        height="160" 
+                        width="160" 
+                        title="uchinoko"
+                    />
                 </span>
                 <div id="gear2"/>
                 <div id="gear3"/>  
@@ -159,5 +163,5 @@ var movingLiteral = { // eslint-disable-line no-unused-vars
 
 <style>
 @import '../variables.css';
-@import '../css/pf-grid.css';
+@import '../css/bio-grid.css';
 </style>

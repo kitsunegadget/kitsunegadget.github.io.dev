@@ -2,7 +2,10 @@
     <div class="product">
         <center style="opacity: 0.3;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
         <div class="product-wrap">
-            <article id="product-box" v-for="prd in products" :key="prd.id">
+            <article 
+                id="product-box" 
+                v-for="prd in products" 
+                :key="prd.id">
                 <h2 id="product-name">{{ prd.title }}</h2>
                 <span id="image">
                     <img :src="prd.img" />

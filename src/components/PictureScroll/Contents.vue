@@ -1,11 +1,16 @@
 <template>
     <li class="ps-content">
         <div class="ps-backImage">
-            <img id="backImg" :src="view.backImage"/>
+            <img 
+                id="backImg" 
+                :src="view.backImage"
+            />
         </div>
         <div class="ps-content-inside">
             <div class="ps-title">
-                <div id="titleImage"></div>
+                <div id="titleImage">
+
+                </div>
                 <div id="titleText">
                     {{view.title}}
                 </div>

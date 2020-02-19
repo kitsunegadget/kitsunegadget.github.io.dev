@@ -1,46 +1,64 @@
 <template>
     <div class="pictureScroll">
         <div class="ps-main-container">
-            <ul class="ps-inside-contents">
+            <ul 
+                class="ps-inside-contents" 
+                v-scrolling:[currentPos]>
                 <Contents 
                     v-for="content in contentData" 
                     :key="content.id" 
                     :view="content"
                 />
             </ul>
-            <div class="ps-under">
+            <div class="ps-under" draggable="true">
                 <div 
-                    class="ps-button ps-left-button" 
-                    draggable="true" 
-                    @click="psArrowClick('Left')"
-                >
-                    <img class="ps-arrow" id="left-arrow" 
-                        src="../../assets/arrow_dot.svg" width="25px" height="25px"/>
+                    class="ps-button ps-left-button"
+                    @click="psArrowClick('Left')">
+                    <img 
+                        class="ps-arrow" 
+                        id="left-arrow" 
+                        src="../assets/arrow_dot.svg" 
+                        width="25px" 
+                        height="25px"
+                    />
                 </div>
                 <div class="ps-under-fixed">
-                    <div class="ps-moveable-mark" draggable="true">
-                        <img class="ps-square" 
-                            src="../../assets/square_dot.svg" width="12px" height="12px"/>
+                    <div 
+                        class="ps-moveable-mark"
+                        :style="{ transform: moveMarkTransform }">
+                        <img 
+                            class="ps-square"
+                            src="../assets/square_dot.svg" 
+                            width="12px" 
+                            height="12px"
+                        />
                     </div>
                     <div class="ps-fixed-marks" draggable="true">
                         <div 
                             v-for="n in contentData.length"
                             :key="n"
                             class="ps-fixed-mark"
-                            :id="n"
-                        >
-                            <img class="ps-square-back" 
-                                src="../../assets/square_dot.svg" width="6px" height="6px"/>
+                            :id="n">
+                            <img 
+                                class="ps-square-back" 
+                                src="../assets/square_dot.svg" 
+                                width="6px" 
+                                height="6px"
+                            />
                         </div>
                     </div>
                 </div>
                 <div 
                     class="ps-button ps-right-button" 
                     draggable="true" 
-                    @click="psArrowClick('Right')"
-                >
-                    <img class="ps-arrow" id="right-arrow" 
-                        src="../../assets/arrow_dot.svg" width="25px" height="25px"/>
+                    @click="psArrowClick('Right')">
+                    <img 
+                        class="ps-arrow" 
+                        id="right-arrow" 
+                        src="../assets/arrow_dot.svg" 
+                        width="25px" 
+                        height="25px"
+                    />
                 </div>
             </div>
         </div>
@@ -48,7 +66,7 @@
 </template>
 
 <script>
-import Contents from "./Contents.vue"
+import Contents from "./PictureScroll/Contents.vue"
 
 export default {
     components: {
@@ -64,18 +82,14 @@ export default {
                     text: "erRor errOr Error erroR eRror",
                 },
             ],
-            currentPos: 0
+            currentPos: 0,
+            moveMarkTransform: "translateX(4px)",
         }
     },
     created() {
-        this.contentData = require("../../json/ps_data.json");
+        this.contentData = require("../json/ps_data.json");
     },
     mounted() {
-        // element variables
-        this.inContents = document.querySelector(".ps-inside-contents");
-        this.mainContainer = document.querySelector(".ps-main-container");
-        this.scrollWidth = this.mainContainer.scrollWidth;
-
         // スマホフリック用、動作検討中
         // let inContents = document.querySelector(".ps-inside-contents");
         // let xPos = 0; // eslint-disable-line
@@ -102,28 +116,34 @@ export default {
         // let fixedMark = document.querySelectorAll(".ps-fixed-mark");
         // fixedMark.forEach(mark => {
         //     mark.addEventListener("click", ()=>{
-        //         this.moveMark(mark.id - 1);
+        //         this.moveContent(mark.id - 1);
         //     });
         // });
+    },
+    directives: {
+        // currentPos更新時にスクロール
+        scrolling: {
+            update: function(el, binding) {
+                el.scroll(el.scrollWidth * binding.arg, 0);
+            }
+        }
     },
     methods: {
         psArrowClick: function(dir) {
             if(dir === "Left") {
-                this.moveMark(
+                this.moveContent(
                     this.currentPos - 1 < 0 
                     ? 0 : this.currentPos - 1);
             }
             else if (dir === "Right") {
-                this.moveMark(
+                this.moveContent(
                     this.currentPos + 1 >= this.contentData.length
                     ? this.currentPos : this.currentPos + 1
                 );
             }
         },
-        moveMark: function(nextPosition) {
-            this.inContents.scroll(this.scrollWidth * nextPosition, 0);
-            let mark = document.querySelector(".ps-moveable-mark");
-            mark.style.transform = "translateX(" + ((nextPosition * 30) + 4) + "px)";
+        moveContent: function(nextPosition) {
+            this.moveMarkTransform = "translateX(" + ((nextPosition * 30) + 4) + "px)";
             this.currentPos = nextPosition;
         }
     }

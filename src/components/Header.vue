@@ -3,15 +3,18 @@
         <div id="title">
             <h1>
                 <router-link 
-                    to="/" @click.native="navClick(undefined)">
+                    to="/" 
+                    @click.native="navClick(undefined)">
                     Kitsune Gadget
                 </router-link>
             </h1>
         </div>    
         <div id=dummy>
         </div>
-        <nav class="header-nav">
-            <ul class="normal-ul">
+        <nav class="header-nav" draggable="true">
+            <ul 
+                class="normal-ul"
+                :narrow="narrowNormalUl">
                 <div class="ul-wrap">
                     <div 
                         id="selectionBar" 
@@ -32,18 +35,23 @@
             </ul>
             <!-- レスポンシブ用トグルメニュー -->
             <ToggleMenu
-                :navigations=navigations
-                :animated=togglenavAnimated
-                @toggleClick="toggleNavClick"
+                :navigations="navigations"
+                :buttonAnimated="toggleButtonAnimated"
+                :navOpened="toggleNavOpened"
+                @buttonClick="toggleButtonClick"
                 @navClick="navClick"
             />
         </nav>
-        <div id="togglecover"/>
+        <div 
+            id="togglecover" 
+            :style="{ visibility: toggleCoverVisibility }"
+            @click="closeToggleCover"
+        />
     </header>
 </template>
 
 <script>
-import ToggleMenu from "./ToggleMenu.vue";
+import ToggleMenu from "./Header/ToggleMenu.vue";
 
 export default {
     components: {
@@ -71,148 +79,102 @@ export default {
                     isPage: false
                 },
             ],
-            togglenavAnimated: false,
-            selectionBarTransform: ""
+            toggleButtonAnimated: false,
+            toggleNavOpened: false,
+            selectionBarTransform: "",
+            toggleCoverVisibility: "hidden",
+
+            narrowNormalUl: false
         }
     },
     created() {
-        window.addEventListener("load", this.onload);
         window.addEventListener("popstate", this.onpopstate);
         window.addEventListener("resize", this.onresize);
         document.addEventListener("scroll", this.onscroll);
     },
+    mounted() {
+        this.changeStateOnLoad();
+        this.onresize();
+    },
+    beforeDestroy() {
+        // headerコンポーネントの削除はしないが、リスナ削除はとりあえず書いておく
+        window.removeEventListener("popstate", this.onpopstate);
+        window.removeEventListener("resize", this.onresize);
+        document.removeEventListener("scroll", this.onscroll);
+    },
     methods: {
-        onload() {
-            this.changeState();
-            let cover = document.querySelector("#togglecover");
-            cover.addEventListener("click", () => {
-                this.closeToggleCover();
-            });
-            let headernav = document.querySelector(".header-nav");
-            let normalul = document.querySelector(".normal-ul");
-            if (headernav.scrollWidth < 300)
+        onresize: function() {
+            // リサイズ発火頻度は多いのでlodash _.debounceを利用するのも検討
+            if (window.innerWidth < 800)
             {
-                headernav.setAttribute("narrow", "");
-                normalul.setAttribute("narrow", "");
-            }
-        },
-        onresize() {
-            let headernav = document.querySelector(".header-nav");
-            let normalul = document.querySelector(".normal-ul");
-            if (headernav.scrollWidth < 300)
-            {
-                headernav.setAttribute("narrow", "");
-                normalul.setAttribute("narrow", "");
-            } else {
-                headernav.removeAttribute("narrow");
-                normalul.removeAttribute("narrow");
+                this.narrowNormalUl = true;
+            } 
+            else {
+                this.narrowNormalUl = false;
             }
         },
         onpopstate() {
             this.changeState();
         },
         onscroll() {
-            this.closeToggleCover();
+            // スクロール中何度も実行されるため
+            // toggleNavOpened条件で1回のみトリガーさせる検討
+            if (this.toggleNavOpened) {
+                this.closeToggleCover();
+            }
         },
 
         navClick(id){
             this.changeState(id);
             this.closeToggleCover();
         },
-        toggleNavClick(){
-            let cover = document.querySelector("#togglecover");
-            let status = document.querySelector(".toggle-ul");
-            if (status.getAttribute("open") === null){
-                status.setAttribute("open", "");
-                cover.style.visibility = "visible";
+        toggleButtonClick(){
+            if (this.toggleNavOpened){
+                this.toggleNavOpened = false;
+                this.toggleButtonAnimated = false;
+                this.toggleCoverVisibility = "hidden";
             }
             else {
-                status.removeAttribute("open");
-                cover.style.visibility= "hidden";
+                this.toggleNavOpened = true;
+                this.toggleButtonAnimated = true;
+                this.toggleCoverVisibility = "visible";
             }
-            this.togglenavAnimated = !this.togglenavAnimated;
         },
         closeToggleCover(){
-            let cover = document.querySelector("#togglecover");
-            let status = document.querySelector(".toggle-ul");
-            if (status.getAttribute("open") !== null){
-                status.removeAttribute("open");
-                cover.style.visibility= "hidden";
-            }
-            this.togglenavAnimated = false;
+            this.toggleNavOpened = false;
+            this.toggleButtonAnimated = false;
+            this.toggleCoverVisibility = "hidden";
         },
         changeState(targetId){
+            // reset isPage
             this.navigations.forEach((elem)=>{
-                this.$set(
-                    elem,
-                    "isPage", 
-                    false
-                );
+                elem.isPage = false;
             });
             // reset transform
-            this.$set(
-                this.$data,
-                "selectionBarTransform", 
-                "translateX(" + -100 + "%) scaleX("+ 0 +")"
-            );
+            this.selectionBarTransform = "translateX(" + -100 + "%) scaleX("+ 0 +")";
 
-            let barWidth = 1 / this.navigations.length;
-            let leftPos = - barWidth * 100;
-            if (targetId === undefined)
-            {
-                // 直接ロケーションは一度ルートに戻ってから自動遷移するので
-                // ステート位置保持のため
-                if (location.pathname === "/bio") {
-                    leftPos += barWidth * 100 * 0;
-                    this.$set(
-                        this.$data,
-                        "selectionBarTransform", 
-                        "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
-                    );
-                    this.$set(
-                        this.navigations[0],
-                        "isPage", 
-                        true
-                    );
-                }
-                else if (location.pathname === "/product") {
-                    leftPos += barWidth * 100 * 1;
-                    this.$set(
-                        this.$data,
-                        "selectionBarTransform", 
-                        "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
-                    );
-                    this.$set(
-                        this.navigations[1],
-                        "isPage", 
-                        true
-                    );
-                }
-                else if (location.pathname === "/gallery") {
-                    leftPos += barWidth * 100 * 2;
-                    this.$set(
-                        this.$data,
-                        "selectionBarTransform", 
-                        "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
-                    );
-                    this.$set(
-                        this.navigations[2],
-                        "isPage", 
-                        true
-                    );
-                }
-            } else {
+            if (targetId !== undefined) {
+                let barWidth = 1 / this.navigations.length;
+                let leftPos = - barWidth * 100;
+
                 leftPos += barWidth * 100 * targetId;
-                this.$set(
-                    this.$data,
-                    "selectionBarTransform", 
+                this.selectionBarTransform = 
                     "translateX(" + leftPos + "%) scaleX("+ barWidth +")"
-                );
-                this.$set(
-                    this.navigations[targetId],
-                    "isPage", 
-                    true
-                );
+                this.navigations[targetId].isPage = true;
+            }
+        },
+        changeStateOnLoad() {
+            // githubPagesでの直接ロケーションは
+            // 一度ルートに戻ってから自動遷移するので
+            // パスごとのステート位置保持のため
+            if (location.pathname === "/bio") {
+                this.changeState(0);
+            }
+            else if (location.pathname === "/product") {
+                this.changeState(1);
+            }
+            else if (location.pathname === "/gallery") {
+                this.changeState(2);
             }
         }
     }
@@ -229,7 +191,6 @@ header {
     height: 60px;
     /* background-color: var(--main-black); */
 }
-
 header #dummy {
     flex: 1;
 }
@@ -259,9 +220,6 @@ header nav {
     justify-content: flex-end;
     height: inherit;
     margin-left: -40px;
-}
-header nav[narrow] {
-    justify-content: flex-end;
 }
 header nav .normal-ul {
     position: relative;

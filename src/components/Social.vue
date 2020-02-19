@@ -1,31 +1,37 @@
 <template>
     <div id="social">
-        <div class="content-2-dock">
-            <!-- <h3 id="social-title">Links</h3> -->
-            <ul>
-                <li v-for="social in socials" :key="social.id">
-                    <a :href="social.url" target="_blank" rel="noopener">
-                        <i :class="social.tag"></i>
-                        <img :class="social.imgcls" :src="social.img" :height="social.size" :width="social.size">
-                    </a>
-                </li>
-            </ul>
-            <nav id="nav">
-                <p>
-                    <a href="http://www.nicovideo.jp/user/53050562" target="_blank"></a>
-                </p>
-                <p>
-                    <a></a>
-                </p>
-                <p>
-                    <a href="https://kitsune-gadget.hatenablog.com" target="_blank"></a>
-                </p>
-                <p>
-                    <a></a>
-                </p>
-
-            </nav>
-        </div>
+        <ul>
+            <li 
+                v-for="social in socials" 
+                :key="social.id">
+                <a 
+                    :href="social.url" 
+                    target="_blank" 
+                    rel="noopener">
+                    <i :class="social.tag"></i>
+                    <img 
+                        :class="social.imgcls" 
+                        :src="social.img" 
+                        :height="social.size" 
+                        :width="social.size"
+                    />
+                </a>
+            </li>
+        </ul>
+        <nav id="nav">
+            <p>
+                <a href="http://www.nicovideo.jp/user/53050562" target="_blank"></a>
+            </p>
+            <p>
+                <a></a>
+            </p>
+            <p>
+                <a href="https://kitsune-gadget.hatenablog.com" target="_blank"></a>
+            </p>
+            <p>
+                <a></a>
+            </p>
+        </nav>
     </div>
 </template>
 
@@ -64,9 +70,6 @@ export default {
                 }
             ]
         }
-    },
-    computed: {
-        
     }
 }
 </script>

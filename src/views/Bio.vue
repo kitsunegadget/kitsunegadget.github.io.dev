@@ -1,16 +1,16 @@
 <template>
     <div>
-        <Content1PfGrid />
-        <Content2Social />
+        <BioGrid />
+        <Social />
     </div>
 </template>
 <script>
-import Content1PfGrid from '../components/Content1PfGrid';
-import Content2Social from '../components/Content2Social';
+import BioGrid from '../components/BioGrid';
+import Social from '../components/Social';
 export default {
     components: {
-        Content1PfGrid,
-        Content2Social
+        BioGrid,
+        Social
     }
 }
 </script>
