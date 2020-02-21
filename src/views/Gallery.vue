@@ -1,44 +1,60 @@
 <template>
     <div class="gallery">
         <div class="sort-menu"></div>
-        <div class="wrap-box" v-show="wrapDisplay">
-            <article id="gallery-box" v-for="(pic, index) in pictures" :key="pic.date">
-                <img :id="index" :src="pic.url" class="image" @click="clickImage(pic, $event)" />
+        <div 
+            class="wrap-box" 
+            v-show="isWrapDisplay"
+            draggable="false"
+        >
+            <article 
+                id="gallery-box" 
+                v-for="(pic, index) in pictures" 
+                :key="pic.date"
+                v-resize:[windowInnerWidth]
+            >
+                <img 
+                    :id="index" 
+                    :src="pic.url" 
+                    class="image" 
+                    @click="clickImage(index)"
+                    draggable="false"
+                />
             </article>
         </div>
-        <div class="loading-wrap" v-show="loading">
-            <h2>Loading</h2>
+         <!-- Vueのenter/leaveトランジションが動いてくれないので属性のonOffで対応  -->
+        <div 
+            class="loading-wrap" 
+            v-show="loadingDisplay"
+        >
+            <h2
+                :complete="loaded">
+                Loading
+            </h2>
         </div>
-
-        <div class="overlay" @click="clickOverlay" disable>
-            <div class="picture-title">
-                <h2>Loading...</h2>
-            </div>
-            <div class="picture-main">
-                <div id="left-side" @click.stop="prev()">
-                    <i class="fas fa-arrow-left" v-show="isActiveLeftButton"></i>
-                </div>
-                <div id="picture">
-                    <img id="overlay-image" src="" draggable="true">
-                </div>
-                <div id="right-side" @click.stop="next()">
-                    <i class="fas fa-arrow-right" v-show="isActiveRightButton"></i>
-                </div>
-            </div>
-            <div class="close-button">
-                <i class="fas fa-times"></i>
-            </div>
-        </div>
+        <!-- 画像拡大時のオーバーレイ -->
+        <Overlay
+            v-show="isShowOverlay"
+            :pictures="pictures"
+            :currentPos="selectImagePos"
+            @changePos="setImagePos"
+            @baseDisplay="switchWrapDisplay"
+            @show="switchOverlay"
+            @scroll="setScroll"
+        />
     </div>
 </template>
 
 <script>
+import Overlay from "../components/Gallery/Overlay.vue"
 // import axios from 'axios';
 import { firestore } from "firebase/app";
 import "firebase/firestore";
 const gallery_store = firestore().collection("gallery");
 
 export default {
+    components: {
+        Overlay
+    },
     data() {
         return {
             pictures: [
@@ -47,64 +63,58 @@ export default {
                 //     title: "Loading...",
                 //     img: "",
                 //     tag: "",
-                //     thumPoint: "up"
                 // }
             ],
-            loading: true,
-            wrapDisplay: false,
-            isActiveLeftButton: true,
-            isActiveRightButton: true,
+            loaded: false,
+            loadingDisplay: true,
+            isWrapDisplay: false,
+            windowInnerWidth: window.innerWidth,
+
+            isShowOverlay: false,
             scrollPosition: {
-                X: Number,
-                Y: Number
+                X: 0,
+                Y: 0
             },
-            currentImagePos: Number,
+            selectImagePos: 0
         }
     },
     created: function() {
         this.getData().then(() => {
-           this.changeBoxSize();
-           let loadingWrap = document.querySelector(".loading-wrap");
-           loadingWrap.setAttribute("complete", "");
-           setTimeout(() => {
-               loadingWrap.style.display = "none";
-               this.wrapDisplay = true;
-           }, 500)
+            this.loaded = true;
+            setTimeout(() => {
+                this.loadingDisplay = false;
+                this.switchWrapDisplay(true);
+            }, 500)
         });
+
         window.addEventListener("resize", this.onresize);
     },
     destroyed: function() {
         window.removeEventListener("resize", this.onresize);
     },
-    mounted: function() {
-        this.changeBoxSize();
+    directives: {
+        resize: {
+            update: function(el) {
+                // console.log("update");
+                if(window.innerWidth < 615) {
+                    el.style.width = "49vw";
+                    el.style.height = "49vw"
+                    el.style.marginLeft = "0";
+                    el.style.marginBottom = "2px";
+                }
+                else {
+                    el.style.width = "200px"
+                    el.style.height = "calc(200px * 3/4)"
+                    el.style.marginLeft = "2px";
+                    el.style.marginBottom = "25px";
+                }
+            }
+        }
     },
     methods: {
         onresize: function() {
-            this.changeBoxSize();
-        },
-        changeBoxSize: function () {
-            let gallerybox = document.querySelectorAll("#gallery-box");
-            let wrapbox = document.querySelector(".wrap-box");
-            if (window.innerWidth < 615)
-            {
-                gallerybox.forEach(elem => {
-                    elem.style.width = "49vw"
-                    elem.style.height = "49vw"
-                    elem.style.marginLeft = "0";
-                });
-                wrapbox.style.justifyContent = "space-around";
-                
-            } 
-            else
-            {
-                gallerybox.forEach(elem => {
-                    elem.style.width = "300px"
-                    elem.style.height = "180px"
-                    elem.style.marginLeft = "2px";
-                });
-                wrapbox.style.justifyContent = "center";
-            }
+            // debounce案件
+            this.windowInnerWidth = window.innerWidth;
         },
         getData: async function (debug=false) {
             if(!debug) {
@@ -153,76 +163,28 @@ export default {
             //         console.log("json error");
             //     });
         },
-        clickImage: function(picture, event) {
-            let overlayImage = document.querySelector(".gallery #overlay-image");
-            let pictureTitle = document.querySelector(".picture-title h2");
-            overlayImage.setAttribute("src", picture.url);
-            pictureTitle.innerText = picture.title;
-
-            let overlay = document.querySelector(".gallery .overlay");
-            let wrapbox = document.querySelector(".gallery .wrap-box");
-            overlay.removeAttribute("disable");
+        clickImage: function(index) {
+            this.selectImagePos = index;
+            this.switchOverlay(true);
 
             this.scrollPosition.X = window.scrollX;
             this.scrollPosition.Y = window.scrollY;
-            //this.wrapDisplay = false; こっちだとなぜかスクロールが戻らなかった
-            wrapbox.style.display = "none";
 
-            //console.log(event.target.id, this.pictures.length);
-            this.currentImagePos = parseInt(event.target.id);
-            this.switchSideButton();
+            this.switchWrapDisplay(false);
         },
-        clickOverlay: function() {
-            let overlay = document.querySelector(".gallery .overlay");
-            let wrapbox = document.querySelector(".gallery .wrap-box");
-            overlay.setAttribute("disable","");
-            //前回の画像が一瞬表示されるのを防ぐため、空にしておく
-            let overlayImage = document.querySelector(".gallery #overlay-image");
-            overlayImage.setAttribute("src", "");
-
-            //this.wrapDisplay = true; こっちだとなぜかスクロールが戻らなかった
-            wrapbox.style.display = "flex";
-            document.body.style.overflowY = "scroll";
+        switchWrapDisplay: function(bool) {
+            this.isWrapDisplay = bool;
+        },
+        switchOverlay: function(bool) {
+            this.isShowOverlay = bool;
+        },
+        setScroll: function() {
             //スクロール位置を戻す前にsmoothを切る
             document.documentElement.style.scrollBehavior = ""
             window.scroll(this.scrollPosition.X, this.scrollPosition.Y);
-            // console.log(this.scrollPosition.Y);
         },
-        prev: function() {
-            if(this.currentImagePos > 0) {
-                this.currentImagePos--;
-                this.transitionImage();
-                this.switchSideButton();
-            }
-        },
-        next: function() {
-            if(this.currentImagePos < this.pictures.length - 1) {
-                this.currentImagePos++;
-                this.transitionImage();
-                this.switchSideButton();
-            }
-        },
-        transitionImage: function() {
-            let overlayImage = document.querySelector(".gallery #overlay-image");
-            let pictureTitle = document.querySelector(".picture-title h2");
-            overlayImage.style.opacity = "0";
-            window.setTimeout(() => { //トランジションのためのタイムアウト
-                overlayImage.setAttribute("src", this.pictures[this.currentImagePos].url);
-                pictureTitle.innerText = this.pictures[this.currentImagePos].title;
-                overlayImage.style.opacity = "1";
-            }, 250);
-        },
-        switchSideButton: function() {
-            if (this.currentImagePos === 0) {
-                this.isActiveLeftButton = false;
-            } else {
-                this.isActiveLeftButton = true;
-            }
-            if (this.currentImagePos + 1 === this.pictures.length) {
-                this.isActiveRightButton = false;
-            } else {
-                this.isActiveRightButton = true;
-            }
+        setImagePos: function(n) {
+            this.selectImagePos = n;
         }
     }
 }
@@ -231,24 +193,25 @@ export default {
 <style>
 @import '../variables.css';
 .gallery {
-    margin: auto;
+    /* margin: auto; */
     max-width: 1200px;
+    min-height: 544px;
+    width: 100vw;
     color: white;
 }
 .wrap-box {
     display: flex;
+    flex-flow: row wrap;
     margin-top: 5px;
     margin-bottom: 5px;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+    justify-content: space-evenly;
+    /* align-content: space-between; */
 }
 #gallery-box {
     flex: none;
     display: flex;
     margin: 2px; 
-    border-radius: 15px;
+    border-radius: 25px;
     background-color: #111c;
     overflow: hidden;
     width: 300px;
@@ -260,8 +223,11 @@ export default {
     animation: fade ease 300ms forwards;
 }
 .image {
-    max-width: 100%;
-    height: auto;
+    /* max-width: 100%;
+    height: auto; */
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
     animation: fade ease 300ms;
 }
 @keyframes fade {
@@ -270,162 +236,60 @@ export default {
 }
 
 .loading-wrap {
-    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
+    width: 100%;
     min-width: 320px;
-    background: #000a;
+    background: #0005;
     padding: 5px;
-    animation: fadeIn ease 600ms, moving ease 500ms forwards;
-    transform: translateX(-5%);
     border-radius: 10px;
+    /* animation: startLoading ease .5s forwards; */
+    /* transition: all .5s; */
 }
-.loading-wrap::before {
+.loading-wrap > h2 {
+    animation: startLoadingLiteral ease 500ms forwards;
+}
+.loading-wrap > h2::before {
     position: absolute;
-    margin-left: -110px;
+    left: -100px;
     content: '・・・';
-    font-size: 2em;
+    font-size: 1.2em;
     animation: rot linear 1s infinite;
 }
-.loading-wrap::after {
+.loading-wrap > h2::after {
     position: absolute;
-    margin-left: 110px;
+    right: -100px;
     content: '・・・';
-    font-size: 2em;
+    font-size: 1.2em;
     animation: rot linear 1s infinite;
 }
-.loading-wrap[complete] {
-    animation: loadingfadeOut ease 600ms forwards;
+.loading-wrap > h2[complete] {
+    animation: endLoading ease 600ms forwards;
 }
-@keyframes loadingfadeOut {
-    0% { 
+@keyframes startLoading {
+    0% {
+        transform: scaleY(0);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+@keyframes startLoadingLiteral {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%);
+    }
+    100% {
         opacity: 1;
         transform: translateX(0);
     }
+}
+@keyframes endLoading {
     100% { 
-        transform: translateX(50%);
         opacity: 0;
+        transform: translateX(50%);
     }
-}
-
-.overlay {
-    background: #0009;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    animation: fadeIn ease 200ms;
-}
-.overlay[disable] {
-    display: none;
-}
-.picture-title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 75px;
-    text-align: center;
-    background: #000a;
-    animation: moving ease 0.5s forwards;
-    transform: translateY(-50%);
-    overflow: hidden;
-}
-
-.picture-main {
-    display: flex;
-}
-.picture-main #left-side {
-    position: absolute;
-    top: 75px;
-    left: 0;
-    bottom: 75px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-.picture-main #left-side:active {
-    background: #fff2;
-}
-.fa-arrow-left {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    background: #3334;
-}
-.picture-main #right-side {
-    position: absolute;
-    top: 75px;
-    right: 0;
-    bottom: 75px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-.picture-main #right-side:active {
-    background: #fff2;
-}
-.fa-arrow-right {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    background: #3334;
-}
-.close-button {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
-    right: 0;
-    /* margin-bottom: -60px;
-    margin-top: 5px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
-}
-.fa-times {
-    color: #fff;
-    cursor: pointer;
-    font-size: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-}
-.fa-times:hover {
-    background: #fff4;
-    border-radius: 50px;
-    transition: ease 0.5s;
-}
-
-.picture-main #overlay-image {
-    min-height: 100px;
-    min-width: 100px;
-    max-height: calc(100vh - 25vh);
-    max-width: 100vw;
-    transition: all 250ms ease-out;
 }
 </style>
