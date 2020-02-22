@@ -124,7 +124,8 @@ export default {
         // currentPos更新時にスクロール
         scrolling: {
             update: function(el, binding) {
-                el.scroll(el.scrollWidth * binding.arg, 0);
+                // console.log(el.scrollWidth, el.clientWidth, el.offsetWidth);
+                el.scroll(el.clientWidth * binding.arg, 0);
             }
         }
     },
@@ -159,7 +160,7 @@ export default {
     margin: 0 auto;
     /* margin-top: 10px; */
     margin-bottom: 100px;
-    animation: fadeIn 1s ease;
+    animation: ps-fade-in 1s ease;
 }
 .ps-main-container {
     position: relative;
@@ -238,7 +239,7 @@ export default {
     justify-content: center;
     /* background: #f00; */
     cursor: pointer;
-    transition: background ease 200ms;
+    /* transition: background ease 200ms; */
     border-radius: 10px;
 }
 .ps-button:active {
@@ -253,5 +254,10 @@ export default {
 }
 #right-arrow {
     transform: rotateZ(90deg);
+}
+
+@keyframes ps-fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 </style>
