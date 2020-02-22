@@ -37,19 +37,11 @@ export default {
     },
     methods: {
         onScroll: function() {
-            if(window.scrollY > 0){
-                this.$set(
-                    this.$data,
-                    "isPageUpButton",
-                    true
-                );
+            if(window.scrollY > 60){
+                this.isPageUpButton = true;
             }
             else {
-                this.$set(
-                    this.$data,
-                    "isPageUpButton",
-                    false
-                );
+                this.isPageUpButton = false;
             }
         },
         pageUp: function() {
