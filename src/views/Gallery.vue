@@ -57,13 +57,14 @@ export default {
     },
     data() {
         return {
+            debug: false,
             pictures: [
-                // {
-                //     date: 0,
-                //     title: "Loading...",
-                //     img: "",
-                //     tag: "",
-                // }
+                {
+                    date: 0,
+                    title: "Loading...",
+                    img: "",
+                    tag: "",
+                }
             ],
             loaded: false,
             loadingDisplay: true,
@@ -79,7 +80,7 @@ export default {
         }
     },
     created: function() {
-        this.getData().then(() => {
+        this.getData(this.debug).then(() => {
             this.loaded = true;
             setTimeout(() => {
                 this.loadingDisplay = false;
@@ -193,7 +194,7 @@ export default {
 <style>
 @import '../variables.css';
 .gallery {
-    /* margin: auto; */
+    margin: auto;
     max-width: 1200px;
     min-height: 544px;
     width: 100vw;
@@ -220,7 +221,7 @@ export default {
     justify-content: center;
     cursor: pointer;
     opacity: 0;
-    animation: fade ease 300ms forwards;
+    animation: gly-fade-in ease .5s forwards;
 }
 .image {
     /* max-width: 100%;
@@ -228,11 +229,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
-    animation: fade ease 300ms;
-}
-@keyframes fade {
-    0% { opacity: 0; }
-    100% { opacity: 1;}
+    /* animation: fade ease 300ms; */
 }
 
 .loading-wrap {
@@ -267,6 +264,11 @@ export default {
 }
 .loading-wrap > h2[complete] {
     animation: endLoading ease 600ms forwards;
+}
+
+@keyframes gly-fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1;}
 }
 @keyframes startLoading {
     0% {
