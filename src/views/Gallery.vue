@@ -18,6 +18,7 @@
                     class="image" 
                     @click="clickImage(index)"
                     draggable="false"
+                    loading="lazy"
                 />
             </article>
         </div>
@@ -90,7 +91,7 @@ export default {
 
         window.addEventListener("resize", this.onresize);
     },
-    destroyed: function() {
+    beforeDestroy: function() {
         window.removeEventListener("resize", this.onresize);
     },
     directives: {

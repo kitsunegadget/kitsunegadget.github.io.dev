@@ -4,6 +4,7 @@
             <img 
                 id="backImg" 
                 :src="view.backImage"
+                loading="lazy"
             />
         </div>
         <div class="ps-content-inside">

@@ -14,6 +14,7 @@
                 <span id="image">
                     <img 
                         :src="prd.img" 
+                        loading="lazy"
                         draggable="false"
                     />
                 </span>

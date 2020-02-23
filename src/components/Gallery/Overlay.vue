@@ -116,8 +116,8 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    animation: fadeIn ease 200ms;
-    transition: opacity .5s;
+    /* animation: fadeIn ease 200ms; */
+    /* transition: opacity .5s; */
 }
 /* .overlay[disable] {
     display: none;
@@ -224,7 +224,7 @@ export default {
     min-width: 100px;
     max-height: calc(100vh - 25vh);
     max-width: 100vw;
-    transition: all 200ms ease-out;
+    transition: all 200ms ease;
 }
 
 .opacity-on {
