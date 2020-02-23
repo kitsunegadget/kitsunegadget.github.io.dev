@@ -13,8 +13,10 @@
             >
                 <span id="image">
                     <img 
-                        :src="prd.img" 
+                        v-imgLoad:[prd.img]
+                        height="200px"
                         loading="lazy"
+                        style="opacity: 0;"
                         draggable="false"
                     />
                 </span>
@@ -124,6 +126,16 @@ export default {
                     }, 600);
                 }
             }
+        },
+        imgLoad: {
+            // 画像の読み込みができたら表示する
+            inserted: function(el, binding) {
+                // console.log("imgload", binding.arg);
+                el.onload = () => {
+                    el.style.opacity = "1";
+                };
+                el.src = binding.arg;
+            }
         }
     },
     methods: {
@@ -211,6 +223,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
+    transition: opacity .5s;
 }
 
 .product-box > #text {

@@ -4,6 +4,7 @@
             <img 
                 id="backImg" 
                 :src="view.backImage"
+                height="350px"
                 loading="lazy"
             />
         </div>

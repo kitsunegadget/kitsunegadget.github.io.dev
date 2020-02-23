@@ -11,14 +11,15 @@
                 v-for="(pic, index) in pictures" 
                 :key="pic.date"
                 v-resize:[windowInnerWidth]
+                @click="clickImage(index)"
             >
                 <img 
-                    :id="index" 
-                    :src="pic.url" 
+                    v-imgLoad:[pic.url]
                     class="image" 
-                    @click="clickImage(index)"
+                    width="300px"
                     draggable="false"
                     loading="lazy"
+                    style="opacity: 0;"
                 />
             </article>
         </div>
@@ -61,10 +62,12 @@ export default {
             debug: false,
             pictures: [
                 {
-                    date: 0,
-                    title: "Loading...",
-                    img: "",
-                    tag: "",
+                    "id": "",
+                     "name": "",
+                     "title": "",
+                     "title_alt": "",
+                     "url": "",
+                     "tag": ""
                 }
             ],
             loaded: false,
@@ -110,6 +113,16 @@ export default {
                     el.style.marginLeft = "2px";
                     el.style.marginBottom = "25px";
                 }
+            }
+        },
+        imgLoad: {
+            // 画像の読み込みができたら表示する
+            inserted: function(el, binding) {
+                // console.log("imgload", binding.arg);
+                el.onload = () => {
+                    el.style.opacity = "1";
+                };
+                el.src = binding.arg;
             }
         }
     },
@@ -230,6 +243,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
+    transition: opacity .5s;
     /* animation: fade ease 300ms; */
 }
 
