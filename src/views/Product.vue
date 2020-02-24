@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import imgLoader from "../modules/img-loader.js";
 //import axios from 'axios';
 import { firestore, /* storage */ } from "firebase/app";
 import "firebase/firestore";
@@ -131,12 +132,7 @@ export default {
             // 画像の読み込みができたら表示する
             inserted: function(el, binding) {
                 // console.log("imgload", binding.arg);
-                if(binding.arg !== "") {
-                    el.onload = () => {
-                        el.style.opacity = "1";
-                    };
-                    el.src = binding.arg;
-                }
+                imgLoader(el, binding.arg, 1);
             }
         }
     },
