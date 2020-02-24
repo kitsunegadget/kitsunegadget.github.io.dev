@@ -24,7 +24,7 @@ function clamp(x, min, max) {
 */
 function imgLoader(el, src, opacityLevel) {
     el.style.opacity = "0";
-    if (src !== "" && src !== undefined) {
+    if (src !== "" && src !== undefined && src !== "undefined") {
         el.onload = () => {
             el.style.opacity = clamp(opacityLevel, 0, 1).toString();
         };
