@@ -119,10 +119,12 @@ export default {
             // 画像の読み込みができたら表示する
             inserted: function(el, binding) {
                 // console.log("imgload", binding.arg);
-                el.onload = () => {
-                    el.style.opacity = "1";
-                };
-                el.src = binding.arg;
+                if(binding.arg !== "") {
+                    el.onload = () => {
+                        el.style.opacity = "1";
+                    };
+                    el.src = binding.arg;
+                }
             }
         }
     },
