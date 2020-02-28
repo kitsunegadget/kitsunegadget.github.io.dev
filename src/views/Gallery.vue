@@ -14,7 +14,7 @@
                 @click="clickImage(index)"
             >
                 <img 
-                    v-imgLoad:[pic.url]
+                    v-imgSource:[pic.url]
                     class="image" 
                     width="300px"
                     draggable="false"
@@ -53,6 +53,8 @@ import imgLoader from "../modules/img-loader.js"
 import { firestore } from "firebase/app";
 import "firebase/firestore";
 const gallery_store = firestore().collection("gallery");
+
+let imgLoad = new imgLoader();
 
 export default {
     components: {
@@ -116,11 +118,11 @@ export default {
                 }
             }
         },
-        imgLoad: {
+        imgSource: {
             // 画像の読み込みができたら表示する
             inserted: function(el, binding) {
                 // console.log("imgload", binding.arg);
-                imgLoader(el, binding.arg, 1);
+                imgLoad.observe(el, binding.arg);
             }
         }
     },
@@ -241,8 +243,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
-    transition: opacity .5s;
-    /* animation: fade ease 300ms; */
+    transition: opacity .5s ease-in-out;
 }
 
 .loading-wrap {

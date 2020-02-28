@@ -3,7 +3,7 @@
         <div class="ps-backImage">
             <img 
                 id="backImg" 
-                :src="view.backImage"
+                v-imgSource:[view.backImage]
                 height="350px"
                 loading="lazy"
             />
@@ -27,11 +27,21 @@
 </template>
 
 <script>
+import imgLoader from "../../modules/img-loader.js";
+let imgLoad = new imgLoader();
+
 export default {
     props: {
         view: {
             type: Object,
             required: false
+        }
+    },
+    directives: {
+        imgSource: {
+            inserted: function(el, binding) {
+                imgLoad.observe(el, binding.arg);
+            }
         }
     }
 }
@@ -61,6 +71,7 @@ export default {
     height: 100%;
     object-fit: scale-down;
     object-position: 50% 50%;
+    transition: opacity .5s ease-in-out;
 }
 
 .ps-content-inside {

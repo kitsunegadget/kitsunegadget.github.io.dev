@@ -13,7 +13,7 @@
             >
                 <span id="image">
                     <img 
-                        v-imgLoad:[prd.img]
+                        v-imgSource:[prd.img]
                         height="200px"
                         loading="lazy"
                         style="opacity: 0;"
@@ -56,7 +56,7 @@ const products_store = firestore().collection("products");
 // ref.child('img_pagetweeter.png').getDownloadURL().then((url) => {
 //     console.log("img url: ", url);
 // })
-
+let imgLoad = new imgLoader();
 
 export default {
     data() {
@@ -128,11 +128,11 @@ export default {
                 }
             }
         },
-        imgLoad: {
+        imgSource: {
             // 画像の読み込みができたら表示する
             inserted: function(el, binding) {
                 // console.log("imgload", binding.arg);
-                imgLoader(el, binding.arg, 1);
+                imgLoad.observe(el, binding.arg);
             }
         }
     },
@@ -221,7 +221,7 @@ export default {
     width: 100%;
     height: 100%;
     object-fit: scale-down;
-    transition: opacity .5s;
+    transition: opacity .5s ease-in-out;
 }
 
 .product-box > #text {
