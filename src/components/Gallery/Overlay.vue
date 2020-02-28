@@ -88,7 +88,7 @@ export default {
                 window.setTimeout(() => {
                     this.$emit("changePos", this.currentPos - 1);
                     this.imageOpacityOff = false;
-                }, 200);
+                }, 1);
             }
         },
         next: function() {
@@ -97,7 +97,7 @@ export default {
                 window.setTimeout(() => {
                     this.$emit("changePos", this.currentPos + 1);
                     this.imageOpacityOff = false;
-                }, 200);
+                }, 1);
             }
         }
     }
