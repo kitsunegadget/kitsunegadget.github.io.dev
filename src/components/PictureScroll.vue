@@ -12,7 +12,7 @@
             </ul>
             <div class="ps-under" draggable="true">
                 <div 
-                    class="ps-button ps-left-button"
+                    class="ps-under-button"
                     @click="psArrowClick('Left')">
                     <img 
                         class="ps-arrow" 
@@ -24,20 +24,20 @@
                 </div>
                 <div class="ps-under-fixed">
                     <div 
-                        class="ps-moveable-mark"
+                        class="ps-under-moveable-mark"
                         :style="{ transform: moveMarkTransform }">
                         <img 
-                            class="ps-square"
+                            class="ps-under-square"
                             src="../assets/square_dot.svg" 
                             width="12px" 
                             height="12px"
                         />
                     </div>
-                    <div class="ps-fixed-marks" draggable="true">
+                    <div class="ps-under-fixed-marks" draggable="true">
                         <div 
                             v-for="n in contentData.length"
                             :key="n"
-                            class="ps-fixed-mark"
+                            class="ps-under-fixed-mark"
                             :id="n">
                             <img 
                                 class="ps-square-back" 
@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div 
-                    class="ps-button ps-right-button" 
+                    class="ps-under-button" 
                     draggable="true" 
                     @click="psArrowClick('Right')">
                     <img 
@@ -151,7 +151,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 .pictureScroll {
     --content-height: 380px;
     height: var(--content-height);
@@ -191,69 +191,72 @@ export default {
     min-height: 30px;
     position: relative;
     /* background: #00f; */
-}
-.ps-under-fixed {
-    position: relative;
-    margin: 0;
-    padding: 0;
-}
-.ps-fixed-marks {
-    /* min-width: 100px; */
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: #fff7;
-    height: 100%;
-}
-.ps-fixed-mark {
-    padding-top: 0.5px;
-    width: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0px 5px;
-    height: 100%;
-}
-.ps-moveable-mark {
-    margin: 0 5px; 
-    position: absolute;
-    z-index: 1;
-    color: #fff;
-    transition: transform ease-in-out 0.5s;
-    height: 30px;
-    display: flex;
-    transform: translateX(4px);
-}
-.ps-square {
-    align-self: center;
-    justify-self: center;
-}
-.ps-square-back {
-    opacity: 0.5;
-}
-.ps-button {
-    width: 50px;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    /* background: #f00; */
-    cursor: pointer;
-    /* transition: background ease 200ms; */
-    border-radius: 10px;
-}
-.ps-button:active {
-    background: #000a;
-}
-.ps-arrow {
-    align-self: center;
-    justify-self: center;
-}
-#left-arrow {
-    transform: rotateZ(-90deg);
-}
-#right-arrow {
-    transform: rotateZ(90deg);
+
+    &-fixed {
+        position: relative;
+        margin: 0;
+        padding: 0;
+
+        &-marks {
+            /* min-width: 100px; */
+            @include flex-centering;
+            flex-direction: row;
+            color: #fff7;
+            height: 100%;
+        }
+
+        &-mark {
+            padding-top: 0.5px;
+            width: 20px;
+            @include flex-centering;
+            margin: 0px 5px;
+            height: 100%;
+        }
+    }
+
+    &-moveable-mark {
+        margin: 0 5px; 
+        position: absolute;
+        z-index: 1;
+        color: #fff;
+        transition: transform ease-in-out 0.5s;
+        height: 30px;
+        display: flex;
+        transform: translateX(4px);
+    }
+
+    &-square {
+        align-self: center;
+        justify-self: center;
+
+        &-back {
+            opacity: 0.5;
+        }
+    }
+
+    &-button {
+        width: 50px;
+        @include flex-centering;
+        /* background: #f00; */
+        cursor: pointer;
+        /* transition: background ease 200ms; */
+        border-radius: 10px;
+
+        &:active {
+            background: #000a;
+        }
+
+        .ps-arrow {
+            align-self: center;
+            justify-self: center;
+        }
+        #left-arrow {
+            transform: rotateZ(-90deg);
+        }
+        #right-arrow {
+            transform: rotateZ(90deg);
+        }
+    }
 }
 
 @keyframes ps-fade-in {

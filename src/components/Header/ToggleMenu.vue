@@ -31,16 +31,19 @@
     </div>
     <div 
         class="toggle-ul" 
-        :open="navOpened">
+        :open="navOpened"
+    >
         <ul>
             <li 
                 v-for="navi in navigations" 
                 :key="navi.id" 
-                :id="navi.id">
+                :id="navi.id"
+            >
                 <router-link 
                     :to="navi.url" 
                     @click.native="$emit('navClick', navi.id)"
-                    :class="{ activePage: navi.isPage }">
+                    :class="{ activePage: navi.isPage }"
+                >
                     {{ navi.text }}
                 </router-link>
             </li>
@@ -82,14 +85,18 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
 .hmb{stroke:#fff;stroke-width:3px;stroke-linecap:round;stroke-linejoin:round}
+
+@mixin nav-hover {
+    color: $orange;
+    /* border-radius: 2px; */
+    cursor: pointer;
+}
 #togglenav-button {
     position: relative;
+    @include flex-centering;
     z-index: 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-right: 10px;
     margin-left: 10px;
     /* border: white solid 1px; */
@@ -97,9 +104,10 @@ export default {
     height: 40px;
     border-radius: 10px;
     transition: all 0.25s;
-}
-#togglenav-button:hover {
-    color: var(--main-orange);
+
+    &:hover {
+        @include nav-hover;
+    }
 }
 .toggle-ul {
     filter:drop-shadow(-5px 5px 5px #000a);
@@ -109,32 +117,33 @@ export default {
     top: 60px;
     /* bottom: 0; */
     width: 250px;
-    border-left: solid 1px #111;
-    border-bottom: solid 1px #111;
+    border-left: solid 1px $black-1;
+    border-bottom: solid 1px $black-1;
     background: #111c;
     transform: translateX(104.0%);
     transition-duration: 200ms;
-}
-.toggle-ul[open] {
-    transform: translateX(0);
-}
-.toggle-ul ul {
-    margin: 0;
-    padding: 0;
-    display: inline-flex;
-    flex-direction: column;
-    width: inherit;
-}
-.toggle-ul li {
-    height: 50px;
-    width: 100%;
-    list-style-type: none;
-    border-top: solid  #111 1px;
-    /* border-bottom: solid  #111 0px; */
-}
-.toggle-ul a:hover, #togglenav-button:hover {
-    color: var(--main-orange);
-    /* border-radius: 2px; */
-    cursor: pointer;
+
+    &[open] {
+        transform: translateX(0);
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        display: inline-flex;
+        flex-direction: column;
+        width: inherit;
+    }
+
+    li {
+        height: 50px;
+        width: 100%;
+        border-top: solid $black-2 1px;
+        /* border-bottom: solid  #111 0px; */
+    }
+
+    a:hover {
+        @include nav-hover;
+    }
 }
 </style>

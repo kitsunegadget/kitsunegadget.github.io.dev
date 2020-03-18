@@ -8,8 +8,9 @@
         <div 
             class="pageup-button" 
             :active="isPageUpButton"
-            @click="pageUp">
-            <i class="fas fa-angle-up upcolor"></i>
+            @click="pageUp"
+        >
+            <i class="fas fa-angle-up pageup-button-color"></i>
         </div>
     </div>
 </template>
@@ -87,24 +88,23 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 @import './css/all.css';
-:root {
-    /* scroll-behavior: auto; */
-}
-
+// @import './variables.css';
 body {
     margin: 0;
     padding: 0;
     /* height: 100%; */
-    background-color: #222;
-    overflow-y: scroll;
-    overflow-x: hidden; 
+    background-color: $black-2;
+    overflow: {
+        y: scroll;
+        x: hidden;
+    };
 }
 
 #app {
-    display: flex;
-    flex-direction: column;
+    // display: flex;
+    // flex-direction: column;
     /* position: absolute;
     top: 0;
     left: 0;
@@ -118,9 +118,13 @@ body {
 }
 
 #bg {
-    background: url(./assets/bg2.png) no-repeat fixed;
-    background-size: cover;
-    background-position-x: right;
+    background: {
+        image: url(./assets/bg2.png);
+        repeat: no-repeat;
+        attachment: fixed;
+        size: cover;
+        position-x: right;
+    }
     position: fixed;
     width: 100%;
     height: 100%;
@@ -146,17 +150,15 @@ body {
     opacity: 0;
     transition: opacity 0.5s ease 0.05s;
     pointer-events: none;
-}
-.pageup-button[active] {
-    pointer-events: auto;
-    opacity: 1;
-}
-.upcolor {
-    font-size: 30px;
-    color: #fff;
-}
 
-/* .content-1{
-    background-color: #333; 
-} */
+    &[active] {
+        pointer-events: auto;
+        opacity: 1;
+    }
+
+    &-color {
+        font-size: 30px;
+        color: #fff;
+    }
+}
 </style>

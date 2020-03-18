@@ -16,5 +16,15 @@ module.exports = {
         return [options];
       });
     }
+  },
+  css: {
+    // scssの共通読み込みのための設定
+    loaderOptions: {
+      sass: {
+        prependData: `
+          @import "@/css/variables.scss";
+        `
+      }
+    }
   }
 }

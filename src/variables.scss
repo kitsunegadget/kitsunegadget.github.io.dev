@@ -1,0 +1,29 @@
+// colors
+$orange: #FFB74C;
+$black-1: #111;
+$black-2: #222;
+$black-3: #333;
+$trans-0: #3330;
+
+// defaults
+a {
+    color: inherit;
+    text-decoration: none;
+}
+li {
+    list-style-type: none;
+}
+
+// mixin
+@mixin absolute-centering {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+@mixin flex-centering {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

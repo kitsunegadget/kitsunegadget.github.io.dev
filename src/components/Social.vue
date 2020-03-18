@@ -1,5 +1,5 @@
 <template>
-    <div id="social">
+    <div class="social">
         <ul>
             <li 
                 v-for="social in socials" 
@@ -74,38 +74,37 @@ export default {
 }
 </script>
 
-<style>
-@import '../css/social.css';
+<style lang="scss">
+@import '../css/social.scss';
+
+$icon-size: 32px;
+@mixin social-icon-sizing {
+    font-size: $icon-size;
+    width: $icon-size;
+    height: $icon-size;
+    text-align: center;
+    display: flex;
+}
 
 .fa-twitter-square {
-    display: flex;
     color:  #1DA1F2;
     /* color:  #14171A; */
-    font-size: var(--social-icon-height);
-    width: var(--social-icon-height);
-    height: var(--social-icon-height);
-    text-align: center;
+    @include social-icon-sizing;
 }
 .fa-github {
-    display: flex;
     color:  #fff;
     /* color:  #14171A; */
-    font-size: var(--social-icon-height);
-    width: var(--social-icon-height);
-    height: var(--social-icon-height);
-    text-align: center;
+    @include social-icon-sizing;
 }
 .hatena {
     margin-bottom: -4px;
 }
 .fa-soundcloud {
-    display: flex;
     color:  #ff5500;
     /* color:  #14171A; */
-    font-size: calc(var(--social-icon-height) - 6px);
-    width: var(--social-icon-height);
-    height: calc(var(--social-icon-height) - 2px);
-    text-align: center;
+    font-size: $icon-size - 6px;
+    width: $icon-size;
+    height: $icon-size - 2px;
     padding-top: 4px;
 }
 </style>
