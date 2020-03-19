@@ -72,7 +72,7 @@ export default {
 }
 .ps-content-inside {
     /* height: calc(var(--content-height) - 30px); */
-    width: calc((var(--content-height) - 30px) * (16 / 9));
+    width: ($ps-content-height - 30px) * (16 / 9);
     position: relative;
 
     .ps-title {

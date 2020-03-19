@@ -153,8 +153,7 @@ export default {
 
 <style lang="scss">
 .pictureScroll {
-    --content-height: 380px;
-    height: var(--content-height);
+    height: $ps-content-height;
     /* max-width: calc((var(--content-height) - 30px) * (16 / 9)); */
     max-width: 100vw;
     margin: 0 auto;
@@ -174,7 +173,7 @@ export default {
     display: flex;
     flex-flow: column wrap;
     width: 100%;
-    height: calc(var(--content-height) - 30px);
+    height: $ps-content-height - 30px;
     overflow: hidden;
     scrollbar-width: none;
     list-style: none;

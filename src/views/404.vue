@@ -5,19 +5,18 @@
     </div>
 </template>
 
-<style>
+<style lang="scss">
 #notfound {
     margin-top: -5px;
     color: #fff;
     background-color: #111e;
     text-align: center;
     height: 80vh;
-    display: flex;
+    @include flex-centering;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-#notfound h1 {
-    font-size: 5em;    
+
+    h1 {
+        font-size: 5em;  
+    }
 }
 </style>

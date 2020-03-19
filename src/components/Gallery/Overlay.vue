@@ -103,30 +103,22 @@ export default {
     }
 }
 </script>
-<style>
+<style lang="scss">
 .overlay {
     background: #0009;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
+    @include absolute-centering;
+    @include flex-centering;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    z-index: 100;
     /* animation: fadeIn ease 200ms; */
     /* transition: opacity .5s; */
+
+    // &[disable] {
+    //     display: none;
+    // }
 }
-/* .overlay[disable] {
-    display: none;
-} */
 .picture-title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    @include absolute-centering;
     height: 75px;
     text-align: center;
     background: #000a;
@@ -140,56 +132,49 @@ export default {
 
 .picture-main {
     display: flex;
-}
-.picture-main #left-side {
-    position: absolute;
-    top: 75px;
-    left: 0;
-    bottom: 75px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-.picture-main #left-side:active {
-    background: #fff2;
+
+    @mixin sides {
+        position: absolute;
+        top: 75px;
+        bottom: 75px;
+        width: 50px;
+        @include flex-centering;
+        z-index: 1;
+
+        &:active {
+            background: #fff2;
+        }
+    }
+
+    #left-side {
+        @include sides;
+        left: 0;
+    }
+
+    #right-side {
+        @include sides;
+        right: 0;
+    }
+
+    #overlay-image {
+        min-height: 100px;
+        min-width: 100px;
+        max-height: calc(100vh - 25vh);
+        max-width: 100vw;
+        transition: all 200ms ease;
+    }
 }
 .fa-arrow-left {
     margin-bottom: 20px;
     font-size: 1.5em;
     width: 40px;
     height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-centering;
     border-radius: 50px;
     background: #3334;
-}
-.picture-main #right-side {
-    position: absolute;
-    top: 75px;
-    right: 0;
-    bottom: 75px;
-    width: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-}
-.picture-main #right-side:active {
-    background: #fff2;
 }
 .fa-arrow-right {
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50px;
-    background: #3334;
+    @extend .fa-arrow-left;
 }
 .close-button {
     position: absolute;
@@ -198,33 +183,21 @@ export default {
     right: 0;
     /* margin-bottom: -60px;
     margin-top: 5px; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    @include flex-centering;
 }
 .fa-times {
     color: #fff;
     cursor: pointer;
     font-size: 3em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-centering;
     width: 50px;
     height: 50px;
-}
-.fa-times:hover {
-    background: #fff4;
-    border-radius: 50px;
-    transition: ease 0.5s;
-}
 
-.picture-main #overlay-image {
-    min-height: 100px;
-    min-width: 100px;
-    max-height: calc(100vh - 25vh);
-    max-width: 100vw;
-    transition: all 200ms ease;
+    &:hover {
+        background: #fff4;
+        border-radius: 50px;
+        transition: ease 0.5s;
+    }
 }
 
 .opacity-on {

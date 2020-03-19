@@ -90,7 +90,7 @@ export default {
 
 <style lang="scss">
 @import './css/all.css';
-// @import './variables.css';
+
 body {
     margin: 0;
     padding: 0;
@@ -105,10 +105,7 @@ body {
 #app {
     // display: flex;
     // flex-direction: column;
-    /* position: absolute;
-    top: 0;
-    left: 0;
-    right: 0; */
+    // @include absolute-centering;
     /* width: 100%; */
     min-height: 100%;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -143,9 +140,7 @@ body {
     height: 50px;
     border-radius: 10px;
     background: #000b;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include flex-centering;
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.5s ease 0.05s;

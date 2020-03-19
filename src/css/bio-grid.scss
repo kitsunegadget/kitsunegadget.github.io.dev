@@ -1,9 +1,18 @@
+@mixin gear($direction, $time, $width, $color) {
+    border: {
+        color: $color;
+        width: $width;
+        style: dashed;
+        radius: 100px;
+    }
+    animation: $direction $time linear infinite;
+}
+
 #dock{
     margin:auto;
     /* padding-bottom: 10px;  */
     max-width: 700px;
 }
-
 .pf_wrap{
     margin-top: -20px;
     width: 100%;
@@ -14,13 +23,15 @@
     grid-template-rows: 1fr 50% 1fr; 
     grid-template-columns: 1fr 50% 1fr;
     /* animation: fadeIn 2s ease; */
-}
-.pf_wrap p{
-    line-height: 15px;
-    margin: 2px;
-}
-.pf_wrap hr{
-    margin: 1px 0 0 -8px;
+
+    p {
+        line-height: 15px;
+        margin: 2px;
+    }
+
+    hr {
+        margin: 1px 0 0 -8px;
+    }
 }
 .icon_delay{
     animation: bio-fadeIn 0.75s ease;
@@ -40,22 +51,26 @@
     /* transform: rotateZ(-90deg); */
     /* animation: moving ease 0.75s forwards; */
     /* transform: translateY(-200%); */
-}
-#pficon span::before {
-    position: absolute;
-    content:"";
-    width: 158px;
-    height: 158px;
-    left: -10px;
-    bottom: -6px;
-    z-index: 0;
-    /* border: dashed #009B9F 11px; */
-    border: dashed #E3A262 11px;
-    border-radius: 100px;
-    animation: gearClockwise 10s linear infinite;
-    opacity: 0.95;
+
+    & span::before {
+        @include gear(gearClockwise, 10s, 11px, #E3A262);
+        position: absolute;
+        content:"";
+        width: 158px;
+        height: 158px;
+        left: -10px;
+        bottom: -6px;
+        z-index: 0;
+        opacity: 0.95;
+    }
+
+    img {
+        /* position: relative; */
+        border-radius: 90px;
+    }
 }
 #gear2 {
+    @include gear(gearAntiClockwise, 6.65s, 11px, #000a);
     position: absolute;
     width: 50px;
     height: 50px;
@@ -66,11 +81,9 @@
     box-sizing: content-box;
     background: #000a;
     background-clip: content-box;
-    border-radius: 100px;
-    border: dashed #000a 11px;
-    animation: gearAntiClockwise 6.65s linear infinite;
 }
 #gear3 {
+    @include gear(gearAntiClockwise, 6s, 11px, #000a);
     position: absolute;
     width: 50px;
     height: 50px;
@@ -81,19 +94,6 @@
     box-sizing: content-box;
     background: #000a;
     background-clip: content-box;
-    border-radius: 100px;
-    border: dashed #000a 11px;
-    animation: gearAntiClockwise 6s linear infinite;
-}
-
-#pficon span{
-    /* position: relative;
-    width: 80%; */
-    /* will-change: transform; */
-}
-#pficon img{
-    /* position: relative; */
-    border-radius: 90px;
 }
 .pf-name {
     position: relative;
@@ -101,28 +101,32 @@
     grid-column: 3/4;
     animation: bio-moving ease-out 0.75s forwards;
     transform: translateX(10%) translateY(-5%);
-}
-.pf-name span { color: var(--main-orange);} 
-#line1{
-    position: absolute;
-    color: #eee;
-    left: -14px;
-    top: -28px;
-    width: 100px;
-    overflow: clip;
-}
-#line2{
-    position: absolute;
-    color: #eee;
-    left: -95px;
-    top: 25px;
-    width: 80px;
-    transform: rotate(135deg);
-}
-#nameplate{
-    color: #eee;
-    position: absolute;
-    left: -5px;
+
+    span {
+        color: $orange;
+    }
+
+    #line1{
+        position: absolute;
+        color: $white-e;
+        left: -14px;
+        top: -28px;
+        width: 100px;
+        overflow: clip;
+    }
+    #line2{
+        position: absolute;
+        color: $white-e;
+        left: -95px;
+        top: 25px;
+        width: 80px;
+        transform: rotate(135deg);
+    }
+    #nameplate{
+        color: $white-e;
+        position: absolute;
+        left: -5px;
+    }
 }
 .pf-interest {
     position: relative;
@@ -130,29 +134,34 @@
     grid-column: 1/2;
     animation: bio-moving ease-out 0.75s forwards;
     transform: translateX(-5%) translateY(10%);
+
+    span {
+        color: $orange;
+    }
+
+    #line3{
+        position: absolute;
+        color: $white-e;
+        top: -33px;
+        right: -30px;
+        width: 110px;
+    }
+    #line4{
+        position: absolute;
+        color: $white-e;
+        right: -86px;
+        top: -42px;
+        width: 60px;
+        transform: rotate(-45deg);
+    }
+    #interest{
+        color: $white-e;
+        position: absolute;
+        right: -26px;
+        top: -4px;
+    }
 }
-.pf-interest span { color: var(--main-orange);} 
-#line3{
-    position: absolute;
-    color: #eee;
-    top: -33px;
-    right: -30px;
-    width: 110px;
-}
-#line4{
-    position: absolute;
-    color: #eee;
-    right: -86px;
-    top: -42px;
-    width: 60px;
-    transform: rotate(-45deg);
-}
-#interest{
-    color: #eee;
-    position: absolute;
-    right: -26px;
-    top: -4px;
-}
+
 @keyframes bio-fadeIn{
     0% { opacity: 0; }
     100% { opacity: 1; }

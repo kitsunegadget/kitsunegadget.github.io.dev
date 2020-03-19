@@ -1,8 +1,10 @@
 // colors
 $orange: #FFB74C;
+$green: #30c75d;
 $black-1: #111;
 $black-2: #222;
 $black-3: #333;
+$white-e: #eee;
 $trans-0: #3330;
 
 // defaults
@@ -13,6 +15,8 @@ a {
 li {
     list-style-type: none;
 }
+
+$ps-content-height: 380px;
 
 // mixin
 @mixin absolute-centering {

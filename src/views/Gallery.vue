@@ -205,8 +205,7 @@ export default {
 }
 </script>
 
-<style>
-@import '../variables.css';
+<style lang="scss">
 .gallery {
     margin: auto;
     max-width: 1200px;
@@ -221,35 +220,32 @@ export default {
     margin-bottom: 5px;
     justify-content: space-evenly;
     /* align-content: space-between; */
-}
-#gallery-box {
-    flex: none;
-    display: flex;
-    margin: 2px; 
-    border-radius: 25px;
-    background-color: #111c;
-    overflow: hidden;
-    width: 300px;
-    height: 180px;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    animation: gly-fade-in ease .5s forwards;
-}
-.image {
-    /* max-width: 100%;
-    height: auto; */
-    width: 100%;
-    height: 100%;
-    object-fit: scale-down;
-    transition: opacity .5s ease-in-out;
-}
 
+    #gallery-box {
+        @include flex-centering;
+        flex: none;
+        margin: 2px; 
+        border-radius: 25px;
+        background-color: #111c;
+        overflow: hidden;
+        width: 300px;
+        height: 180px;
+        cursor: pointer;
+        opacity: 0;
+        animation: gly-fade-in ease .5s forwards;
+    }
+
+    .image {
+        /* max-width: 100%;
+        height: auto; */
+        width: 100%;
+        height: 100%;
+        object-fit: scale-down;
+        transition: opacity .5s ease-in-out;
+    }
+}
 .loading-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex-centering;
     height: 50px;
     width: 100%;
     min-width: 320px;
@@ -258,26 +254,28 @@ export default {
     border-radius: 10px;
     /* animation: startLoading ease .5s forwards; */
     /* transition: all .5s; */
-}
-.loading-wrap > h2 {
-    animation: startLoadingLiteral ease 500ms forwards;
-}
-.loading-wrap > h2::before {
-    position: absolute;
-    left: -100px;
-    content: '・・・';
-    font-size: 1.2em;
-    animation: rot linear 1s infinite;
-}
-.loading-wrap > h2::after {
-    position: absolute;
-    right: -100px;
-    content: '・・・';
-    font-size: 1.2em;
-    animation: rot linear 1s infinite;
-}
-.loading-wrap > h2[complete] {
-    animation: endLoading ease 600ms forwards;
+
+    > h2 {
+        animation: startLoadingLiteral ease 500ms forwards;
+
+        &::before {
+            position: absolute;
+            left: -100px;
+            content: '・・・';
+            font-size: 1.2em;
+            animation: rot linear 1s infinite;
+        }
+        &::after {
+            position: absolute;
+            right: -100px;
+            content: '・・・';
+            font-size: 1.2em;
+            animation: rot linear 1s infinite;
+        }
+        &[complete] {
+            animation: endLoading ease 600ms forwards;
+        }
+    }
 }
 
 @keyframes gly-fade-in {

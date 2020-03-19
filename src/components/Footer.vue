@@ -4,8 +4,9 @@
     </footer>
 </template>
 
-<style>
+<style lang="scss">
 footer{
+    position: relative;
     /* background: #333; */
     bottom: 0;
     text-align: center;
