@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import imgLoader from "../../modules/img-loader.js";
+import imgLoader from "@/modules/img-loader.js";
 let imgLoad = new imgLoader();
 
 export default {

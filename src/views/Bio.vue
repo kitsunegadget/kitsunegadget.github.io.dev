@@ -5,8 +5,9 @@
     </div>
 </template>
 <script>
-import BioGrid from '../components/BioGrid';
-import Social from '../components/Social';
+import BioGrid from '@/components/BioGrid.vue';
+import Social from '@/components/Social.vue';
+
 export default {
     components: {
         BioGrid,

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import PictureScroll from "../components/PictureScroll.vue"
-import Social from "../components/Social.vue";
+import PictureScroll from "@/components/PictureScroll.vue";
+import Social from "@/components/Social.vue";
 
 export default {
     components: {

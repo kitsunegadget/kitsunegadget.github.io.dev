@@ -47,8 +47,8 @@
 </template>
 
 <script>
-import Overlay from "../components/Gallery/Overlay.vue"
-import imgLoader from "../modules/img-loader.js"
+import Overlay from "@/components/Gallery/Overlay.vue"
+import imgLoader from "@/modules/img-loader.js"
 // import axios from 'axios';
 import { firestore } from "firebase/app";
 import "firebase/firestore";
