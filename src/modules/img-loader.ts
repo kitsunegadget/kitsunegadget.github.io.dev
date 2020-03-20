@@ -1,23 +1,25 @@
-let imgLoader = class ImageLoader {
-    /**
-     * 画像を遅延ローディングさせるためのクラス。
-     * scriptの最初にこの class をインスタンス化。
-     * ディレクティブ等で imageLoader.observe(el, src); で設定。
-     * 
-     * opacity による表示制御をしているので、
-     * "transition: opacity" のスタイルを適用することで
-     * トランジションアニメーションが利用できます。
-     * @param {Number} threshold The IntersectionObserver threshold.
-     */
+/**
+ * 画像を遅延ローディングさせるためのクラス。
+ * scriptの最初にこの class をインスタンス化。
+ * ディレクティブ等で imageLoader.observe(el, src); で設定。
+ * 
+ * opacity による表示制御をしているので、
+ * "transition: opacity" のスタイルを適用することで
+ * トランジションアニメーションが利用できます。
+ * @param {Number} threshold The IntersectionObserver threshold.
+ */
+export default class ImageLoader {
+    observer: IntersectionObserver;
+    
     constructor(threshold=0.5) {
         let options = {
-            threshold: clamp(threshold)
+            threshold: clamp(threshold, 0, 1)
         }
         this.observer = new IntersectionObserver(this.callback, options);
     }
     // コールバック専用
-    callback(entries) {
-        entries.forEach(entry => {
+    callback(entries: any) {
+        entries.forEach((entry: any) => {
             if (entry.isIntersecting) {
                 let img = entry.target;
                 if (img.dataset.src !== "" 
@@ -35,18 +37,14 @@ let imgLoader = class ImageLoader {
             // console.log(entry.isIntersecting);
         });
     }
-    /**
-     * 遅延ロードさせたい HTMLImageElement を設定します。
-     * @param {Element} el Set img element.
-     * @param {String} src The image source url.
-     */
-    observe(el, src) {
+    
+    observe(el: HTMLElement, src: string) {
         el.style.opacity = "0";
         el.dataset.src = src;
         this.observer.observe(el);
     }
     // 監視を解除
-    unobserve(el) {
+    unobserve(el: HTMLElement) {
         this.observer.unobserve(el);
     }
 }
@@ -57,8 +55,6 @@ let imgLoader = class ImageLoader {
  * @param {Number} min clamps minimum value 
  * @param {Number} max clamps maximum value
  */
-function clamp(x, min, max) { //eslint-disable-line
+function clamp(x: number, min: number, max: number) { //eslint-disable-line
     return x < min ? min : (max < x ? max : x);
 }
-
-module.exports = imgLoader;

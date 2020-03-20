@@ -48,7 +48,7 @@
 
 <script>
 import Overlay from "@/components/Gallery/Overlay.vue"
-import imgLoader from "@/modules/img-loader.js"
+import imgLoader from "@/modules/img-loader.ts"
 // import axios from 'axios';
 import { firestore } from "firebase/app";
 import "firebase/firestore";

@@ -15,7 +15,7 @@
     </div>
 </template>
 
-<script>
+<script> 
 import firebase from 'firebase/app';
 import "firebase/auth";
 import Header from "@/components/Header.vue";

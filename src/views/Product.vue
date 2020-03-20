@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import imgLoader from "@/modules/img-loader.js";
+import imgLoader from "@/modules/img-loader.ts";
 //import axios from 'axios';
 import { firestore, /* storage */ } from "firebase/app";
 import "firebase/firestore";

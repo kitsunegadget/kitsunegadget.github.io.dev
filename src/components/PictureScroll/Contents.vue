@@ -26,11 +26,12 @@
     </li>
 </template>
 
-<script>
-import imgLoader from "@/modules/img-loader.js";
+<script lang="ts">
+import Vue from 'vue';
+import imgLoader from "@/modules/img-loader.ts";
 let imgLoad = new imgLoader();
 
-export default {
+export default Vue.extend ({
     props: {
         view: {
             type: Object,
@@ -39,12 +40,12 @@ export default {
     },
     directives: {
         imgSource: {
-            inserted: function(el, binding) {
+            inserted: function(el: HTMLElement, binding: any) {
                 imgLoad.observe(el, binding.arg);
             }
         }
     }
-}
+})
 </script>
 
 <style lang="scss">
