@@ -1,6 +1,15 @@
 <template>
     <div id="app">
-        <div id="bg"></div>
+        <div id="bg">
+            <video 
+                autoplay
+                muted 
+                loop
+                poster="./assets/yofukashi.png"
+            >
+                <source src="./assets/yofukashi.mp4" type="video/mp4">
+            </video>
+        </div>
         <Header />
         <div class="fixed-spacing"></div>
         <router-view />
@@ -127,7 +136,13 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1;
-    opacity: 0.5;
+    // opacity: 0.5;
+
+    video {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
 }
 
 .fixed-spacing {

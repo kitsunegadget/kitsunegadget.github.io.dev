@@ -9,7 +9,7 @@
 #notfound {
     margin-top: -5px;
     color: #fff;
-    background-color: #111e;
+    background-color: #111d;
     text-align: center;
     height: 80vh;
     @include flex-centering;
