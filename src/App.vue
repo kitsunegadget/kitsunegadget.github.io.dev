@@ -89,8 +89,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import './css/all.css';
-
 body {
     margin: 0;
     padding: 0;
@@ -108,7 +106,8 @@ body {
     // @include absolute-centering;
     /* width: 100%; */
     min-height: 100%;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Segoe UI", Roboto, Arial, sans-serif;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -116,12 +115,14 @@ body {
 
 #bg {
     background: {
-        image: url(./assets/bg2.png);
+        // image: url(./assets/yofukashi.gif);
         repeat: no-repeat;
         attachment: fixed;
         size: cover;
-        position-x: right;
+        position-x: center;
     }
+    filter: blur(10px);
+
     position: fixed;
     width: 100%;
     height: 100%;

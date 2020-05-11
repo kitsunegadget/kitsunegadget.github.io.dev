@@ -83,7 +83,6 @@ $icon-size: 32px;
     width: $icon-size;
     height: $icon-size;
     text-align: center;
-    display: flex;
 }
 
 .fa-twitter-square {
