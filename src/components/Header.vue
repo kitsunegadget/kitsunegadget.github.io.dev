@@ -90,30 +90,30 @@ export default {
     },
     created() {
         window.addEventListener("popstate", this.onpopstate);
-        window.addEventListener("resize", this.onresize);
+        // window.addEventListener("resize", this.onresize);
         document.addEventListener("scroll", this.onscroll);
     },
     mounted() {
         this.changeStateOnLoad();
-        this.onresize();
+        // this.onresize();
     },
     beforeDestroy() {
         // headerコンポーネントの削除はしないが、リスナ削除はとりあえず書いておく
         window.removeEventListener("popstate", this.onpopstate);
-        window.removeEventListener("resize", this.onresize);
+        // window.removeEventListener("resize", this.onresize);
         document.removeEventListener("scroll", this.onscroll);
     },
     methods: {
-        onresize: function() {
-            // リサイズ発火頻度は多いのでlodash _.debounceを利用するのも検討
-            if (window.innerWidth < 800)
-            {
-                this.narrowNormalUl = true;
-            } 
-            else {
-                this.narrowNormalUl = false;
-            }
-        },
+        // onresize: function() {
+        //     // リサイズ発火頻度は多いのでlodash _.debounceを利用するのも検討
+        //     if (window.innerWidth < 800)
+        //     {
+        //         this.narrowNormalUl = true;
+        //     } 
+        //     else {
+        //         this.narrowNormalUl = false;
+        //     }
+        // },
         onpopstate() {
             this.changeState();
         },
@@ -219,10 +219,14 @@ export default {
         @include flex-centering;
         // flex: 1 1 auto;
         height: inherit;
+
+        @media (max-width: 800px) {
+            display: none;
+        }
     }
-    .normal-ul[narrow] {
-        display: none;
-    }
+    // .normal-ul[narrow] {
+    //     display: none;
+    // }
 
     .ul-wrap {
         position: absolute;

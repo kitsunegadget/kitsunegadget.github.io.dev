@@ -95,29 +95,12 @@ export default {
             }, 500)
         });
 
-        window.addEventListener("resize", this.onresize);
+        // window.addEventListener("resize", this.onresize);
     },
     beforeDestroy: function() {
-        window.removeEventListener("resize", this.onresize);
+        // window.removeEventListener("resize", this.onresize);
     },
     directives: {
-        resize: {
-            update: function(el) {
-                // console.log("update");
-                if(window.innerWidth < 615) {
-                    el.style.width = "49vw";
-                    el.style.height = "49vw"
-                    el.style.marginLeft = "0";
-                    el.style.marginBottom = "2px";
-                }
-                else {
-                    el.style.width = "200px"
-                    el.style.height = "calc(200px * 3/4)"
-                    el.style.marginLeft = "2px";
-                    el.style.marginBottom = "25px";
-                }
-            }
-        },
         imgSource: {
             // 画像の読み込みができたら表示する
             inserted: function(el, binding) {
@@ -129,7 +112,7 @@ export default {
     methods: {
         onresize: function() {
             // debounce案件
-            this.windowInnerWidth = window.innerWidth;
+            // this.windowInnerWidth = window.innerWidth;
         },
         getData: async function (debug=false) {
             if(!debug) {
@@ -224,15 +207,24 @@ export default {
     #gallery-box {
         @include flex-centering;
         flex: none;
-        margin: 2px; 
+        // margin: 2px; 
         border-radius: 25px;
         background-color: #111c;
         overflow: hidden;
-        width: 300px;
-        height: 180px;
+        width: 200px;
+        height: calc(200px * 3/4);
+        margin-left: 2px;
+        margin-bottom: 25px;
         cursor: pointer;
         opacity: 0;
         animation: gly-fade-in ease .5s forwards;
+
+        @media (max-width: 615px) {
+            width: 49vw;
+            height: 49vw;
+            margin-left: 0;
+            margin-bottom: 2px;
+        }
     }
 
     .image {

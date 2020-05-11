@@ -123,6 +123,10 @@ export default {
     transform: translateX(104.0%);
     transition-duration: 200ms;
 
+    @media (orientation: portrait) {
+        width: 100vw;
+    }
+
     &[open] {
         transform: translateX(0);
     }

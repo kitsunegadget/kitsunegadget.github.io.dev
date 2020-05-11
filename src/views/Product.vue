@@ -9,7 +9,6 @@
                 class="product-box" 
                 v-for="prd in products" 
                 :key="prd.id"
-                v-resize:[windowInnerWidth]
             >
                 <span id="image">
                     <img 
@@ -89,35 +88,15 @@ export default {
             }, 1000);
         });
 
-        window.addEventListener("resize", this.onresize);
+        // window.addEventListener("resize", this.onresize);
     },
     mounted: function() {
         // this.onResize();
     },
     beforeDestroy: function() {
-        window.removeEventListener("resize", this.onresize);
+        // window.removeEventListener("resize", this.onresize);
     },
     directives: {
-        resize: {
-            bind: function(el) {
-                // console.log("bind");
-                if(window.innerWidth < 615) {
-                    el.style.width = "100vw"
-                }
-                else {
-                    el.style.width = "350px";
-                }
-            },
-            update: function(el) {
-                // console.log("update");
-                if(window.innerWidth < 615) {
-                    el.style.width = "100vw"
-                }
-                else {
-                    el.style.width = "350px";
-                }
-            }
-        },
         opacity: {
             update: function(el, binding) {
                 if(binding.arg === true && el.style.opacity === "") {
@@ -139,7 +118,7 @@ export default {
     methods: {
         onresize: function() {
             // need debounce
-            this.windowInnerWidth = window.innerWidth;
+            // this.windowInnerWidth = window.innerWidth;
         },
         getData: async function (debug=false) {
             if(!debug) { 
@@ -236,6 +215,10 @@ export default {
     background-color: #111c;
     animation: pd-fade-in ease .5s;
     /* transform: translateY(10%); */
+
+    @media (max-width: 615px) {
+        width: 100vw;
+    }
 
     > h3 {
         margin: 0;

@@ -60,9 +60,12 @@ export default Vue.extend ({
     overflow: hidden;
     position: relative;
 
-    > a {
-        width: 100%;
+    > a { 
         height: 100%;
+
+        @media (orientation: portrait) {
+            width: 100%;
+        }
     }
 }
 .ps-backImage {
@@ -79,6 +82,7 @@ export default Vue.extend ({
     }
 }
 .ps-content-inside {
+    height: 100%;
     /* height: calc(var(--content-height) - 30px); */
     width: ($ps-content-height - 30px) * (16 / 9);
     position: relative;
@@ -109,7 +113,7 @@ export default Vue.extend ({
     }
     .ps-text {
         position: absolute;
-        top: 272px;
+        bottom: 20px;
         left: 20px;
         /* width: 350px; */
         width: fit-content;
