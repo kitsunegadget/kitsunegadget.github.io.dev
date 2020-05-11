@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "modern-build": "vue-cli-service build --modern"
+    "build:modern": "vue-cli-service build --modern"
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "^4.2.3",

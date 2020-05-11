@@ -62,7 +62,7 @@ export default {
     },
     data() {
         return {
-            debug: false,
+            debug: process.env.NODE_ENV === 'development',
             pictures: [
                 {
                     "id": "",
