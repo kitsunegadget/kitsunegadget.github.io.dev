@@ -1,5 +1,12 @@
 [
     {
+        "title": "",
+        "titleImage": "",
+        "backImage": "/ps_imgs/card.png",
+        "text": "ピクセルスケーリングフィルターをWeb上で。",
+        "link": "/pixelart-scaler/"
+    },
+    {
         "title": "Kitsune Gadget β",
         "titleImage": "",
         "backImage": "/ps_imgs/bg2.png",

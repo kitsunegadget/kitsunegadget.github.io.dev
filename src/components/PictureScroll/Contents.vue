@@ -1,28 +1,30 @@
 <template>
     <li class="ps-content">
-        <div class="ps-backImage">
-            <img 
-                id="backImg" 
-                v-imgSource:[view.backImage]
-                height="350px"
-                loading="lazy"
-            />
-        </div>
-        <div class="ps-content-inside">
-            <div class="ps-title">
-                <div id="titleImage">
+        <a :href="view.link">
+            <div class="ps-backImage">
+                <img 
+                    id="backImg" 
+                    v-imgSource:[view.backImage]
+                    height="350px"
+                    loading="lazy"
+                />
+            </div>
+            <div class="ps-content-inside">
+                <div class="ps-title">
+                    <div id="titleImage">
 
+                    </div>
+                    <div v-show="view.title" id="titleText">
+                        {{view.title}}
+                    </div>
                 </div>
-                <div id="titleText">
-                    {{view.title}}
+                <div class="ps-text">
+                    <div id="text">
+                        {{view.text}}
+                    </div>
                 </div>
             </div>
-            <div class="ps-text">
-                <div id="text">
-                    {{view.text}}
-                </div>
-            </div>
-        </div>
+        </a>
     </li>
 </template>
 
@@ -57,6 +59,11 @@ export default Vue.extend ({
     justify-content: center;
     overflow: hidden;
     position: relative;
+
+    > a {
+        width: 100%;
+        height: 100%;
+    }
 }
 .ps-backImage {
     z-index: -1;
@@ -84,7 +91,7 @@ export default Vue.extend ({
         width: fit-content;
         /* height: 100px; */
         height: fit-content;
-        background: #0008;
+        background: #000b;
         display: flex;
         justify-content: center;
 
@@ -102,13 +109,13 @@ export default Vue.extend ({
     }
     .ps-text {
         position: absolute;
-        bottom: 20px;
+        top: 272px;
         left: 20px;
         /* width: 350px; */
         width: fit-content;
         /* height: 150px; */
         height: fit-content;
-        background: #0008;
+        background: #000b;
 
         #text {
             max-width: calc(100vw - 20px);
