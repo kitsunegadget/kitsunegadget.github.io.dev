@@ -10,7 +10,6 @@
                 id="gallery-box" 
                 v-for="(pic, index) in pictures" 
                 :key="pic.date"
-                v-resize:[windowInnerWidth]
                 @click="clickImage(index)"
             >
                 <img 
