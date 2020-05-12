@@ -1,6 +1,6 @@
 <template>
     <li class="ps-content">
-        <a :href="view.link" rel="noopener">
+        <a :href="view.link" rel="noopener" v-bind="{existLink: view.link}">
             <div class="ps-backImage">
                 <img 
                     id="backImg" 
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="ps-text">
-                    <div id="text">
+                    <div id="text" v-bind="{existLink: view.link}">
                         {{view.text}}
                         <i v-show="view.link" style="font-size: 0.6rem;" class="fas fa-link"></i>
                     </div>
@@ -63,8 +63,16 @@ export default Vue.extend ({
 
     > a { 
         height: 100%;
+        transition: all 0.25s ease;
+        color: #fff;
+        
 
-        @media (orientation: portrait) {
+        &[existLink]:hover {
+            color: $green;
+            background: #fff1;
+        }
+
+        @media (max-width: 615px) {
             width: 100%;
         }
     }
@@ -128,6 +136,10 @@ export default Vue.extend ({
             font-size: 0.8em;
             font-weight: lighter;
             color: #fff;
+
+            &[existlink] {
+                color: inherit;
+            }
         }
     }
 }

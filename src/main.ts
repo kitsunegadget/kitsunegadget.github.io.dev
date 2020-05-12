@@ -7,7 +7,9 @@ import "firebase/analytics";
 // your firebaseConfig
 const firebaseConfig = require("./firebaseConfig.json");
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
+if (!(process.env.NODE_ENV === "development")) {
+  firebase.analytics();
+}
 
 Vue.config.productionTip = false
 

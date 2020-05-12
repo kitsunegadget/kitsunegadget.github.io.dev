@@ -35,10 +35,10 @@ export default Vue.extend({
             ],
             secondarySkills: [
                 "C, C++, JAVA, Shader programming",
-                "React, Xamarin",
+                "React, Xamarin, Electron",
             ],
             otherSkills: [
-                "Guitar, Base guitar, "
+                "Guitar, Base guitar, ..."
             ]
         }
     }
