@@ -1,6 +1,6 @@
 <template>
     <li class="ps-content">
-        <a :href="view.link">
+        <a :href="view.link" rel="noopener">
             <div class="ps-backImage">
                 <img 
                     id="backImg" 
@@ -21,6 +21,7 @@
                 <div class="ps-text">
                     <div id="text">
                         {{view.text}}
+                        <i v-show="view.link" style="font-size: 0.6rem;" class="fas fa-link"></i>
                     </div>
                 </div>
             </div>

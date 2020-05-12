@@ -20,7 +20,10 @@
                     />
                 </span>
                 <h3 id="product-name">
-                    {{ prd.title }}
+                    <a :href="prd.link" target="_blank" rel="noopener">
+                        {{ prd.title }}
+                        <i v-show="prd.link" style="font-size: 0.8rem;" class="fas fa-link"></i>
+                    </a>
                 </h3>
                 <span id="text">
                     <p>{{ prd.text }}</p>

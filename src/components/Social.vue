@@ -7,7 +7,7 @@
                 <a 
                     :href="social.url" 
                     target="_blank" 
-                    rel="noopener">
+                    rel="noopener noreferer">
                     <i :class="social.tag"></i>
                     <img 
                         :class="social.imgcls" 
