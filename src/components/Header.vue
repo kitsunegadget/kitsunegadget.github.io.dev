@@ -174,7 +174,7 @@ export default {
             else if (location.pathname === "/product") {
                 this.changeState(1);
             }
-            else if (location.pathname === "/gallery") {
+            else if (location.pathname === "/illust") {
                 this.changeState(2);
             }
         }
