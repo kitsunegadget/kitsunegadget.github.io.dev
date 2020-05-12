@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import Overlay from "@/components/Gallery/Overlay.vue"
+import Overlay from "@/components/Illust/Overlay.vue"
 import imgLoader from "@/modules/img-loader.ts"
 // import axios from 'axios';
 import { firestore } from "firebase/app";
@@ -150,7 +150,7 @@ export default {
             }
             else {
                 //ローカルファイルでのテスト・デバッグ用
-                this.pictures = require("../json/gallery_data.json");
+                this.pictures = require("../json/illust_data.json");
             }
             // axios.get('/json/gallery_data.json')
             //     .then(response => {

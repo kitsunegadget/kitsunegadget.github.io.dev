@@ -75,8 +75,8 @@ export default {
                 },
                 {
                     id: 2,
-                    text: "GALLERY",
-                    url: "/gallery",
+                    text: "Illust",
+                    url: "/illust",
                     isPage: false
                 },
             ],

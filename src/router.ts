@@ -24,12 +24,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "product" */ './views/Product.vue')
     },
     {
-      path: '/gallery',
-      name: 'gallery',
+      path: '/illust',
+      name: 'illust',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "gallery" */ './views/Gallery.vue')
+      component: () => import(/* webpackChunkName: "illust" */ './views/Illust.vue')
     },
     {
       path: '/*',

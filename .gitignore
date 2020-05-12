@@ -25,7 +25,7 @@ deploy.sh
 deploy.bat
 /public/product_imgs
 /public/gallery_imgs
-/src/json/gallery_data.json
+/src/json/illust_data.json
 /src/json/products_data.json
 /src/firebaseConfig.json
 /src/components/old
