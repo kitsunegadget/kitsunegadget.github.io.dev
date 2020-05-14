@@ -12,14 +12,25 @@
                 :key="pic.date"
                 @click="clickImage(index)"
             >
-                <img 
-                    v-imgSource:[pic.url]
-                    class="image" 
-                    width="300px"
-                    draggable="false"
-                    loading="lazy"
-                    style="opacity: 0;"
-                />
+                <div v-dataSrc:[pic.url]>
+                    <img
+                        class="image" 
+                        width="300px"
+                        draggable="false"
+                        loading="lazy"
+                        style="opacity: 0;"
+                    />
+                    <video
+                        autoplay
+                        loop
+                        muted
+                        type="video/mp4"
+                        class="video"
+                        width="300px"
+                        draggable="false"
+                        style="opacity: 0;"
+                    />
+                </div>
             </article>
         </div>
          <!-- Vueのenter/leaveトランジションが動いてくれないので属性のonOffで対応  -->
@@ -100,6 +111,23 @@ export default {
         // window.removeEventListener("resize", this.onresize);
     },
     directives: {
+        DataSrc: {
+            inserted: function(el, binding) {
+                const re = RegExp('\\.mp4\\?')
+
+                if (re.test(binding.arg)) {
+                    const img = el.getElementsByTagName('img')[0]
+                    img.style.display = 'none'
+                    const video = el.getElementsByTagName('video')[0]
+                    imgLoad.observe(video, binding.arg);
+                } else {
+                    const video = el.getElementsByTagName('video')[0]
+                    video.style.display = 'none'
+                    const img = el.getElementsByTagName('img')[0]
+                    imgLoad.observe(img, binding.arg);
+                }
+            }
+        },
         imgSource: {
             // 画像の読み込みができたら表示する
             inserted: function(el, binding) {
@@ -226,7 +254,7 @@ export default {
         }
     }
 
-    .image {
+    .image, .video {
         /* max-width: 100%;
         height: auto; */
         width: 100%;

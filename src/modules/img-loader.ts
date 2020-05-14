@@ -30,6 +30,11 @@ export default class ImageLoader {
                         img.style.opacity = "1";
                     };
                     img.src = img.dataset.src;
+
+                    // for video
+                    img.onloadeddata = () => {
+                        img.style.opacity = "1";
+                    }
                 }
                 this.unobserve(img);
                 // console.log("lazy loaded.");

@@ -14,10 +14,20 @@
             >
                 <i class="fas fa-arrow-left" v-show="switchLeftButton"></i>
             </div>
-            <div id="picture">
+            <div id="picture" v-source:[pictures[currentPos]]>
                 <img 
                     id="overlay-image" 
-                    :src="pictures[currentPos].url" 
+                    :src="pictures[currentPos].url"
+                    :class="{ 'opacity-off': imageOpacityOff }"
+                />
+                <video 
+                    style="display: none;"
+                    autoplay
+                    loop
+                    muted
+                    :src="pictures[currentPos].url"
+                    type="video/mp4"
+                    id="overlay-video" 
                     :class="{ 'opacity-off': imageOpacityOff }"
                 />
             </div>
@@ -52,6 +62,24 @@ export default {
             isActiveRightButton: true,
 
             imageOpacityOff: false
+        }
+    },
+    directives: {
+        source: {
+            update: function(el, binding) {
+                const re = RegExp('\\.mp4\\?')
+                if (re.test(binding.arg.url)) {
+                    const img = el.getElementsByTagName('img')[0]
+                    img.style.display = 'none'
+                    const video = el.getElementsByTagName('video')[0]
+                    video.style.display = 'block'
+                } else {
+                    const video = el.getElementsByTagName('video')[0]
+                    video.style.display = 'none'
+                    const img = el.getElementsByTagName('img')[0]
+                    img.style.display = 'block'
+                }
+            }
         }
     },
     computed: {
@@ -106,10 +134,18 @@ export default {
 <style lang="scss">
 .overlay {
     background: #0009;
-    @include absolute-centering;
+    // @include absolute-centering;
+    position: fixed;
     @include flex-centering;
     flex-direction: column;
     z-index: 100;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
     /* animation: fadeIn ease 200ms; */
     /* transition: opacity .5s; */
 
@@ -156,7 +192,7 @@ export default {
         right: 0;
     }
 
-    #overlay-image {
+    #overlay-image, #overlay-video {
         min-height: 100px;
         min-width: 100px;
         max-height: calc(100vh - 25vh);
