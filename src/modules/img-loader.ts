@@ -12,7 +12,7 @@ export default class ImageLoader {
     observer: IntersectionObserver;
     
     constructor(threshold=0.5) {
-        let options = {
+        const options = {
             threshold: clamp(threshold, 0, 1)
         }
         this.observer = new IntersectionObserver(this.callback, options);
@@ -21,7 +21,7 @@ export default class ImageLoader {
     callback(entries: any) {
         entries.forEach((entry: any) => {
             if (entry.isIntersecting) {
-                let img = entry.target;
+                const img = entry.target;
                 if (img.dataset.src !== "" 
                     && img.dataset.src !== undefined 
                     && img.dataset.src !== "undefined") 
