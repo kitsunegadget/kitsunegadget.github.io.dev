@@ -63,8 +63,8 @@ export default {
             navigations: [
                 {
                     id: 0,
-                    text: "BIO",
-                    url: "/bio",
+                    text: "ABOUT",
+                    url: "/about",
                     isPage: false
                 },
                 {
@@ -168,7 +168,7 @@ export default {
             // githubPagesでの直接ロケーションは
             // 一度ルートに戻ってから自動遷移するので
             // パスごとのステート位置保持のため
-            if (location.pathname === "/bio") {
+            if (location.pathname === "/about") {
                 this.changeState(0);
             }
             else if (location.pathname === "/product") {

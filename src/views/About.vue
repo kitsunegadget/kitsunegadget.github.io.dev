@@ -1,20 +1,20 @@
 <template>
     <div>
         <div id="dock">
-            <BioGrid />
+            <AboutGrid />
             <!-- <BioData /> -->
         </div>
         <Social />
     </div>
 </template>
 <script>
-import BioGrid from '@/components/BioGrid.vue';
+import AboutGrid from '@/components/AboutGrid.vue';
 // import BioData from '@/components/BioData.vue';
 import Social from '@/components/Social.vue';
 
 export default {
     components: {
-        BioGrid,
+        AboutGrid,
         // BioData,
         Social
     }

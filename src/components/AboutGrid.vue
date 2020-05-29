@@ -162,5 +162,5 @@ var movingLiteral = { // eslint-disable-line no-unused-vars
 </script>
 
 <style lang="scss">
-@import '../css/bio-grid.scss';
+@import '../css/about-grid.scss';
 </style>

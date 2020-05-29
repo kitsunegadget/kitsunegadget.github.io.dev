@@ -1,5 +1,5 @@
 <template>
-    <div class="bio-data">
+    <div class="about-data">
         <!-- <p>{{ description }}</p> -->
         <h3>Primary Skills (intermediate?)</h3>
         <ul>
@@ -46,7 +46,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.bio-data {
+.about-data {
     color: $white-e;
     width: 100%;
     margin: auto;

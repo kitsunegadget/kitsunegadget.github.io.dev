@@ -14,9 +14,9 @@ export default new Router({
       component: Home
     },
     {
-      path: '/bio',
-      name: 'bio',
-      component: () => import('./views/Bio.vue')
+      path: '/about',
+      name: 'about',
+      component: () => import('./views/About.vue')
     },
     {
       path: '/product',
