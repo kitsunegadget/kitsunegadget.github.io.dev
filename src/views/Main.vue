@@ -16,3 +16,8 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+    .main-content {
+        flex: 1;
+    }
+</style>

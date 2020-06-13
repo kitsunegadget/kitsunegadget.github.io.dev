@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="flex: 1;">
         <div id="dock">
             <AboutGrid />
             <!-- <BioData /> -->

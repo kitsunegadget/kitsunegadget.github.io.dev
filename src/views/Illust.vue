@@ -21,7 +21,6 @@
                         style="opacity: 0;"
                     />
                     <video
-                        autoplay
                         loop
                         muted
                         type="video/mp4"

@@ -10,10 +10,12 @@
                 <source src="./assets/yofukashi.mp4" type="video/mp4">
             </video>
         </div>
+        <canvas id="back-canvas"></canvas>
+
         <Header />
-        <div class="fixed-spacing"></div>
         <router-view />
         <Footer />
+
         <div 
             class="pageup-button" 
             :active="isPageUpButton"
@@ -24,13 +26,46 @@
     </div>
 </template>
 
-<script> 
+<script lang="ts"> 
+import Vue from 'vue'
 import firebase from 'firebase/app';
 import "firebase/auth";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 
-export default {
+// bottom wave
+let height = 300
+const drawWave = function(t: number) {
+    let canvas = document.getElementById('back-canvas') as HTMLCanvasElement
+    let ctx: CanvasRenderingContext2D | null
+    if(canvas) {
+        ctx = canvas.getContext('2d')
+
+        if(ctx) {
+            let width = window.innerWidth
+            ctx.canvas.width = width
+            ctx.canvas.height = height
+
+            ctx.beginPath()
+            ctx.fillStyle = 'rgba(255,255,255,0.25)'
+            let t0 = t / 3000
+            let i = 0
+            while(i <= width) {
+                let h = (Math.sin(2*t0 + i/180) + Math.sin(t0 + i/150)) * height / 8
+                ctx.lineTo(i, h + height / 2)
+                ++i
+            }
+            ctx.lineTo(width, height)
+            ctx.lineTo(0, height)
+            ctx.fill()
+
+            window.requestAnimationFrame(drawWave)
+            
+        }
+    } 
+}
+
+export default Vue.extend({
     name: "app",
     components: {
         Header,
@@ -44,6 +79,9 @@ export default {
     created: function(){
         window.addEventListener("scroll", this.onScroll);
         this.autoAuthFirebase();
+    },
+    mounted: function(){
+        drawWave(0)
     },
     methods: {
         onScroll: function() {
@@ -94,7 +132,7 @@ export default {
             });
         }
     }
-};
+});
 </script>
 
 <style lang="scss">
@@ -110,11 +148,11 @@ body {
 }
 
 #app {
-    // display: flex;
-    // flex-direction: column;
+    display: flex;
+    flex-direction: column;
     // @include absolute-centering;
     /* width: 100%; */
-    min-height: 100%;
+    min-height: 100vh;
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
 
@@ -145,9 +183,17 @@ body {
     }
 }
 
-.fixed-spacing {
-    height: 0px;
+#back-canvas {
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
 }
+
+.spacing {
+    // height: 0px;
+    flex: 1;
+}
+
 .pageup-button {
     position: fixed;
     right: 10px;
