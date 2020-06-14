@@ -159,7 +159,7 @@ export default {
 
 <style lang="scss">
 .product {
-    margin: auto;
+    margin: 0 auto;
     max-width: 1200px;
     min-height: 544px;
     width: 100vw;

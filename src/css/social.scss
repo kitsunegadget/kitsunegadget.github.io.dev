@@ -7,6 +7,12 @@
     /* box-shadow: #FFB74C 0px 0px 25px; */
     padding: 15px 0;
     /* height: 200px; */
+    @media (orientation: landscape) {
+        width: 250px;
+        margin: auto;
+        border-radius: 30px;
+        
+    }
 
     ul {
         @include flex-centering;
