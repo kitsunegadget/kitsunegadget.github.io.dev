@@ -49,8 +49,10 @@ export default Vue.extend({
     imgSource: {
       // 画像の読み込みができたら表示する
       inserted: function(el, binding) {
-        // console.log("imgload", binding.arg);
-        imgLoad.observe(el, binding.arg);
+        if(binding.arg) {
+          // console.log("imgload", binding.arg);
+          imgLoad.observe(el, binding.arg);
+        }
       }
     }
     },
