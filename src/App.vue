@@ -13,7 +13,7 @@
         <canvas id="back-canvas"></canvas>
 
         <Header />
-        <router-view />
+        <router-view style="flex: 1" />
         <Footer />
 
         <div 

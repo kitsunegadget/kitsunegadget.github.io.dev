@@ -1,5 +1,5 @@
 <template>
-    <div style="flex: 1;">
+    <div>
         <div id="dock">
             <ViewTitle text="About" />
             <AboutGrid />
