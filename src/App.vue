@@ -32,38 +32,7 @@ import firebase from 'firebase/app';
 import "firebase/auth";
 import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
-
-// bottom wave
-let height = 300
-const drawWave = function(t: number) {
-    let canvas = document.getElementById('back-canvas') as HTMLCanvasElement
-    let ctx: CanvasRenderingContext2D | null
-    if(canvas) {
-        ctx = canvas.getContext('2d')
-
-        if(ctx) {
-            let width = window.innerWidth
-            ctx.canvas.width = width
-            ctx.canvas.height = height
-
-            ctx.beginPath()
-            ctx.fillStyle = 'rgba(255,255,255,0.25)'
-            let t0 = t / 3000
-            let i = 0
-            while(i <= width) {
-                let h = (Math.sin(2*t0 + i/180) + Math.sin(t0 + i/150)) * height / 8
-                ctx.lineTo(i, h + height / 2)
-                ++i
-            }
-            ctx.lineTo(width, height)
-            ctx.lineTo(0, height)
-            ctx.fill()
-
-            window.requestAnimationFrame(drawWave)
-            
-        }
-    } 
-}
+import BottomWave from '@/modules/webgl-wave'
 
 export default Vue.extend({
     name: "app",
@@ -81,7 +50,8 @@ export default Vue.extend({
         this.autoAuthFirebase();
     },
     mounted: function(){
-        drawWave(0)
+        // bottom wave
+        BottomWave('back-canvas')
     },
     methods: {
         onScroll: function() {
@@ -92,6 +62,7 @@ export default Vue.extend({
                 this.isPageUpButton = false;
             }
         },
+
         pageUp: function() {
             //console.log(window.navigator.userAgent);
             //scroll-behavier はSafariとIEが対応してないので振り分け
@@ -122,6 +93,7 @@ export default Vue.extend({
                 window.scrollBy(0, -window.scrollY);
             }
         },
+        
         autoAuthFirebase: function() {
             firebase.auth().signInAnonymously()
                 .catch((error) => {
