@@ -5,30 +5,12 @@
             class="product-wrap"
             v-if="showWrap"
         >
-            <article 
+            <ProductBox 
                 class="product-box" 
                 v-for="prd in products" 
                 :key="prd.id"
-            >
-                <span id="image">
-                    <img 
-                        v-imgSource:[prd.img]
-                        height="200px"
-                        loading="lazy"
-                        style="opacity: 0;"
-                        draggable="false"
-                    />
-                </span>
-                <h3 id="product-name">
-                    <a :href="prd.link" target="_blank" rel="noopener">
-                        {{ prd.title }}
-                        <i v-show="prd.link" style="font-size: 0.8rem;" class="fas fa-link"></i>
-                    </a>
-                </h3>
-                <span id="text">
-                    <p>{{ prd.text }}</p>
-                </span>
-            </article>
+                :prd="prd"
+            />
         </div>
 
         <div 
@@ -47,7 +29,7 @@
 </template>
 
 <script>
-import imgLoader from "@/modules/img-loader.ts";
+import ProductBox from '@/components/ProductBox'
 //import axios from 'axios';
 import { firestore, /* storage */ } from "firebase/app";
 import "firebase/firestore";
@@ -58,9 +40,11 @@ const products_store = firestore().collection("products");
 // ref.child('img_pagetweeter.png').getDownloadURL().then((url) => {
 //     console.log("img url: ", url);
 // })
-let imgLoad = new imgLoader();
 
 export default {
+    components: {
+        ProductBox
+    },
     data() {
         return {
             debug: process.env.NODE_ENV === 'development',
@@ -103,18 +87,11 @@ export default {
         opacity: {
             update: function(el, binding) {
                 if(binding.arg === true && el.style.opacity === "") {
-                    // console.log(binding.arg)
-                    setTimeout(() => {
-                        el.style.opacity = "0";
-                    }, 600);
-                }
+                // console.log(binding.arg)
+                setTimeout(() => {
+                    el.style.opacity = "0";
+                }, 600);
             }
-        },
-        imgSource: {
-            // 画像の読み込みができたら表示する
-            inserted: function(el, binding) {
-                // console.log("imgload", binding.arg);
-                imgLoad.observe(el, binding.arg);
             }
         }
     },
