@@ -24,6 +24,8 @@ export default Vue.extend({
   border-left: 5px solid $orange;
   height: 30px;
 
+  text-transform: capitalize;
+
   &:before {
     position: absolute;
     height: 60%;
