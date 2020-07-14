@@ -27,10 +27,10 @@ import Vue from 'vue'
 export default Vue.extend({
     data() {
         return {
-            description: "先の見えない場所を目指して…",
+            description: "先の見えない場所を目指して。",
             primarySkills: [
                 "html, css, javascript (Typescript), Python, C#",
-                "Vue, Nuxtjs, Unity",
+                "Vue, Unity",
                 "FE (基本情報技術者)"
             ],
             secondarySkills: [
@@ -38,7 +38,7 @@ export default Vue.extend({
                 "React, Xamarin, Electron",
             ],
             otherSkills: [
-                "Guitar, Base guitar, ..."
+                "Pixel-Art, Guitar, Base guitar, ..."
             ]
         }
     }

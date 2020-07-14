@@ -1,5 +1,6 @@
 <template>
     <div class="gallery">
+        <ViewTitle text="Illust" v-show="isWrapDisplay" />
         <div class="sort-menu"></div>
         <div 
             class="wrap-box" 
@@ -38,6 +39,7 @@
 </template>
 
 <script>
+import ViewTitle from '@/components/ViewTitle'
 import IllustBox from '@/components/Illust/IllustBox'
 import Overlay from "@/components/Illust/Overlay.vue"
 // import axios from 'axios';
@@ -47,6 +49,7 @@ const gallery_store = firestore().collection("gallery");
 
 export default {
     components: {
+        ViewTitle,
         IllustBox,
         Overlay
     },

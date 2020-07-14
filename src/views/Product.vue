@@ -1,5 +1,6 @@
 <template>
     <div class="product">
+        <ViewTitle text="Product" />
         <center style="opacity: 0.3;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
         <div 
             class="product-wrap"
@@ -29,6 +30,7 @@
 </template>
 
 <script>
+import ViewTitle from '@/components/ViewTitle'
 import ProductBox from '@/components/ProductBox'
 //import axios from 'axios';
 import { firestore, /* storage */ } from "firebase/app";
@@ -43,6 +45,7 @@ const products_store = firestore().collection("products");
 
 export default {
     components: {
+        ViewTitle,
         ProductBox
     },
     data() {
