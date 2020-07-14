@@ -4,7 +4,16 @@
         "titleImage": "",
         "backImage": "/ps_imgs/card.png",
         "text": "ピクセルスケーリングフィルターをWeb上で。",
-        "link": "/pixelart-scaler/"
+        "link": "/pixelart-scaler/",
+        "linkType": "internal"
+    },
+    {
+        "title": "Kemomi Hack🐾",
+        "titleImage": "",
+        "backImage": "/ps_imgs/img_kemomi.png",
+        "text": "きまぐれミニブログ。",
+        "link": "https://kemomihack.netlify.app/",
+        "linkType": "external"
     },
     {
         "title": "Kitsune Gadget β",

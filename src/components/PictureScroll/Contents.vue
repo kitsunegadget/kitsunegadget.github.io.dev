@@ -21,7 +21,16 @@
                 <div class="ps-text">
                     <div id="text" v-bind="{existLink: view.link}">
                         {{view.text}}
-                        <i v-show="view.link" style="font-size: 0.6rem;" class="fas fa-link"></i>
+                        <i 
+                            v-if="view.link && view.linkType === 'internal'" 
+                            style="font-size: 0.65rem;" 
+                            class="fas fa-link">
+                        </i>
+                        <i 
+                            v-else-if="view.link && view.linkType === 'external'" 
+                            style="font-size: 0.65rem;" 
+                            class="fas fa-external-link-alt">
+                        </i>
                     </div>
                 </div>
             </div>
