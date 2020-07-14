@@ -6,31 +6,13 @@
             v-show="isWrapDisplay"
             draggable="false"
         >
-            <article 
-                id="gallery-box" 
+            <IllustBox 
                 v-for="(pic, index) in pictures" 
                 :key="pic.date"
-                @click="clickImage(index)"
-            >
-                <div v-dataSrc:[pic.url]>
-                    <img
-                        class="image" 
-                        width="300px"
-                        draggable="false"
-                        loading="lazy"
-                        style="opacity: 0;"
-                    />
-                    <video
-                        loop
-                        muted
-                        type="video/mp4"
-                        class="video"
-                        width="300px"
-                        draggable="false"
-                        style="opacity: 0;"
-                    />
-                </div>
-            </article>
+                :pic="pic"
+                :index="index"
+                @click="clickImage"
+            />
         </div>
          <!-- Vueのenter/leaveトランジションが動いてくれないので属性のonOffで対応  -->
         <div 
@@ -56,17 +38,16 @@
 </template>
 
 <script>
+import IllustBox from '@/components/Illust/IllustBox'
 import Overlay from "@/components/Illust/Overlay.vue"
-import imgLoader from "@/modules/img-loader.ts"
 // import axios from 'axios';
 import { firestore } from "firebase/app";
 import "firebase/firestore";
 const gallery_store = firestore().collection("gallery");
 
-let imgLoad = new imgLoader();
-
 export default {
     components: {
+        IllustBox,
         Overlay
     },
     data() {
@@ -108,32 +89,6 @@ export default {
     },
     beforeDestroy: function() {
         // window.removeEventListener("resize", this.onresize);
-    },
-    directives: {
-        DataSrc: {
-            inserted: function(el, binding) {
-                const re = RegExp('\\.mp4\\?')
-
-                if (re.test(binding.arg)) {
-                    const img = el.getElementsByTagName('img')[0]
-                    img.style.display = 'none'
-                    const video = el.getElementsByTagName('video')[0]
-                    imgLoad.observe(video, binding.arg);
-                } else {
-                    const video = el.getElementsByTagName('video')[0]
-                    video.style.display = 'none'
-                    const img = el.getElementsByTagName('img')[0]
-                    imgLoad.observe(img, binding.arg);
-                }
-            }
-        },
-        imgSource: {
-            // 画像の読み込みができたら表示する
-            inserted: function(el, binding) {
-                // console.log("imgload", binding.arg);
-                imgLoad.observe(el, binding.arg);
-            }
-        }
     },
     methods: {
         onresize: function() {
@@ -229,38 +184,6 @@ export default {
     margin-bottom: 5px;
     justify-content: space-evenly;
     /* align-content: space-between; */
-
-    #gallery-box {
-        @include flex-centering;
-        flex: none;
-        // margin: 2px; 
-        border-radius: 25px;
-        background-color: #111c;
-        overflow: hidden;
-        width: 200px;
-        height: calc(200px * 3/4);
-        margin-left: 2px;
-        margin-bottom: 25px;
-        cursor: pointer;
-        opacity: 0;
-        animation: gly-fade-in ease .5s forwards;
-
-        @media (max-width: 615px) {
-            width: 49vw;
-            height: 49vw;
-            margin-left: 0;
-            margin-bottom: 2px;
-        }
-    }
-
-    .image, .video {
-        /* max-width: 100%;
-        height: auto; */
-        width: 100%;
-        height: 100%;
-        object-fit: scale-down;
-        transition: opacity .5s ease-in-out;
-    }
 }
 .loading-wrap {
     @include flex-centering;
@@ -296,10 +219,6 @@ export default {
     }
 }
 
-@keyframes gly-fade-in {
-    0% { opacity: 0; }
-    100% { opacity: 1;}
-}
 @keyframes startLoading {
     0% {
         transform: scaleY(0);
