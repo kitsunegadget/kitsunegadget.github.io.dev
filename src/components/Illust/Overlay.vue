@@ -102,7 +102,7 @@ export default {
     methods: {
         clickOverlay: function() {
             this.$emit("show", false);
-            this.$emit("baseDisplay", true);
+            this.$emit("showMainBox", true);
             
             // displayが戻ると同時に実行されるようなので1msだけずらす
             window.setTimeout(() => {
