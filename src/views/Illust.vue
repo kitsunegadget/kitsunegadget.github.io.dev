@@ -1,6 +1,6 @@
 <template>
   <div class="gallery">
-    <ViewTitle text="Illust" v-show="isShowMain" />
+    <ViewTitle text="Illust" />
     <!-- ソート用空間 -->
     <div class="sort-menu"></div>
     <!-- Main Box -->

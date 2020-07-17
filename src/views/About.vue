@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <div id="dock">
-            <ViewTitle text="About" />
-            <AboutGrid />
-            <!-- <BioData /> -->
-        </div>
-        <Social />
+  <div>
+    <ViewTitle text="About" />
+    <div id="dock">
+      <AboutGrid />
+      <!-- <BioData /> -->
     </div>
+    <Social />
+  </div>
 </template>
 <script>
 import ViewTitle from '@/components/ViewTitle'
@@ -15,19 +15,19 @@ import AboutGrid from '@/components/AboutGrid.vue';
 import Social from '@/components/Social.vue';
 
 export default {
-    components: {
-        ViewTitle,
-        AboutGrid,
-        // BioData,
-        Social
-    }
+  components: {
+    ViewTitle,
+    AboutGrid,
+    // BioData,
+    Social
+  }
 }
 </script>
 
 <style lang="scss">
 #dock{
-    margin:auto;
-    /* padding-bottom: 10px;  */
-    max-width: 700px;
+  margin:auto;
+  /* padding-bottom: 10px;  */
+  max-width: 700px;
 }
 </style>

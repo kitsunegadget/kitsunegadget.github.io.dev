@@ -13,7 +13,7 @@ export default Vue.extend({
   props: {
     loaded: {
       type: Boolean,
-      require: true
+      required: true
     }
   }
 })
