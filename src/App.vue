@@ -127,6 +127,7 @@ body {
     min-height: 100vh;
     // font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    font-size: 10px;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

@@ -193,14 +193,14 @@ export default {
 .page-title {
     flex: 1;
     margin: 0 20px;
-    line-height: 3.5em;
+    line-height: 3.5rem;
     min-width: 300px;
     /* text-align: center; */
     color: $orange;
 
     h1 {
         margin: 0;
-        font-size: 1.5em;
+        font-size: 1.5rem;
     }
 }
 .header-nav {
@@ -247,6 +247,7 @@ export default {
         padding: 0 5px;
         color: white;
         font-weight: bold;
+        font-size: 1.0rem;
         display: flex;
         align-items: center;
         justify-content: center;

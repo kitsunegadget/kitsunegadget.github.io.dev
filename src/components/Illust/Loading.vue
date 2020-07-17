@@ -33,6 +33,7 @@ export default Vue.extend({
 
   > h2 {
     animation: startLoadingLiteral ease 500ms forwards;
+    font-size: 1.4rem;
 
     &::before {
       position: absolute;

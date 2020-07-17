@@ -14,7 +14,8 @@ footer{
     color: #fff;
     padding: 5px 0;
     background: #0005;
-    line-height: 1em;
+    line-height: 1.0rem;
+    font-size: 1.0rem;
 }
 </style>
 

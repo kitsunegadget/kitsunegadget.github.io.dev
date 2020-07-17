@@ -96,6 +96,7 @@
     grid-column: 3/4;
     animation: bio-moving ease-out 0.75s forwards;
     transform: translateX(10%) translateY(-5%);
+    font-size: 1.0rem;
 
     span {
         color: $orange;
@@ -129,6 +130,7 @@
     grid-column: 1/2;
     animation: bio-moving ease-out 0.75s forwards;
     transform: translateX(-5%) translateY(10%);
+    font-size: 1.0rem;
 
     span {
         color: $orange;

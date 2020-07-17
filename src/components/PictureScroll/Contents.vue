@@ -123,7 +123,7 @@ export default Vue.extend ({
         #titleText {
             padding: 20px;
             align-self: center;
-            font-size: 1.5em;
+            font-size: 1.6rem;
             font-weight: lighter;
             color: #fff;
         }
@@ -142,7 +142,7 @@ export default Vue.extend ({
         #text {
             max-width: calc(100vw - 20px);
             padding: 20px;
-            font-size: 0.8em;
+            font-size: 0.9rem;
             font-weight: lighter;
             color: #fff;
 

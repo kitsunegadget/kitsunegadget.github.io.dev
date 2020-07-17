@@ -23,6 +23,7 @@ export default Vue.extend({
   padding-left: 10px;
   border-left: 5px solid $orange;
   height: 30px;
+  font-size: 1.5rem;
 
   text-transform: capitalize;
 

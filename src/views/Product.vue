@@ -154,6 +154,7 @@ export default {
     /* background: #adf5ff; */
     border-bottom: dashed $green 1px;
     border-top: dashed $green 1px;
+    font-size: 1.15rem;
 
     a:hover {
       color: $green;
@@ -163,7 +164,7 @@ export default {
         margin-left: -15px;
         margin-top: 2px;
         content: "▲ ";
-        font-size: 0.5em;
+        font-size: 0.7rem;
         /* transform: rotateZ(90deg); */
         animation: pd-rotate linear 1s infinite;
       }
@@ -224,7 +225,7 @@ export default {
   }
 
   #text {
-    font-size: 0.9em;
+    font-size: 0.95rem;
     margin-top: -8px;
     padding-left: 20px;
     width: 90%;

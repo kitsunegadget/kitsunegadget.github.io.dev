@@ -140,6 +140,7 @@ export default {
     }
 
     li {
+        font-size: 1.0rem;
         height: 50px;
         width: 100%;
         border-top: solid $black-2 1px;

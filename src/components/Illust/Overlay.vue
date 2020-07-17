@@ -160,6 +160,7 @@ export default {
     background: #000a;
     animation: titleMoving ease 0.4s forwards;
     overflow: hidden;
+    font-size: 1.05rem;
 }
 @keyframes titleMoving {
     0% { transform: translateY(-50%); }
