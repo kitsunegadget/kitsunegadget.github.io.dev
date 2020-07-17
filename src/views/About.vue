@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="about">
     <ViewTitle text="About" />
     <div id="dock">
       <AboutGrid />
@@ -25,6 +25,11 @@ export default {
 </script>
 
 <style lang="scss">
+.about {
+  max-width: 1200px;
+  width: 100vw;
+  margin: auto;
+}
 #dock{
   margin:auto;
   /* padding-bottom: 10px;  */
