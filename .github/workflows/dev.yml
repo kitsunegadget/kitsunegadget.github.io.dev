@@ -28,7 +28,7 @@ jobs:
         node-version: '12.x'
     
     - name: Modern build
-      run:
+      run: |
         npm install
         npm run build:modern
       env: 
@@ -43,7 +43,7 @@ jobs:
       
     - name: Git Push
       if: success()
-      run:
+      run: |
         cd dist
         git config --global user.name 'kitsunegadgetCI'
         git cnofig --global user.email 'kitsunegadget@gmail.com'
