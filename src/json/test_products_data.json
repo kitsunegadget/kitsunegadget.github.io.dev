@@ -1,0 +1,87 @@
+[
+    {
+        "id": 12,
+        "title": "test",
+        "text": "test。",
+        "text_alt": "Web PixelArt scaling filter tool.",
+        "img": "/product_imgs/.png",
+        "link": "https://twitter.com/"
+    },
+    {
+        "id": 11,
+        "title": "ドット絵スケーラー",
+        "text": "ピクセルアートスケーリングをWeb上で行えるツール。",
+        "text_alt": "Web PixelArt scaling filter tool.",
+        "img": "/product_imgs/img_pixelart-scaler.png",
+        "link": "https://kitsunegadget.xyz/pixelart-scaler/"
+    },
+    {
+        "id": 0,
+        "title": "This file is test data.",
+        "text": "このファイルはテストデータです。",
+        "text_alt": "A Chrome Extention. You can share any web page that no Tweet button.",
+        "img": "/product_imgs/img_pagetweeter.png"
+    },
+    {
+        "id": 1,
+        "title": "YouTube Viewing Tools",
+        "text": "元々はチャット欄の高さ最大化の機能から始まった Chrome 拡張機能。現在は他にも音声の左右位置調整とスナップショット機能を追加。今後も機能を追加予定。",
+        "text_alt": "",
+        "img": "/product_imgs/img_yvt.png"
+    },
+    {
+        "id": 3,
+        "title": "Chrome Manual Discard",
+        "text": "Chrome の Discard 機能をマニュアルで実行。現在のDiscard数も表示。",
+        "text_alt": "Execute Discard function manually. Display current number of Discarded tabs.",
+        "img": "/product_imgs/img_chromediscard.png"
+    },
+    {
+        "id": 4,
+        "title": "Orig Image View Link",
+        "text": "Tweetdeck でオリジナルサイズの画像にワンタップでリンク。Chrome 拡張機能。",
+        "text_alt": "A Chrome Extention. You can see Orig size image link on Tweetdeck."
+    },
+    {
+        "id": 5,
+        "title": "Quick Change Proxy",
+        "text": "プロキシ接続を簡単目的にしたタスクトレイ常駐型のアプリケーション。最大で４つのプロキシ情報を保存し、2クリックで切り替え。",
+        "text_alt": "This apprication purpose is Proxy change quickly.",
+        "img": "/product_imgs/img_qcp.png"
+    },
+    {
+        "id": 6,
+        "title": "Simple Multi Counter",
+        "text": "シンプルな複数カウンターをまとめて管理。Android アプリ。Xamarin.Android ビルド。",
+        "text_alt": "A android App. Simple Multiple Tally counter. Built at Xamarin.Android.",
+        "img": "/product_imgs/img_smc.png"
+    },
+    {
+        "id": 7,
+        "title": "Tetris CLI",
+        "text": "コンソールで動くシンプルテトリス。",
+        "text_alt": "Simple Tetris game in Console Window.",
+        "img": "/product_imgs/img_consoletetris.png"
+    },
+    {
+        "id": 8,
+        "title": "Reversi",
+        "text": "四角いままのリバーシ。Built at Python with Tkinter.",
+        "text_alt": "Square Reversi.",
+        "img": "/product_imgs/img_reversi.png"
+    },
+    {
+        "id": 9,
+        "title": "Encoder Bridge",
+        "text": "コマンドラインを弄らなくても、wav,mp3,aacの相互エンコードをlameとqaacを指定して簡単にブリッジするアプリ。Electron ビルド。※ベータ版。",
+        "text_alt": "wav, mp3, aac encode to easy connect to lame and qaac without Commandline. Build at Electron.",
+        "img": "/product_imgs/img_encoderbridge.png"
+    },
+    {
+        "id": 10,
+        "title": "Developing...",
+        "text": "This game is developing.",
+        "text_alt": "",
+        "img": "/product_imgs/img_dev1.png"
+    }
+]
