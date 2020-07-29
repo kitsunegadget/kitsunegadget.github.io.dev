@@ -46,7 +46,7 @@ jobs:
       run: |
         cd dist
         git config --global user.name 'kitsunegadgetCI'
-        git cnofig --global user.email 'kitsunegadget@gmail.com'
+        git config --global user.email 'kitsunegadget@gmail.com'
         
         git init
         git add -A
