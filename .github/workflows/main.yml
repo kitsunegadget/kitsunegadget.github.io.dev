@@ -27,17 +27,17 @@ jobs:
       with: 
         node-version: '12.x'
     
-    - name: Modern build
-      run: |
-        npm install
-        npm run build:modern
+#     - name: Modern build
+#       run: |
+#         npm install
+#         npm run build:modern
       
-    - name: Push
-      if: success()
-      run: |
-        cd dist
-        git init
-        git add -A
-        git commit -m 'CI deploy'
-        echo "success git commit"
-        cd -
+#     - name: Push
+#       if: success()
+#       run: |
+#         cd dist
+#         git init
+#         git add -A
+#         git commit -m 'CI deploy'
+#         echo "success git commit"
+#         cd -
