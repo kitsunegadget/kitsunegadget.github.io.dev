@@ -1,0 +1,57 @@
+# This is a basic workflow to help you get started with Actions
+
+name: devCI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+      
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with: 
+        node-version: '12.x'
+    
+    - name: Modern build
+      run: |
+        npm install
+        npm run build:modern
+      env: 
+        VUE_APP_FIREBASE_apiKey: ${{ secrets.FIREBASE_APIKEY }}
+        VUE_APP_FIREBASE_authDomain: ${{ secrets.FIREBASE_AUTHDOMAIN }}
+        VUE_APP_FIREBASE_databaseURL: ${{ secrets.FIREBASE_DATABASEURL }}
+        VUE_APP_FIREBASE_projectId: ${{ secrets.FIREBASE_PROJECTID }}
+        VUE_APP_FIREBASE_storageBucket: ${{ secrets.FIREBASE_STORAGEBUCKET }}
+        VUE_APP_FIREBASE_messagingSenderId: ${{ secrets.FIREBASE_MESSAGINGSENDERID }}
+        VUE_APP_FIREBASE_appId: ${{ secrets.FIREBASE_APPID }}
+        VUE_APP_FIREBASE_measurementId: ${{ secrets.FIREBASE_MEASUREMENTID }}
+      
+    - name: Git Push
+      if: success()
+      run: |
+        cd dist
+        git config --global user.name 'kitsunegadgetCI'
+        git config --global user.email 'kitsunegadget@gmail.com'
+        
+        git init
+        git add -A
+        git commit -m 'devCI deploy'
+        echo "success git commit"
+        
+        git push -f 'https://${{ secrets.GH_PAT }}@github.com/kitsunegadget/github.io.testpage.git' master
+        cd -

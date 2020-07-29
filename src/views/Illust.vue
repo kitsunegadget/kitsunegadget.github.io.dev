@@ -135,7 +135,7 @@ export default {
       }
       else {
         //ローカルファイルでのテスト・デバッグ用
-        this.pictures = require("../json/illust_data.json");
+        this.pictures = require("../json/test_illust_data.json");
       }
       // axios.get('/json/gallery_data.json')
       //     .then(response => {

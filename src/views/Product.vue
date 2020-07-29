@@ -123,7 +123,7 @@ export default {
       } 
       else {
         //ローカルファイルにアクセス
-        this.products = require("../json/products_data.json");
+        this.products = require("../json/test_products_data.json");
       }
       // axios.get('/json/products_data.json')
       //     .then(response => {

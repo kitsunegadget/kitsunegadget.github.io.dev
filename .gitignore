@@ -25,8 +25,6 @@ deploy.sh
 deploy.bat
 /public/product_imgs
 /public/gallery_imgs
-/src/json/illust_data.json
-/src/json/products_data.json
 /src/firebaseConfig.json
 /src/components/old
 src/assets/humbars_48.svg
