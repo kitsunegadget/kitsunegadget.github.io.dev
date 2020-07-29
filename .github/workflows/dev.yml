@@ -52,9 +52,6 @@ jobs:
         git add -A
         git commit -m 'devCI deploy'
         echo "success git commit"
-
-        git branch gh-pages
-        git checkout gh-pages
         
-        git push -f 'https://${{ secrets.GH_PAT }}@github.com/kitsunegadget/github.io.testpage.git' gh-pages
+        git push -f 'https://${{ secrets.GH_PAT }}@github.com/kitsunegadget/github.io.testpage.git' master
         cd -
