@@ -1,7 +1,12 @@
 <template>
   <div class="product">
     <ViewTitle text="Product" />
-    <center style="opacity: 0.3;">ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ</center>
+    <center 
+      style="opacity: 0.3;" 
+      v-show="!isShowLoading"
+    >
+      {{ "ｵﾓｼﾛｲﾓﾉﾊ ﾅｲﾖ" }}
+    </center>
     <div 
       class="product-wrap"
       v-if="isShowWrap"
@@ -56,8 +61,8 @@ export default {
       products: [
         {
           id: 0,
-          title: "Loading ...",
-          text: "Please wait.",
+          title: "Loading eRRoR",
+          text: "Error occured.",
           text_alt: "",
           // img: ""
         }
@@ -108,17 +113,16 @@ export default {
         return products_store
           //.where("visible", "==", true)
           .orderBy("order")
-          .get().then((querySnapshot) => {
-              this.products = [];
-              querySnapshot.forEach((doc) => {
-                this.products.push(doc.data());
-                //console.log(doc.id, "=>", doc.data());
-                //console.log(this.products);
+          .get()
+          .then((querySnapshot) => {
+            this.products = [];
+            querySnapshot.forEach((doc) => {
+              this.products.push(doc.data());
+              //console.log(doc.id, "=>", doc.data());
+              //console.log(this.products);
             });
           }).catch((error) => {
             console.log("Error getting docs: ", error);
-            this.loadingTitle = "Loading Error";
-            this.loadingText = "Error occured.";
           });
       } 
       else {
