@@ -60,7 +60,7 @@ export default {
         {
           "id": "",
           "name": "",
-          "title": "",
+          "title": "Loading Error",
           "title_alt": "",
           "url": "",
           "tag": ""
@@ -120,12 +120,6 @@ export default {
               })
               .catch((error) => {
                 console.log("Error geting docs: ", error);
-                this.pictures = [
-                  {
-                    date: "error",
-                    title: "Loading Error"
-                  }
-                ]
               });
             });
           })()
